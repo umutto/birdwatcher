@@ -1,3 +1,3 @@
-module github.com/umutto/go-bird-watcher/services/frontier
+module github.com/umutto/birdwatcher/services/frontier
 
 go 1.27.1

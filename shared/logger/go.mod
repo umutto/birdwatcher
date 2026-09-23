@@ -1,3 +1,3 @@
-module github.com/umutto/go-bird-watcher/shared/logge
+module github.com/umutto/birdwatcher/shared/logger
 
 go 1.27.1

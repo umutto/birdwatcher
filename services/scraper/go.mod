@@ -1,3 +1,3 @@
-module github.com/umutto/go-bird-watcher/services/scraper
+module github.com/umutto/birdwatcher/services/scraper
 
 go 1.27.1

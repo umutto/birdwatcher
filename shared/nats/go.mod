@@ -1,3 +1,3 @@
-module github.com/umutto/go-bird-watcher/shared/nats
+module github.com/umutto/birdwatcher/shared/nats
 
 go 1.27.1
