@@ -1,0 +1,94 @@
+syntax = "proto3";
+
+package birdwatcher.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/umutto/birdwatcher/gen/go/birdwatcher/v1;birdwatcherv1";
+
+// -----------------------------------------------------------------------------
+// Common & Metadata Types
+// -----------------------------------------------------------------------------
+
+// EventMetadata carries cross-cutting tracing, timing, and deduplication info.
+message EventMetadata {
+  string event_id = 1; // Unique event UUID (used for Nats-Msg-Id deduplication)
+  string job_id = 2; // Workflow correlation ID
+  string trace_id = 3; // OpenTelemetry trace ID (hex string)
+  google.protobuf.Timestamp timestamp = 4; // Event emission timestamp
+}
+
+// CrawlStatus represents the terminal state of a crawl job.
+enum CrawlStatus {
+  CRAWL_STATUS_UNSPECIFIED = 0;
+  CRAWL_STATUS_COMPLETED = 1;
+  CRAWL_STATUS_FAILED = 2;
+  CRAWL_STATUS_CANCELLED = 3;
+}
+
+// -----------------------------------------------------------------------------
+// Pipeline Events
+// -----------------------------------------------------------------------------
+
+// JobRequested is published by catalog when a user starts a crawl.
+// Subject: birdwatcher.v1.job.requested
+message JobRequested {
+  EventMetadata meta = 1;
+  string root_url = 2;
+  int32 max_depth = 3;
+}
+
+// PageFetchRequested is published by frontier to instruct scraper to fetch a URL.
+// Subject: birdwatcher.v1.page.fetch
+message PageFetchRequested {
+  EventMetadata meta = 1;
+  string url = 2;
+  int32 depth = 3;
+}
+
+// UrlDiscovered is published by scraper when new anchor links are found on a page.
+// Subject: birdwatcher.v1.url.discovered
+message UrlDiscovered {
+  EventMetadata meta = 1;
+  string parent_url = 2;
+  repeated string new_urls = 3;
+  int32 depth = 4; // Depth where links were discovered (parent depth)
+}
+
+// PageScraped is published by scraper with extracted title, body text, and images.
+// Subject: birdwatcher.v1.page.scraped
+message PageScraped {
+  EventMetadata meta = 1;
+  string url = 2;
+  string title = 3;
+  string body_text = 4;
+  repeated string image_urls = 5;
+}
+
+// SightingText is published by textparser for each bird common name identified in text.
+// Subject: birdwatcher.v1.sighting.text
+message SightingText {
+  EventMetadata meta = 1;
+  string url = 2;
+  string species = 3; // Bird common name (e.g. "Bald Eagle")
+  float confidence = 4; // Confidence score between 0.0 and 1.0
+  string snippet = 5; // Context snippet containing the bird name
+}
+
+// SightingImage is published by vision for each bird classified in an image.
+// Subject: birdwatcher.v1.sighting.image
+message SightingImage {
+  EventMetadata meta = 1;
+  string url = 2;
+  string species = 3; // Bird common name (e.g. "Bald Eagle")
+  float confidence = 4; // Classifier confidence score between 0.0 and 1.0
+  string image_url = 5;
+}
+
+// JobCompleted is published by frontier when all queued pages for a job finish.
+// Subject: birdwatcher.v1.job.completed
+message JobCompleted {
+  EventMetadata meta = 1;
+  CrawlStatus status = 2;
+  string error_message = 3; // Populated only if status == CRAWL_STATUS_FAILED
+}
