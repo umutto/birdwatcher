@@ -30,13 +30,6 @@ enum CrawlStatus {
 // Pipeline Events
 // -----------------------------------------------------------------------------
 
-// JobRequested is published by catalog when a user starts a crawl.
-// Subject: birdwatcher.v1.job.requested
-message JobRequested {
-  EventMetadata meta = 1;
-  string root_url = 2;
-  int32 max_depth = 3;
-}
 
 // PageFetchRequested is published by frontier to instruct scraper to fetch a URL.
 // Subject: birdwatcher.v1.page.fetch

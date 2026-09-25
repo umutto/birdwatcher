@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package birdwatcher.v1;
+
+option go_package = "github.com/umutto/birdwatcher/gen/go/birdwatcher/v1;birdwatcherv1";
+
+// FrontierService manages crawl jobs, visited URL deduplication, and URL scheduling.
+service FrontierService {
+  // StartJob validates and dispatches a new crawl job to the frontier queue.
+  rpc StartJob(StartJobRequest) returns (StartJobResponse);
+}
+
+// StartJobRequest contains the parameters needed to initialize a crawl job.
+message StartJobRequest {
+  string job_id = 1;   // Unique workflow identifier (UUID).
+  string root_url = 2; // Starting seed URL for the crawler.
+  int32 max_depth = 3; // Maximum traversal depth from root_url.
+  int32 max_pages = 4; // Safety limit on total pages to crawl.
+}
+
+// StartJobResponse acknowledges that the job was accepted into the frontier.
+message StartJobResponse {}
