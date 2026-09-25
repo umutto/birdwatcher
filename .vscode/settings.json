@@ -11,7 +11,8 @@
   ],
   "cSpell.ignorePaths": [
     "gen/",
-    ".gitignore"
+    ".gitignore",
+    "Dockerfile"
   ],
   "[proto3]": {
     "editor.defaultFormatter": "bufbuild.vscode-buf",
