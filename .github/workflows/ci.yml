@@ -1,0 +1,250 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  detect-changes:
+    name: Detect Changes
+    runs-on: ubuntu-latest
+    outputs:
+      proto: ${{ steps.filter.outputs.proto }}
+      go: ${{ steps.filter.outputs.go }}
+      python: ${{ steps.filter.outputs.python }}
+      catalog: ${{ steps.filter.outputs.catalog }}
+      frontier: ${{ steps.filter.outputs.frontier }}
+      scraper: ${{ steps.filter.outputs.scraper }}
+      textparser: ${{ steps.filter.outputs.textparser }}
+      vision: ${{ steps.filter.outputs.vision }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Evaluate Path Filters
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            proto:
+              - 'proto/**'
+              - '.github/workflows/ci.yml'
+            go:
+              - 'services/catalog/**'
+              - 'services/frontier/**'
+              - 'services/scraper/**'
+              - 'services/textparser/**'
+              - 'shared/**'
+              - 'gen/go/**'
+              - 'go.work'
+              - 'go.work.sum'
+              - '**/go.mod'
+              - '**/go.sum'
+              - 'proto/**'
+              - '.github/workflows/ci.yml'
+            python:
+              - 'services/vision/**'
+              - 'gen/python/**'
+              - 'proto/**'
+              - '.github/workflows/ci.yml'
+            catalog:
+              - 'services/catalog/**'
+              - 'shared/**'
+              - 'gen/go/**'
+              - 'go.work*'
+              - '.github/workflows/ci.yml'
+            frontier:
+              - 'services/frontier/**'
+              - 'shared/**'
+              - 'gen/go/**'
+              - 'go.work*'
+              - '.github/workflows/ci.yml'
+            scraper:
+              - 'services/scraper/**'
+              - 'shared/**'
+              - 'gen/go/**'
+              - 'go.work*'
+              - '.github/workflows/ci.yml'
+            textparser:
+              - 'services/textparser/**'
+              - 'shared/**'
+              - 'gen/go/**'
+              - 'go.work*'
+              - '.github/workflows/ci.yml'
+            vision:
+              - 'services/vision/**'
+              - 'gen/python/**'
+              - '.github/workflows/ci.yml'
+
+  proto:
+    name: Protobuf & Schemas
+    needs: detect-changes
+    if: needs.detect-changes.outputs.proto == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Buf
+        uses: bufbuild/buf-setup-action@v1
+        with:
+          github_token: ${{ github.token }}
+
+      - name: Lint Protobuf
+        run: |
+          cd proto
+          buf lint
+
+      - name: Verify Code Generation Drift
+        run: |
+          cd proto
+          buf generate
+          cd ..
+          git diff --exit-code gen/
+
+  go:
+    name: Go Tests & Workspace
+    needs: detect-changes
+    if: needs.detect-changes.outputs.go == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: 'go.work'
+          cache: true
+
+      - name: Verify Workspace Sync
+        run: |
+          go work sync
+          git diff --exit-code go.work.sum
+
+      - name: Run Go Tests
+        env:
+          CGO_ENABLED: 1
+        run: |
+          go test -race -cover -v \
+            ./services/catalog/... \
+            ./services/frontier/... \
+            ./services/scraper/... \
+            ./services/textparser/... \
+            ./shared/logger/... \
+            ./shared/nats/... \
+            ./shared/telemetry/... \
+            ./gen/go/...
+
+  python:
+    name: Python Lint & Tests
+    needs: detect-changes
+    if: needs.detect-changes.outputs.python == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: 'services/vision/.python-version'
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Lint & Format Check (Ruff)
+        run: |
+          cd services/vision
+          uv run --with ruff ruff check .
+          uv run --with ruff ruff format --check .
+
+      - name: Run Unit Tests (Pytest)
+        run: |
+          cd services/vision
+          uv run --with pytest pytest || [ $? -eq 5 ]
+
+  docker-build:
+    name: Docker Build (${{ matrix.name }})
+    needs: detect-changes
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: catalog
+            file: services/catalog/Dockerfile
+            context: .
+            changed: ${{ needs.detect-changes.outputs.catalog }}
+          - name: frontier
+            file: services/frontier/Dockerfile
+            context: .
+            changed: ${{ needs.detect-changes.outputs.frontier }}
+          - name: scraper
+            file: services/scraper/Dockerfile
+            context: .
+            changed: ${{ needs.detect-changes.outputs.scraper }}
+          - name: textparser
+            file: services/textparser/Dockerfile
+            context: .
+            changed: ${{ needs.detect-changes.outputs.textparser }}
+          - name: vision
+            file: services/vision/Dockerfile
+            context: .
+            changed: ${{ needs.detect-changes.outputs.vision }}
+    if: matrix.changed == 'true'
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Check if Dockerfile is populated
+        id: check-dockerfile
+        run: |
+          if [ -s "${{ matrix.file }}" ]; then
+            echo "has_content=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_content=false" >> "$GITHUB_OUTPUT"
+            echo "::notice ::${{ matrix.file }} is currently empty. Skipping Docker build until populated."
+          fi
+
+      - name: Set up Docker Buildx
+        if: steps.check-dockerfile.outputs.has_content == 'true'
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker Image (Sanity Check)
+        if: steps.check-dockerfile.outputs.has_content == 'true'
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ matrix.context }}
+          file: ${{ matrix.file }}
+          push: false
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  ci-ok:
+    name: CI Status Gatekeeper
+    needs: [detect-changes, proto, go, python, docker-build]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Evaluate Pipeline Results
+        run: |
+          RESULTS="${{ join(needs.*.result, ' ') }}"
+          echo "Job results: $RESULTS"
+          if echo "$RESULTS" | grep -E -q 'failure|cancelled'; then
+            echo "One or more required CI jobs failed or were cancelled."
+            exit 1
+          fi
+          echo "All jobs passed or were legitimately skipped."
+          exit 0
