@@ -10,7 +10,8 @@
     "textparser"
   ],
   "cSpell.ignorePaths": [
-    "gen/",                
+    "gen/",
+    ".gitignore"
   ],
   "[proto3]": {
     "editor.defaultFormatter": "bufbuild.vscode-buf",

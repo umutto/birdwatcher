@@ -1,0 +1,12 @@
+go 1.27.1
+
+use (
+	./gen/go
+	./services/catalog
+	./services/frontier
+	./services/scraper
+	./services/textparser
+	./shared/logger
+	./shared/nats
+	./shared/telemetry
+)
