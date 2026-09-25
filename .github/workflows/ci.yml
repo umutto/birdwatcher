@@ -178,6 +178,12 @@ jobs:
   docker-build:
     name: Docker Build (${{ matrix.name }})
     needs: detect-changes
+    if: |
+      needs.detect-changes.outputs.catalog == 'true' ||
+      needs.detect-changes.outputs.frontier == 'true' ||
+      needs.detect-changes.outputs.scraper == 'true' ||
+      needs.detect-changes.outputs.textparser == 'true' ||
+      needs.detect-changes.outputs.vision == 'true'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -203,12 +209,17 @@ jobs:
             file: services/vision/Dockerfile
             context: .
             changed: ${{ needs.detect-changes.outputs.vision }}
-    if: matrix.changed == 'true'
     steps:
+      - name: Skip if Unchanged
+        if: matrix.changed != 'true'
+        run: echo "Service ${{ matrix.name }} did not change. Skipping build."
+
       - name: Checkout Code
+        if: matrix.changed == 'true'
         uses: actions/checkout@v4
 
       - name: Check if Dockerfile is populated
+        if: matrix.changed == 'true'
         id: check-dockerfile
         run: |
           if [ -s "${{ matrix.file }}" ]; then
@@ -219,11 +230,11 @@ jobs:
           fi
 
       - name: Set up Docker Buildx
-        if: steps.check-dockerfile.outputs.has_content == 'true'
+        if: matrix.changed == 'true' && steps.check-dockerfile.outputs.has_content == 'true'
         uses: docker/setup-buildx-action@v3
 
       - name: Build Docker Image (Sanity Check)
-        if: steps.check-dockerfile.outputs.has_content == 'true'
+        if: matrix.changed == 'true' && steps.check-dockerfile.outputs.has_content == 'true'
         uses: docker/build-push-action@v6
         with:
           context: ${{ matrix.context }}
