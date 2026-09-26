@@ -1,4 +1,4 @@
-.PHONY: proto lint test test-go test-python up down
+.PHONY: proto lint lint-proto lint-go lint-python format-python test test-go test-python up down
 
 GO_MODULES := \
 	./services/catalog/... \
@@ -13,8 +13,19 @@ GO_MODULES := \
 proto:
 	cd proto && buf generate
 
-lint:
+lint: lint-proto lint-go lint-python
+
+lint-proto:
 	cd proto && buf lint
+
+lint-go:
+	golangci-lint run
+
+lint-python:
+	cd services/vision && uv run ruff check .
+
+format-python:
+	cd services/vision && uv run ruff format .
 
 test: test-go test-python
 
