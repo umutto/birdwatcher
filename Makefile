@@ -19,7 +19,7 @@ lint-proto:
 	cd proto && buf lint
 
 lint-go:
-	golangci-lint run
+	golangci-lint run $(GO_MODULES)
 
 lint-python:
 	cd services/vision && uv run ruff check .

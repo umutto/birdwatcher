@@ -21,11 +21,7 @@ jobs:
       proto: ${{ steps.filter.outputs.proto }}
       go: ${{ steps.filter.outputs.go }}
       python: ${{ steps.filter.outputs.python }}
-      catalog: ${{ steps.filter.outputs.catalog }}
-      frontier: ${{ steps.filter.outputs.frontier }}
-      scraper: ${{ steps.filter.outputs.scraper }}
-      textparser: ${{ steps.filter.outputs.textparser }}
-      vision: ${{ steps.filter.outputs.vision }}
+      docker_services: ${{ steps.docker-services.outputs.services }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -86,6 +82,12 @@ jobs:
               - 'gen/python/**'
               - '.github/workflows/ci.yml'
 
+      - name: Determine Docker Services to Build
+        id: docker-services
+        run: |
+          SERVICES=$(echo '${{ steps.filter.outputs.changes }}' | jq -c '[.[] | select(. as $s | ["catalog", "frontier", "scraper", "textparser", "vision"] | index($s))]')
+          echo "services=$SERVICES" >> "$GITHUB_OUTPUT"
+
   proto:
     name: Protobuf & Schemas
     needs: detect-changes
@@ -117,6 +119,16 @@ jobs:
     needs: detect-changes
     if: needs.detect-changes.outputs.go == 'true'
     runs-on: ubuntu-latest
+    env:
+      GO_MODULES: >-
+        ./services/catalog/...
+        ./services/frontier/...
+        ./services/scraper/...
+        ./services/textparser/...
+        ./shared/logger/...
+        ./shared/nats/...
+        ./shared/telemetry/...
+        ./gen/go/...
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -136,21 +148,12 @@ jobs:
         uses: golangci/golangci-lint-action@v9
         with:
           version: v2.14
-          args: --timeout=5m
+          args: --timeout=5m ${{ env.GO_MODULES }}
 
       - name: Run Unit Tests (go test)
         env:
           CGO_ENABLED: 1
-        run: |
-          go test -race -cover -v \
-            ./services/catalog/... \
-            ./services/frontier/... \
-            ./services/scraper/... \
-            ./services/textparser/... \
-            ./shared/logger/... \
-            ./shared/nats/... \
-            ./shared/telemetry/... \
-            ./gen/go/...
+        run: go test -race -cover -v ${{ env.GO_MODULES }}
 
   python:
     name: Python Lint & Tests
@@ -183,69 +186,38 @@ jobs:
           uv run --with pytest pytest || [ $? -eq 5 ]
 
   docker-build:
-    name: Docker Build (${{ matrix.name }})
+    name: Docker Build (${{ matrix.service }})
     needs: detect-changes
-    if: |
-      needs.detect-changes.outputs.catalog == 'true' ||
-      needs.detect-changes.outputs.frontier == 'true' ||
-      needs.detect-changes.outputs.scraper == 'true' ||
-      needs.detect-changes.outputs.textparser == 'true' ||
-      needs.detect-changes.outputs.vision == 'true'
+    if: needs.detect-changes.outputs.docker_services != '[]' && needs.detect-changes.outputs.docker_services != ''
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - name: catalog
-            file: services/catalog/Dockerfile
-            context: .
-            changed: ${{ needs.detect-changes.outputs.catalog }}
-          - name: frontier
-            file: services/frontier/Dockerfile
-            context: .
-            changed: ${{ needs.detect-changes.outputs.frontier }}
-          - name: scraper
-            file: services/scraper/Dockerfile
-            context: .
-            changed: ${{ needs.detect-changes.outputs.scraper }}
-          - name: textparser
-            file: services/textparser/Dockerfile
-            context: .
-            changed: ${{ needs.detect-changes.outputs.textparser }}
-          - name: vision
-            file: services/vision/Dockerfile
-            context: .
-            changed: ${{ needs.detect-changes.outputs.vision }}
+        service: ${{ fromJSON(needs.detect-changes.outputs.docker_services) }}
     steps:
-      - name: Skip if Unchanged
-        if: matrix.changed != 'true'
-        run: echo "Service ${{ matrix.name }} did not change. Skipping build."
-
       - name: Checkout Code
-        if: matrix.changed == 'true'
         uses: actions/checkout@v4
 
       - name: Check if Dockerfile is populated
-        if: matrix.changed == 'true'
         id: check-dockerfile
         run: |
-          if [ -s "${{ matrix.file }}" ]; then
+          if [ -s "services/${{ matrix.service }}/Dockerfile" ]; then
             echo "has_content=true" >> "$GITHUB_OUTPUT"
           else
             echo "has_content=false" >> "$GITHUB_OUTPUT"
-            echo "::notice ::${{ matrix.file }} is currently empty. Skipping Docker build until populated."
+            echo "::notice ::services/${{ matrix.service }}/Dockerfile is currently empty. Skipping Docker build until populated."
           fi
 
       - name: Set up Docker Buildx
-        if: matrix.changed == 'true' && steps.check-dockerfile.outputs.has_content == 'true'
+        if: steps.check-dockerfile.outputs.has_content == 'true'
         uses: docker/setup-buildx-action@v3
 
       - name: Build Docker Image (Sanity Check)
-        if: matrix.changed == 'true' && steps.check-dockerfile.outputs.has_content == 'true'
+        if: steps.check-dockerfile.outputs.has_content == 'true'
         uses: docker/build-push-action@v6
         with:
-          context: ${{ matrix.context }}
-          file: ${{ matrix.file }}
+          context: .
+          file: services/${{ matrix.service }}/Dockerfile
           push: false
           cache-from: type=gha
           cache-to: type=gha,mode=max
