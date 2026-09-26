@@ -113,7 +113,7 @@ jobs:
           git diff --exit-code gen/
 
   go:
-    name: Go Tests & Workspace
+    name: Go Lint & Tests
     needs: detect-changes
     if: needs.detect-changes.outputs.go == 'true'
     runs-on: ubuntu-latest
@@ -132,13 +132,13 @@ jobs:
           go work sync
           git diff --exit-code go.work.sum
 
-      - name: Run golangci-lint
+      - name: Lint (golangci-lint)
         uses: golangci/golangci-lint-action@v9
         with:
-          version: v2
+          version: v2.14
           args: --timeout=5m
 
-      - name: Run Go Tests
+      - name: Run Unit Tests (go test)
         env:
           CGO_ENABLED: 1
         run: |
