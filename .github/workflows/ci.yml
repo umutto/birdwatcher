@@ -50,6 +50,7 @@ jobs:
               - '**/go.mod'
               - '**/go.sum'
               - 'proto/**'
+              - '.golangci.yml'
               - '.github/workflows/ci.yml'
             python:
               - 'services/vision/**'
@@ -130,6 +131,12 @@ jobs:
         run: |
           go work sync
           git diff --exit-code go.work.sum
+
+      - name: Run golangci-lint
+        uses: golangci/golangci-lint-action@v9
+        with:
+          version: v2
+          args: --timeout=5m
 
       - name: Run Go Tests
         env:

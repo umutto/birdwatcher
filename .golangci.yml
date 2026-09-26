@@ -1,0 +1,53 @@
+version: "2"
+
+run:
+  timeout: 5m
+  modules-download-mode: readonly
+
+linters:
+  enable:
+    - sloglint
+    - forbidigo
+    - bodyclose
+    - contextcheck
+    - errorlint
+    - nilerr
+    - govet
+    - errcheck
+    - staticcheck
+    - gocritic
+
+  settings:
+    sloglint:
+      # Strictly enforce typed slog.Attr over raw key-value pairs
+      attr-only: true
+      # Forbid global logger calls (slog.Info, slog.Default); enforce explicit dependency injection
+      no-global: "all"
+      # Enforce context-aware logging methods
+      context: "all"
+      # Enforce static string literals for message strings
+      static-msg: true
+      # Enforce snake_case for all log attribute keys
+      key-naming-case: snake
+
+    forbidigo:
+      # Forbid legacy/unstructured outputs in application code
+      forbid:
+        - pattern: '^fmt\.Print.*$'
+          msg: "Do not use fmt.Print*; use shared/logger with slog instead."
+        - pattern: '^log\.Print.*$'
+          msg: "Do not use standard log.Print*; use shared/logger with slog instead."
+
+    errorlint:
+      errorf: true
+      asserts: true
+      comparison: true
+
+  exclusions:
+    rules:
+      # Allow tests to use fmt.Printf and non-context logging for assertions
+      - path: '.*_test\.go'
+        linters:
+          - forbidigo
+          - sloglint
+          - contextcheck

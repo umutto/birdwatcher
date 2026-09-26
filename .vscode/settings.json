@@ -13,7 +13,10 @@
   "cSpell.ignorePaths": [
     "gen/",
     ".gitignore",
-    "Dockerfile"
+    "Dockerfile",
+    ".github/**",
+    ".vscode/**",
+    ".golangci.yml"
   ],
   "[proto3]": {
     "editor.defaultFormatter": "bufbuild.vscode-buf",
