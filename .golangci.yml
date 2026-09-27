@@ -16,8 +16,14 @@ linters:
     - errcheck
     - staticcheck
     - gocritic
+    - revive
 
   settings:
+    revive:
+      rules:
+        - name: package-comments
+        - name: exported
+
     sloglint:
       # Strictly enforce typed slog.Attr over raw key-value pairs
       attr-only: true
