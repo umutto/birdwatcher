@@ -70,7 +70,6 @@ func TestNew(t *testing.T) {
 		out := &bytes.Buffer{}
 		log := logger.New(logger.Config{Env: logger.DevEnv, Level: slog.LevelWarn, Output: out})
 
-		// Info should be dropped because Level is Warn
 		log.Info("should be ignored")
 
 		if got := out.String(); got != "" {

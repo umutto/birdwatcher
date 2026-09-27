@@ -1,3 +1,4 @@
+// Package logger provides structured logging initialization and context propagation for Birdwatcher services.
 package logger
 
 import (

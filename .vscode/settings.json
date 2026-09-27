@@ -4,6 +4,7 @@
     "golangci",
     "healthcheck",
     "isready",
+    "jetstream",
     "pgdata",
     "protoc",
     "protocolbuffers",
@@ -16,7 +17,9 @@
     "Dockerfile",
     ".github/**",
     ".vscode/**",
-    ".golangci.yml"
+    ".golangci.yml",
+    "go.sum",
+    "go.mod"
   ],
   "[proto3]": {
     "editor.defaultFormatter": "bufbuild.vscode-buf",
