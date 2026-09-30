@@ -23,6 +23,7 @@ profile.cov
 
 # env file
 .env
+.venv/
 
 # Editor/IDE
 # .idea/
