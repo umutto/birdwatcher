@@ -51,6 +51,10 @@ func Connect(ctx context.Context, cfg Config, log *slog.Logger) (*Client, error)
 		return nil, fmt.Errorf("nats: init jetstream: %w", err)
 	}
 
+	if log == nil {
+		log = slog.New(slog.DiscardHandler)
+	}
+
 	return &Client{Conn: nc, JS: js, log: log}, nil
 }
 

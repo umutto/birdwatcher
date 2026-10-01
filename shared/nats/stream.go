@@ -44,9 +44,7 @@ func (c *Client) CreateOrUpdateStream(ctx context.Context, cfg jetstream.StreamC
 		return nil, fmt.Errorf("nats: create or update stream %q: %w", cfg.Name, err)
 	}
 
-	if c.log != nil {
-		c.log.InfoContext(ctx, "nats: stream created or updated", slog.String("stream", cfg.Name))
-	}
+	c.log.InfoContext(ctx, "nats: stream created or updated", slog.String("stream", cfg.Name))
 
 	return stream, nil
 }
