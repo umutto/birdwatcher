@@ -21,6 +21,7 @@ jobs:
       proto: ${{ steps.filter.outputs.proto }}
       go: ${{ steps.filter.outputs.go }}
       python: ${{ steps.filter.outputs.python }}
+      web: ${{ steps.filter.outputs.web }}
       docker_services: ${{ steps.docker-services.outputs.services }}
     steps:
       - name: Checkout Code
@@ -52,6 +53,9 @@ jobs:
               - 'services/vision/**'
               - 'gen/python/**'
               - 'proto/**'
+              - '.github/workflows/ci.yml'
+            web:
+              - 'web/**'
               - '.github/workflows/ci.yml'
             catalog:
               - 'services/catalog/**'
@@ -185,6 +189,48 @@ jobs:
           cd services/vision
           uv run --with pytest pytest || [ $? -eq 5 ]
 
+  web:
+    name: Web Lint, Type-Check & Build
+    needs: detect-changes
+    if: needs.detect-changes.outputs.web == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          package_json_file: 'web/package.json'
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: 'web/.node-version'
+          cache: 'pnpm'
+          cache-dependency-path: 'web/pnpm-lock.yaml'
+
+      - name: Install Dependencies
+        run: |
+          cd web
+          pnpm install --frozen-lockfile
+
+      - name: Lint (oxlint & eslint)
+        run: |
+          cd web
+          pnpm lint
+
+      - name: Format Check (oxfmt)
+        run: |
+          cd web
+          pnpm format
+          git diff --exit-code src/
+
+      - name: Type-Check & Build (tsgo & vite)
+        run: |
+          cd web
+          pnpm build
+
   docker-build:
     name: Docker Build (${{ matrix.service }})
     needs: detect-changes
@@ -224,7 +270,7 @@ jobs:
 
   ci-ok:
     name: CI Status Gatekeeper
-    needs: [detect-changes, proto, go, python, docker-build]
+    needs: [detect-changes, proto, go, python, web, docker-build]
     if: always()
     runs-on: ubuntu-latest
     steps:
