@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+# Check sqlc code generation drift
+if [ -d "services/catalog" ]; then
+    (cd services/catalog && sqlc compile && sqlc generate) >/dev/null 2>&1
+    if ! git diff --quiet services/catalog/internal/repository/; then
+        echo "❌ Code generation drift detected in services/catalog/internal/repository/"
+        echo "   👉 Run 'make sqlc', commit the changes, and push again."
+        exit 1
+    fi
+fi
+
+# Check protobuf code generation drift (only if proto/ changed)
+if [ -d "proto" ] && command -v buf >/dev/null 2>&1; then
+    if git diff --name-only @{u} HEAD 2>/dev/null | grep -qE '^proto/'; then
+        (cd proto && buf generate) >/dev/null 2>&1
+        if ! git diff --quiet gen/; then
+            echo "❌ Code generation drift detected in gen/"
+            echo "   👉 Run 'make proto', commit the changes, and push again."
+            exit 1
+        fi
+    fi
+fi
+
+# Check Go workspace sync
+if [ -f "go.work" ]; then
+    go work sync >/dev/null 2>&1
+    if ! git diff --quiet go.work.sum; then
+        echo "❌ Go workspace sync drift detected in go.work.sum"
+        echo "   👉 Run 'go work sync', commit the changes, and push again."
+        exit 1
+    fi
+fi
+
+echo "✅ Generated code and workspace are in sync."
