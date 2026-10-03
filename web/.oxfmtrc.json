@@ -5,7 +5,9 @@
   "sortTailwindcss": true,
   "overrides": [
     {
-      "files": ["**/*.css"],
+      "files": [
+        "**/*.css"
+      ],
       "options": {
         "singleQuote": false
       }
