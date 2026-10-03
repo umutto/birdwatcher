@@ -2,6 +2,10 @@
   "recommendations": [
     "bufbuild.vscode-buf",
     "golang.go",
-    "charliermarsh.ruff"
+    "charliermarsh.ruff",
+    "Vue.volar",
+    "dbaeumer.vscode-eslint",
+    "EditorConfig.EditorConfig",
+    "oxc.oxc-vscode"
   ]
 }

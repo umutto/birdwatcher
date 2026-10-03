@@ -4,6 +4,7 @@
     "bwnats",
     "Corasick",
     "errgroup",
+    "flocci",
     "golangci",
     "gonats",
     "gopls",
@@ -11,11 +12,16 @@
     "healthcheck",
     "isready",
     "jetstream",
+    "oxfmt",
+    "oxlint",
     "pgdata",
     "protoc",
     "protocolbuffers",
     "pytest",
-    "textparser"
+    "tailwindcss",
+    "tanstack",
+    "textparser",
+    "volar"
   ],
   "cSpell.ignorePaths": [
     "gen/",
@@ -25,7 +31,8 @@
     ".vscode/**",
     ".golangci.yml",
     "go.sum",
-    "go.mod"
+    "go.mod",
+    "web/pnpm-lock.yaml"
   ],
   "[proto3]": {
     "editor.defaultFormatter": "bufbuild.vscode-buf",
@@ -35,8 +42,31 @@
     "editor.defaultFormatter": "bufbuild.vscode-buf",
     "editor.formatOnSave": true
   },
+  "[vue]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode",
+    "editor.formatOnSave": true
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode",
+    "editor.formatOnSave": true
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode",
+    "editor.formatOnSave": true
+  },
   "python-envs.workspaceSearchPaths": [
     "services/vision"
   ],
   "python.terminal.activateEnvironment": false,
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "tsconfig.json": "tsconfig.*.json, env.d.ts, typed-router.d.ts",
+    "vite.config.*": "jsconfig*, vitest.config.*, cypress.config.*, playwright.config.*",
+    "package.json": "package-lock.json, pnpm*, .yarnrc*, yarn*, .eslint*, eslint*, .oxlint*, oxlint*, .oxfmt*, .prettier*, prettier*, .editorconfig, bun.lock, nub.lock"
+  },
+  "js/ts.tsdk.path": "web/node_modules/typescript/lib",
+  "js/ts.tsdk.promptToUseWorkspaceVersion": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  }
 }
