@@ -5,6 +5,7 @@ go 1.27.1
 require (
 	github.com/nats-io/nats-server/v2 v2.15.0
 	github.com/nats-io/nats.go v1.54.0
+	google.golang.org/protobuf v1.36.12
 )
 
 require (
@@ -18,5 +19,4 @@ require (
 	golang.org/x/crypto v0.57.0 // indirect
 	golang.org/x/sys v0.48.0 // indirect
 	golang.org/x/time v0.16.0 // indirect
-	google.golang.org/protobuf v1.36.12 // indirect
 )

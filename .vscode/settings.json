@@ -3,6 +3,7 @@
     "birdwatcherv",
     "bwnats",
     "Corasick",
+    "DBTX",
     "errgroup",
     "flocci",
     "golangci",
@@ -11,16 +12,22 @@
     "goroutines",
     "healthcheck",
     "isready",
+    "jackc",
     "jetstream",
     "oxfmt",
     "oxlint",
+    "pgconn",
     "pgdata",
+    "pgtype",
     "protoc",
     "protocolbuffers",
     "pytest",
+    "sqlc",
     "tailwindcss",
     "tanstack",
     "textparser",
+    "timestamptz",
+    "uuidv",
     "volar"
   ],
   "cSpell.ignorePaths": [
@@ -42,6 +49,31 @@
     "editor.defaultFormatter": "bufbuild.vscode-buf",
     "editor.formatOnSave": true
   },
+  "[go]": {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    }
+  },
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "explicit",
+      "source.organizeImports": "explicit"
+    }
+  },
+  "[sql]": {
+    "editor.defaultFormatter": "ReneSaarsoo.sql-formatter-vsc",
+    "editor.formatOnSave": true
+  },
+  "SQL-Formatter-VSCode.dialect": "postgresql",
+  "SQL-Formatter-VSCode.keywordCase": "upper",
+  "SQL-Formatter-VSCode.dataTypeCase": "upper",
+  "SQL-Formatter-VSCode.functionCase": "upper",
+  "SQL-Formatter-VSCode.identifierCase": "lower",
+  "SQL-Formatter-VSCode.logicalOperatorNewline": "before",
+  "SQL-Formatter-VSCode.indentStyle": "tabularLeft",
   "[vue]": {
     "editor.defaultFormatter": "oxc.oxc-vscode",
     "editor.formatOnSave": true
@@ -64,9 +96,9 @@
     "vite.config.*": "jsconfig*, vitest.config.*, cypress.config.*, playwright.config.*",
     "package.json": "package-lock.json, pnpm*, .yarnrc*, yarn*, .eslint*, eslint*, .oxlint*, oxlint*, .oxfmt*, .prettier*, prettier*, .editorconfig, bun.lock, nub.lock"
   },
-  "js/ts.tsdk.path": "web/node_modules/typescript/lib",
-  "js/ts.tsdk.promptToUseWorkspaceVersion": true,
+  "typescript.tsdk": "web/node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit"
-  },
+  }
 }
