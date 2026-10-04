@@ -10,7 +10,6 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/jackc/pgx/v5/pgtype"
 )
 
 type CrawlState string
@@ -101,38 +100,36 @@ func (ns NullSightingSourceType) Value() (driver.Value, error) {
 }
 
 type Crawl struct {
-	ID                 uuid.UUID          `json:"id"`
-	TargetUrl          string             `json:"target_url"`
-	Title              *string            `json:"title"`
-	State              CrawlState         `json:"state"`
-	PagesCrawledCount  int32              `json:"pages_crawled_count"`
-	ImagesScannedCount int32              `json:"images_scanned_count"`
-	CreatedAt          time.Time          `json:"created_at"`
-	UpdatedAt          time.Time          `json:"updated_at"`
-	StartedAt          pgtype.Timestamptz `json:"started_at"`
-	CompletedAt        pgtype.Timestamptz `json:"completed_at"`
+	ID                 uuid.UUID  `json:"id"`
+	TargetUrl          string     `json:"target_url"`
+	Title              *string    `json:"title"`
+	State              CrawlState `json:"state"`
+	PagesCrawledCount  int32      `json:"pages_crawled_count"`
+	ImagesScannedCount int32      `json:"images_scanned_count"`
+	CreatedAt          time.Time  `json:"created_at"`
+	UpdatedAt          time.Time  `json:"updated_at"`
+	StartedAt          *time.Time `json:"started_at"`
+	CompletedAt        *time.Time `json:"completed_at"`
 }
 
 type Sighting struct {
-	ID         uuid.UUID          `json:"id"`
-	CrawlID    uuid.UUID          `json:"crawl_id"`
-	SpeciesID  uuid.UUID          `json:"species_id"`
-	SourceType SightingSourceType `json:"source_type"`
-	Confidence float32            `json:"confidence"`
-	PageUrl    string             `json:"page_url"`
-	Snippet    *string            `json:"snippet"`
-	ImageUrl   *string            `json:"image_url"`
-	Metadata   []byte             `json:"metadata"`
-	CreatedAt  time.Time          `json:"created_at"`
+	ID                 uuid.UUID          `json:"id"`
+	CrawlID            uuid.UUID          `json:"crawl_id"`
+	SpeciesPlateNumber int32              `json:"species_plate_number"`
+	SourceType         SightingSourceType `json:"source_type"`
+	Confidence         float32            `json:"confidence"`
+	PageUrl            string             `json:"page_url"`
+	Snippet            *string            `json:"snippet"`
+	ImageUrl           *string            `json:"image_url"`
+	Metadata           []byte             `json:"metadata"`
+	CreatedAt          time.Time          `json:"created_at"`
 }
 
 type Species struct {
-	ID             uuid.UUID `json:"id"`
-	PlateNumber    int32     `json:"plate_number"`
-	CommonName     string    `json:"common_name"`
-	ScientificName string    `json:"scientific_name"`
-	Description    *string   `json:"description"`
-	ImageUrl       string    `json:"image_url"`
-	AudubonUrl     *string   `json:"audubon_url"`
-	CreatedAt      time.Time `json:"created_at"`
+	PlateNumber    int32   `json:"plate_number"`
+	CommonName     string  `json:"common_name"`
+	ScientificName string  `json:"scientific_name"`
+	Description    *string `json:"description"`
+	ImageUrl       string  `json:"image_url"`
+	AudubonUrl     *string `json:"audubon_url"`
 }

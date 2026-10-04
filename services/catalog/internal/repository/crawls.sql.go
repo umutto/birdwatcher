@@ -10,7 +10,6 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/jackc/pgx/v5/pgtype"
 )
 
 const createCrawl = `-- name: CreateCrawl :one
@@ -91,9 +90,7 @@ LEFT JOIN sightings AS s
     ON c.id = s.crawl_id
 GROUP BY c.id
 ORDER BY c.created_at DESC
-LIMIT
-    $2
-    OFFSET $1
+LIMIT $2 OFFSET $1
 `
 
 type ListCrawlsWithSummaryParams struct {
@@ -102,18 +99,18 @@ type ListCrawlsWithSummaryParams struct {
 }
 
 type ListCrawlsWithSummaryRow struct {
-	ID                 uuid.UUID          `json:"id"`
-	TargetUrl          string             `json:"target_url"`
-	Title              *string            `json:"title"`
-	State              CrawlState         `json:"state"`
-	PagesCrawledCount  int32              `json:"pages_crawled_count"`
-	ImagesScannedCount int32              `json:"images_scanned_count"`
-	CreatedAt          time.Time          `json:"created_at"`
-	UpdatedAt          time.Time          `json:"updated_at"`
-	StartedAt          pgtype.Timestamptz `json:"started_at"`
-	CompletedAt        pgtype.Timestamptz `json:"completed_at"`
-	TotalSightings     int64              `json:"total_sightings"`
-	UniqueSpeciesCount int64              `json:"unique_species_count"`
+	ID                 uuid.UUID  `json:"id"`
+	TargetUrl          string     `json:"target_url"`
+	Title              *string    `json:"title"`
+	State              CrawlState `json:"state"`
+	PagesCrawledCount  int32      `json:"pages_crawled_count"`
+	ImagesScannedCount int32      `json:"images_scanned_count"`
+	CreatedAt          time.Time  `json:"created_at"`
+	UpdatedAt          time.Time  `json:"updated_at"`
+	StartedAt          *time.Time `json:"started_at"`
+	CompletedAt        *time.Time `json:"completed_at"`
+	TotalSightings     int64      `json:"total_sightings"`
+	UniqueSpeciesCount int64      `json:"unique_species_count"`
 }
 
 func (q *Queries) ListCrawlsWithSummary(ctx context.Context, arg ListCrawlsWithSummaryParams) ([]ListCrawlsWithSummaryRow, error) {

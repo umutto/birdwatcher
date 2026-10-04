@@ -47,6 +47,4 @@ LEFT JOIN sightings AS s
     ON c.id = s.crawl_id
 GROUP BY c.id
 ORDER BY c.created_at DESC
-LIMIT
-    @limit_rows
-    OFFSET @offset_rows;
+LIMIT @limit_rows OFFSET @offset_rows;
