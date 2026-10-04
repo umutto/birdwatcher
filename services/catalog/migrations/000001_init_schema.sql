@@ -1,5 +1,7 @@
+/*  */
+
 -- +goose Up
-CREATE TYPE crawl_state AS ENUM(
+CREATE TYPE CRAWL_STATE AS ENUM (
     'pending',
     'running',
     'completed',
@@ -7,25 +9,39 @@ CREATE TYPE crawl_state AS ENUM(
     'cancelled'
 );
 
-CREATE TYPE sighting_source_type AS ENUM('text', 'image');
+CREATE TYPE SIGHTING_SOURCE_TYPE AS ENUM ('text', 'image');
+
+CREATE OR REPLACE FUNCTION SET_UPDATED_AT()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_at = NOW();
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
 CREATE TABLE crawls (
     id UUID PRIMARY KEY DEFAULT UUIDV7(),
     target_url TEXT NOT NULL,
     title TEXT,
-    state crawl_state NOT NULL DEFAULT 'pending',
+    state CRAWL_STATE NOT NULL DEFAULT 'pending',
     pages_crawled_count INT NOT NULL DEFAULT 0,
     images_scanned_count INT NOT NULL DEFAULT 0,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     started_at TIMESTAMPTZ,
     completed_at TIMESTAMPTZ
 )
 WITH
-    (fillfactor = 80);
+(fillfactor = 80);
 
 CREATE INDEX idx_crawls_created_at ON crawls (created_at DESC);
 
 CREATE INDEX idx_crawls_state ON crawls (state);
+
+CREATE TRIGGER trigger_crawls_updated_at
+BEFORE UPDATE ON crawls
+FOR EACH ROW
+EXECUTE FUNCTION SET_UPDATED_AT();
 
 CREATE TABLE species (
     id UUID PRIMARY KEY DEFAULT UUIDV7(),
@@ -40,9 +56,9 @@ CREATE TABLE species (
 
 CREATE TABLE sightings (
     id UUID PRIMARY KEY DEFAULT UUIDV7(),
-    crawl_id UUID NOT NULL REFERENCES crawls (id) ON DELETE CASCADE,
-    species_id UUID NOT NULL REFERENCES species (id) ON DELETE RESTRICT,
-    source_type sighting_source_type NOT NULL,
+    crawl_id UUID NOT NULL REFERENCES crawls(id) ON DELETE CASCADE,
+    species_id UUID NOT NULL REFERENCES species(id) ON DELETE RESTRICT,
+    source_type SIGHTING_SOURCE_TYPE NOT NULL,
     confidence REAL NOT NULL DEFAULT 0.0,
     page_url TEXT NOT NULL,
     snippet TEXT,
@@ -66,12 +82,13 @@ CREATE INDEX idx_sightings_crawl_species ON sightings (crawl_id, species_id);
 CREATE INDEX idx_sightings_species_id ON sightings (species_id);
 
 -- +goose Down
+DROP TRIGGER IF EXISTS trigger_crawls_updated_at ON crawls;
+
 DROP TABLE IF EXISTS sightings;
-
 DROP TABLE IF EXISTS species;
-
 DROP TABLE IF EXISTS crawls;
 
-DROP TYPE if EXISTS sighting_source_type;
+DROP TYPE IF EXISTS SIGHTING_SOURCE_TYPE;
+DROP TYPE IF EXISTS CRAWL_STATE;
 
-DROP TYPE if EXISTS crawl_state;
+DROP FUNCTION IF EXISTS SET_UPDATED_AT;

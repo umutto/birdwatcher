@@ -7,7 +7,7 @@
     "dbaeumer.vscode-eslint",
     "EditorConfig.EditorConfig",
     "oxc.oxc-vscode",
-    "ReneSaarsoo.sql-formatter-vsc",
+    "Quary.sqruff",
     "ckolkman.vscode-postgres"
   ]
 }

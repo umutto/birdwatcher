@@ -108,6 +108,7 @@ type Crawl struct {
 	PagesCrawledCount  int32              `json:"pages_crawled_count"`
 	ImagesScannedCount int32              `json:"images_scanned_count"`
 	CreatedAt          time.Time          `json:"created_at"`
+	UpdatedAt          time.Time          `json:"updated_at"`
 	StartedAt          pgtype.Timestamptz `json:"started_at"`
 	CompletedAt        pgtype.Timestamptz `json:"completed_at"`
 }

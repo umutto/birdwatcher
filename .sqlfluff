@@ -1,0 +1,28 @@
+[sqruff]
+dialect = postgres
+templater = placeholder
+max_line_length = 120
+indent_unit = space
+exclude_rules = ambiguous.column_count,ambiguous.order_by_limit,capitalisation.identifiers
+
+[sqruff:indentation]
+indent_unit = space
+tab_space_size = 4
+
+[sqruff:templater:placeholder]
+param_regex = @(?P<param_name>[\w_]+)
+
+[sqruff:rules:capitalisation.keywords]
+capitalisation_policy = upper
+
+[sqruff:rules:capitalisation.functions]
+extended_capitalisation_policy = upper
+
+[sqruff:rules:capitalisation.types]
+extended_capitalisation_policy = upper
+
+[sqruff:rules:aliasing.table]
+aliasing = explicit
+
+[sqruff:rules:aliasing.column]
+aliasing = explicit

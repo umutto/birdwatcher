@@ -19,10 +19,12 @@
     "pgconn",
     "pgdata",
     "pgtype",
+    "plpgsql",
     "protoc",
     "protocolbuffers",
     "pytest",
     "sqlc",
+    "sqlfluff",
     "tailwindcss",
     "tanstack",
     "textparser",
@@ -39,7 +41,8 @@
     ".golangci.yml",
     "go.sum",
     "go.mod",
-    "web/pnpm-lock.yaml"
+    "web/pnpm-lock.yaml",
+    ".sqlfluff"
   ],
   "[proto3]": {
     "editor.defaultFormatter": "bufbuild.vscode-buf",
@@ -64,16 +67,9 @@
     }
   },
   "[sql]": {
-    "editor.defaultFormatter": "ReneSaarsoo.sql-formatter-vsc",
+    "editor.defaultFormatter": "Quary.sqruff",
     "editor.formatOnSave": true
   },
-  "SQL-Formatter-VSCode.dialect": "postgresql",
-  "SQL-Formatter-VSCode.keywordCase": "upper",
-  "SQL-Formatter-VSCode.dataTypeCase": "upper",
-  "SQL-Formatter-VSCode.functionCase": "upper",
-  "SQL-Formatter-VSCode.identifierCase": "lower",
-  "SQL-Formatter-VSCode.logicalOperatorNewline": "before",
-  "SQL-Formatter-VSCode.indentStyle": "tabularLeft",
   "[vue]": {
     "editor.defaultFormatter": "oxc.oxc-vscode",
     "editor.formatOnSave": true

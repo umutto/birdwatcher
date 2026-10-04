@@ -1,4 +1,4 @@
-.PHONY: proto sqlc lint lint-proto lint-go lint-python lint-sql format-python test test-go test-python verify setup-hooks up down
+.PHONY: proto sqlc lint lint-proto lint-go lint-python lint-sql format-sql format-python test test-go test-python verify setup-hooks up down
 
 GO_MODULES := \
 	./services/catalog/... \
@@ -29,6 +29,10 @@ lint-python:
 
 lint-sql:
 	cd services/catalog && sqlc compile
+	sqruff lint services/catalog
+
+format-sql:
+	sqruff fix services/catalog
 
 format-python:
 	cd services/vision && uv run ruff format .

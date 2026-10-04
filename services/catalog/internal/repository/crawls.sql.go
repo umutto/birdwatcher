@@ -7,14 +7,16 @@ package repository
 
 import (
 	"context"
+	"time"
 
 	"github.com/google/uuid"
+	"github.com/jackc/pgx/v5/pgtype"
 )
 
 const createCrawl = `-- name: CreateCrawl :one
-INSERT    INTO crawls (target_url)
-VALUES    ($1)
-RETURNING id, target_url, title, state, pages_crawled_count, images_scanned_count, created_at, started_at, completed_at
+INSERT INTO crawls (target_url)
+VALUES ($1)
+RETURNING id, target_url, title, state, pages_crawled_count, images_scanned_count, created_at, updated_at, started_at, completed_at
 `
 
 func (q *Queries) CreateCrawl(ctx context.Context, targetUrl string) (Crawl, error) {
@@ -28,6 +30,7 @@ func (q *Queries) CreateCrawl(ctx context.Context, targetUrl string) (Crawl, err
 		&i.PagesCrawledCount,
 		&i.ImagesScannedCount,
 		&i.CreatedAt,
+		&i.UpdatedAt,
 		&i.StartedAt,
 		&i.CompletedAt,
 	)
@@ -35,10 +38,10 @@ func (q *Queries) CreateCrawl(ctx context.Context, targetUrl string) (Crawl, err
 }
 
 const getCrawlByID = `-- name: GetCrawlByID :one
-SELECT    id, target_url, title, state, pages_crawled_count, images_scanned_count, created_at, started_at, completed_at
-FROM      crawls
-WHERE     id = $1
-LIMIT     1
+SELECT id, target_url, title, state, pages_crawled_count, images_scanned_count, created_at, updated_at, started_at, completed_at
+FROM crawls
+WHERE id = $1
+LIMIT 1
 `
 
 func (q *Queries) GetCrawlByID(ctx context.Context, id uuid.UUID) (Crawl, error) {
@@ -52,8 +55,152 @@ func (q *Queries) GetCrawlByID(ctx context.Context, id uuid.UUID) (Crawl, error)
 		&i.PagesCrawledCount,
 		&i.ImagesScannedCount,
 		&i.CreatedAt,
+		&i.UpdatedAt,
 		&i.StartedAt,
 		&i.CompletedAt,
 	)
 	return i, err
+}
+
+const incrementCrawlProgress = `-- name: IncrementCrawlProgress :exec
+UPDATE crawls
+SET
+    pages_crawled_count = pages_crawled_count + $1,
+    images_scanned_count = images_scanned_count + $2
+WHERE id = $3
+`
+
+type IncrementCrawlProgressParams struct {
+	PagesCrawledCount  int32     `json:"pages_crawled_count"`
+	ImagesScannedCount int32     `json:"images_scanned_count"`
+	ID                 uuid.UUID `json:"id"`
+}
+
+func (q *Queries) IncrementCrawlProgress(ctx context.Context, arg IncrementCrawlProgressParams) error {
+	_, err := q.db.Exec(ctx, incrementCrawlProgress, arg.PagesCrawledCount, arg.ImagesScannedCount, arg.ID)
+	return err
+}
+
+const listCrawlsWithSummary = `-- name: ListCrawlsWithSummary :many
+SELECT
+    c.id, c.target_url, c.title, c.state, c.pages_crawled_count, c.images_scanned_count, c.created_at, c.updated_at, c.started_at, c.completed_at,
+    COUNT(s.id) AS total_sightings,
+    COUNT(DISTINCT s.species_id) AS unique_species_count
+FROM crawls AS c
+LEFT JOIN sightings AS s
+    ON c.id = s.crawl_id
+GROUP BY c.id
+ORDER BY c.created_at DESC
+LIMIT
+    $2
+    OFFSET $1
+`
+
+type ListCrawlsWithSummaryParams struct {
+	OffsetRows int32 `json:"offset_rows"`
+	LimitRows  int32 `json:"limit_rows"`
+}
+
+type ListCrawlsWithSummaryRow struct {
+	ID                 uuid.UUID          `json:"id"`
+	TargetUrl          string             `json:"target_url"`
+	Title              *string            `json:"title"`
+	State              CrawlState         `json:"state"`
+	PagesCrawledCount  int32              `json:"pages_crawled_count"`
+	ImagesScannedCount int32              `json:"images_scanned_count"`
+	CreatedAt          time.Time          `json:"created_at"`
+	UpdatedAt          time.Time          `json:"updated_at"`
+	StartedAt          pgtype.Timestamptz `json:"started_at"`
+	CompletedAt        pgtype.Timestamptz `json:"completed_at"`
+	TotalSightings     int64              `json:"total_sightings"`
+	UniqueSpeciesCount int64              `json:"unique_species_count"`
+}
+
+func (q *Queries) ListCrawlsWithSummary(ctx context.Context, arg ListCrawlsWithSummaryParams) ([]ListCrawlsWithSummaryRow, error) {
+	rows, err := q.db.Query(ctx, listCrawlsWithSummary, arg.OffsetRows, arg.LimitRows)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []ListCrawlsWithSummaryRow{}
+	for rows.Next() {
+		var i ListCrawlsWithSummaryRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.TargetUrl,
+			&i.Title,
+			&i.State,
+			&i.PagesCrawledCount,
+			&i.ImagesScannedCount,
+			&i.CreatedAt,
+			&i.UpdatedAt,
+			&i.StartedAt,
+			&i.CompletedAt,
+			&i.TotalSightings,
+			&i.UniqueSpeciesCount,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const updateCrawlState = `-- name: UpdateCrawlState :one
+UPDATE crawls
+SET
+    state = $1,
+    started_at = CASE
+        WHEN $1 = 'running' THEN COALESCE(started_at, NOW())
+        ELSE started_at
+    END,
+    completed_at = CASE
+        WHEN $1 IN ('completed', 'failed', 'cancelled') THEN COALESCE(completed_at, NOW())
+        WHEN $1 = 'running' THEN NULL
+        ELSE completed_at
+    END
+WHERE id = $2
+RETURNING id, target_url, title, state, pages_crawled_count, images_scanned_count, created_at, updated_at, started_at, completed_at
+`
+
+type UpdateCrawlStateParams struct {
+	State CrawlState `json:"state"`
+	ID    uuid.UUID  `json:"id"`
+}
+
+func (q *Queries) UpdateCrawlState(ctx context.Context, arg UpdateCrawlStateParams) (Crawl, error) {
+	row := q.db.QueryRow(ctx, updateCrawlState, arg.State, arg.ID)
+	var i Crawl
+	err := row.Scan(
+		&i.ID,
+		&i.TargetUrl,
+		&i.Title,
+		&i.State,
+		&i.PagesCrawledCount,
+		&i.ImagesScannedCount,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+		&i.StartedAt,
+		&i.CompletedAt,
+	)
+	return i, err
+}
+
+const updateCrawlTitle = `-- name: UpdateCrawlTitle :exec
+UPDATE crawls
+SET title = $1
+WHERE id = $2
+`
+
+type UpdateCrawlTitleParams struct {
+	Title *string   `json:"title"`
+	ID    uuid.UUID `json:"id"`
+}
+
+func (q *Queries) UpdateCrawlTitle(ctx context.Context, arg UpdateCrawlTitleParams) error {
+	_, err := q.db.Exec(ctx, updateCrawlTitle, arg.Title, arg.ID)
+	return err
 }

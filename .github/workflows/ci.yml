@@ -161,6 +161,12 @@ jobs:
           cd ../..
           git diff --exit-code services/catalog/internal/repository/
 
+      - name: Install sqruff
+        uses: quarylabs/install-sqruff-cli-action@v0.1.0
+
+      - name: Lint SQL (sqruff)
+        run: sqruff lint services/catalog --format github-annotation-native
+
       - name: Lint (golangci-lint)
         uses: golangci/golangci-lint-action@v9
         with:
