@@ -162,7 +162,10 @@ jobs:
           git diff --exit-code services/catalog/internal/repository/
 
       - name: Install sqruff
-        uses: quarylabs/install-sqruff-cli-action@v0.1.0
+        run: |
+          wget -q https://github.com/quarylabs/sqruff/releases/download/v0.40.0/sqruff-linux-x86_64-musl.tar.gz
+          tar -xzf sqruff-linux-x86_64-musl.tar.gz
+          sudo mv sqruff /usr/local/bin/
 
       - name: Lint SQL (sqruff)
         run: sqruff lint services/catalog --format github-annotation-native
