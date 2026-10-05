@@ -7,6 +7,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/umutto/birdwatcher/shared/env"
 	"github.com/umutto/birdwatcher/shared/logger"
 )
 
@@ -44,11 +45,11 @@ func TestNew(t *testing.T) {
 	t.Run("environment format", func(t *testing.T) {
 		tests := []struct {
 			name         string
-			env          logger.Env
+			env          env.Environment
 			wantContains string
 		}{
-			{name: "dev text format", env: logger.DevEnv, wantContains: `msg="hello world"`},
-			{name: "prod json format", env: logger.ProdEnv, wantContains: `"msg":"hello world"`},
+			{name: "dev text format", env: env.DevEnv, wantContains: `msg="hello world"`},
+			{name: "prod json format", env: env.ProdEnv, wantContains: `"msg":"hello world"`},
 		}
 
 		for _, tt := range tests {
@@ -68,7 +69,7 @@ func TestNew(t *testing.T) {
 
 	t.Run("level filtering", func(t *testing.T) {
 		out := &bytes.Buffer{}
-		log := logger.New(logger.Config{Env: logger.DevEnv, Level: slog.LevelWarn, Output: out})
+		log := logger.New(logger.Config{Env: env.DevEnv, Level: slog.LevelWarn, Output: out})
 
 		log.Info("should be ignored")
 
@@ -81,7 +82,7 @@ func TestNew(t *testing.T) {
 func TestContextHandler(t *testing.T) {
 	t.Run("with job_id", func(t *testing.T) {
 		out := &bytes.Buffer{}
-		log := logger.New(logger.Config{Env: logger.DevEnv, Output: out})
+		log := logger.New(logger.Config{Env: env.DevEnv, Output: out})
 		ctx := logger.WithJobID(context.Background(), "test-job-123")
 
 		log.InfoContext(ctx, "hello world")
@@ -95,7 +96,7 @@ func TestContextHandler(t *testing.T) {
 
 	t.Run("without job_id", func(t *testing.T) {
 		out := &bytes.Buffer{}
-		log := logger.New(logger.Config{Env: logger.DevEnv, Output: out})
+		log := logger.New(logger.Config{Env: env.DevEnv, Output: out})
 
 		log.InfoContext(context.Background(), "hello world")
 		got := out.String()
@@ -107,7 +108,7 @@ func TestContextHandler(t *testing.T) {
 
 	t.Run("preserves context with child logger", func(t *testing.T) {
 		out := &bytes.Buffer{}
-		log := logger.New(logger.Config{Env: logger.DevEnv, Output: out})
+		log := logger.New(logger.Config{Env: env.DevEnv, Output: out})
 		child := log.With(slog.String("component", "crawler"))
 
 		ctx := logger.WithJobID(context.Background(), "test-job-123")

@@ -4,6 +4,8 @@ package logger
 import (
 	"log/slog"
 	"os"
+
+	"github.com/umutto/birdwatcher/shared/env"
 )
 
 // New initializes and returns a structured slog.Logger based on the provided Config.
@@ -15,7 +17,7 @@ func New(cfg Config) *slog.Logger {
 		w = os.Stdout
 	}
 
-	if cfg.Env == ProdEnv {
+	if cfg.Env == env.ProdEnv {
 		handler = slog.NewJSONHandler(w, &slog.HandlerOptions{
 			Level: cfg.Level,
 		})

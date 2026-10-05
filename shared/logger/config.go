@@ -4,22 +4,14 @@ import (
 	"fmt"
 	"io"
 	"log/slog"
-)
 
-// Env represents the operational environment (e.g. development or production).
-type Env string
-
-const (
-	// DevEnv indicates a local development environment with human-readable text logs.
-	DevEnv Env = "development"
-	// ProdEnv indicates a production environment with structured JSON logs.
-	ProdEnv Env = "production"
+	"github.com/umutto/birdwatcher/shared/env"
 )
 
 // Config holds configuration parameters for initializing a slog.Logger.
 // If Output is nil, it defaults to os.Stdout.
 type Config struct {
-	Env    Env
+	Env    env.Environment
 	Level  slog.Level
 	Output io.Writer
 }
