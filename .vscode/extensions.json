@@ -3,6 +3,7 @@
     "bufbuild.vscode-buf",
     "golang.go",
     "charliermarsh.ruff",
+    "ms-python.debugpy",
     "Vue.volar",
     "dbaeumer.vscode-eslint",
     "EditorConfig.EditorConfig",
