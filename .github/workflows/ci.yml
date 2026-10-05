@@ -149,6 +149,11 @@ jobs:
           go work sync
           git diff --exit-code go.work.sum
 
+      - name: Verify Go Formatting
+        run: |
+          go fmt ${{ env.GO_MODULES }}
+          git diff --exit-code
+
       - name: Setup sqlc
         uses: sqlc-dev/setup-sqlc@v5
         with:
