@@ -35,7 +35,7 @@ lint-sql:
 format: format-go format-python format-sql
 
 format-go:
-	go fmt $(GO_MODULES)
+	gofmt -w services shared
 
 format-sql:
 	sqruff fix services/catalog

@@ -6,6 +6,7 @@
     "DBTX",
     "errgroup",
     "flocci",
+    "gofmt",
     "golangci",
     "gonats",
     "gopls",

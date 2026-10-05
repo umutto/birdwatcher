@@ -151,7 +151,7 @@ jobs:
 
       - name: Verify Go Formatting
         run: |
-          go fmt ${{ env.GO_MODULES }}
+          gofmt -w services shared
           git diff --exit-code
 
       - name: Setup sqlc
