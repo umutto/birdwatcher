@@ -25,6 +25,7 @@
     "pytest",
     "sqlc",
     "sqlfluff",
+    "sqruff",
     "tailwindcss",
     "tanstack",
     "textparser",

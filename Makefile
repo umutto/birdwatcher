@@ -5,6 +5,7 @@ GO_MODULES := \
 	./services/frontier/... \
 	./services/scraper/... \
 	./services/textparser/... \
+	./shared/env/... \
 	./shared/logger/... \
 	./shared/nats/... \
 	./shared/telemetry/... \
