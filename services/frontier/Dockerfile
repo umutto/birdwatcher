@@ -17,6 +17,7 @@ COPY services/frontier/ ./services/frontier/
 RUN go work init \
     ./services/frontier \
     ./gen/go \
+    ./shared/env \
     ./shared/logger \
     ./shared/nats \
     ./shared/telemetry

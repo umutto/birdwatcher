@@ -17,6 +17,7 @@ COPY services/scraper/ ./services/scraper/
 RUN go work init \
     ./services/scraper \
     ./gen/go \
+    ./shared/env \
     ./shared/logger \
     ./shared/nats \
     ./shared/telemetry

@@ -17,6 +17,7 @@ COPY services/catalog/ ./services/catalog/
 RUN go work init \
     ./services/catalog \
     ./gen/go \
+    ./shared/env \
     ./shared/logger \
     ./shared/nats \
     ./shared/telemetry

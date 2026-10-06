@@ -17,6 +17,7 @@ COPY services/textparser/ ./services/textparser/
 RUN go work init \
     ./services/textparser \
     ./gen/go \
+    ./shared/env \
     ./shared/logger \
     ./shared/nats \
     ./shared/telemetry
