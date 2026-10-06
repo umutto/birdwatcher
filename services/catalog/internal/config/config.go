@@ -1,0 +1,93 @@
+// Package config manages configuration loading and validation for the catalog service.
+package config
+
+import (
+	"errors"
+	"time"
+
+	"github.com/umutto/birdwatcher/shared/env"
+)
+
+// DatabaseConfig holds connection pool settings for PostgreSQL.
+type DatabaseConfig struct {
+	URL               string
+	MaxConns          int32
+	MinConns          int32
+	MaxConnLifetime   time.Duration
+	MaxConnIdleTime   time.Duration
+	HealthCheckPeriod time.Duration
+}
+
+// ServerConfig holds HTTP server configuration options.
+type ServerConfig struct {
+	Port int32
+}
+
+// Config aggregates all runtime configuration for the catalog service.
+type Config struct {
+	Env      env.Environment
+	Server   ServerConfig
+	Database DatabaseConfig
+}
+
+// Load reads environment variables and returns a validated Config.
+func Load() (*Config, error) {
+	var errs []error
+	var err error
+
+	dbURL, err := env.Require("DATABASE_URL")
+	errs = append(errs, err)
+
+	dbMaxConns, err := env.Int32("DATABASE_MAX_CONNS", 10)
+	errs = append(errs, err)
+
+	dbMinConns, err := env.Int32("DATABASE_MIN_CONNS", 2)
+	errs = append(errs, err)
+
+	dbMaxConnLifetime, err := env.Duration("DATABASE_MAX_CONN_LIFETIME", 1*time.Hour)
+	errs = append(errs, err)
+
+	dbMaxConnIdleTime, err := env.Duration("DATABASE_MAX_CONN_IDLE_TIME", 30*time.Minute)
+	errs = append(errs, err)
+
+	dbHealthCheckPeriod, err := env.Duration("DATABASE_HEALTH_CHECK_PERIOD", 30*time.Second)
+	errs = append(errs, err)
+
+	port, err := env.Int32("PORT", 8080)
+	errs = append(errs, err)
+
+	if err := errors.Join(errs...); err != nil {
+		return nil, err
+	}
+
+	cfg := &Config{
+		Env: env.Current(),
+		Server: ServerConfig{
+			Port: port,
+		},
+		Database: DatabaseConfig{
+			URL:               dbURL,
+			MaxConns:          dbMaxConns,
+			MinConns:          dbMinConns,
+			MaxConnLifetime:   dbMaxConnLifetime,
+			MaxConnIdleTime:   dbMaxConnIdleTime,
+			HealthCheckPeriod: dbHealthCheckPeriod,
+		},
+	}
+	if err := cfg.Validate(); err != nil {
+		return nil, err
+	}
+
+	return cfg, nil
+}
+
+// Validate verifies logical invariants that downstream drivers wouldn't catch cleanly.
+func (c *Config) Validate() error {
+	if c.Server.Port <= 0 || c.Server.Port > 65535 {
+		return errors.New("server port must be between 1 and 65535")
+	}
+	if c.Database.MinConns > c.Database.MaxConns {
+		return errors.New("database min_conns cannot exceed max_conns")
+	}
+	return nil
+}

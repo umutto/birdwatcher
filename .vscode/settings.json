@@ -27,6 +27,7 @@
     "sqlc",
     "sqlfluff",
     "sqruff",
+    "sslmode",
     "tailwindcss",
     "tanstack",
     "textparser",
