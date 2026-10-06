@@ -20,6 +20,7 @@
     "pgconn",
     "pgdata",
     "pgtype",
+    "pgxpool",
     "plpgsql",
     "protoc",
     "protocolbuffers",
