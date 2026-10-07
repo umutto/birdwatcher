@@ -12,6 +12,7 @@
     "gopls",
     "goroutines",
     "healthcheck",
+    "healthz",
     "isready",
     "jackc",
     "jetstream",
