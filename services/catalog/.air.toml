@@ -1,0 +1,17 @@
+# Air configuration for Catalog service
+# https://github.com/air-verse/air
+
+env_files = ["../../.env"]
+
+[build]
+  cmd = "go build -o ./tmp/catalog ./cmd/catalog"
+  bin = "./tmp/catalog"
+  include_dir = [".", "../../shared"]
+  include_ext = ["go"]
+  exclude_dir = ["tmp", "migrations", "queries"]
+  exclude_regex = ["_test\\.go$"]
+  send_interrupt = true
+  kill_delay = "500ms"
+
+[screen]
+  keep_scroll = true
