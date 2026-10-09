@@ -8,5 +8,8 @@ func (s *Server) routes() http.Handler {
 
 	mux.HandleFunc("GET /healthz", s.handleHealthz)
 
-	return mux
+	return chain(
+		mux,
+		requestLogger(s.log),
+	)
 }
