@@ -1,7 +1,7 @@
 # Air configuration for Catalog service
 # https://github.com/air-verse/air
 
-env_files = ["../../.env"]
+env_files = [".env"]
 
 [build]
   cmd = "go build -o ./tmp/catalog ./cmd/catalog"
