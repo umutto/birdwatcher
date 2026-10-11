@@ -13,17 +13,23 @@ import (
 	"github.com/umutto/birdwatcher/services/catalog/internal/repository"
 )
 
+// Pinger verifies connectivity to a backing dependency during readiness checks.
+type Pinger interface {
+	Ping(ctx context.Context) error
+}
+
 // Server encapsulates HTTP server dependencies and route handling.
 type Server struct {
 	log     *slog.Logger
 	repo    *repository.Queries
+	db      Pinger
 	cfg     config.ServerConfig
 	handler http.Handler
 }
 
 // New creates and configures a new HTTP Server instance.
-func New(log *slog.Logger, repo *repository.Queries, cfg config.ServerConfig) *Server {
-	s := &Server{log: log, repo: repo, cfg: cfg}
+func New(log *slog.Logger, db Pinger, repo *repository.Queries, cfg config.ServerConfig) *Server {
+	s := &Server{log: log, db: db, repo: repo, cfg: cfg}
 	s.handler = s.routes()
 
 	return s

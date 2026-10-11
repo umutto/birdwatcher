@@ -58,7 +58,7 @@ func run(ctx context.Context, log *slog.Logger) error {
 	}()
 
 	repo := repository.New(pool)
-	srv := server.New(log, repo, cfg.Server)
+	srv := server.New(log, pool, repo, cfg.Server)
 
 	if err := srv.Start(ctx); err != nil {
 		return fmt.Errorf("start server: %w", err)
