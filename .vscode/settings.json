@@ -49,7 +49,8 @@
     "go.sum",
     "go.mod",
     "web/pnpm-lock.yaml",
-    ".sqlfluff"
+    ".sqlfluff",
+    "**/seed/**"
   ],
   "[proto3]": {
     "editor.defaultFormatter": "bufbuild.vscode-buf",
@@ -89,10 +90,16 @@
     "editor.defaultFormatter": "oxc.oxc-vscode",
     "editor.formatOnSave": true
   },
+  "python.defaultInterpreterPath": "${workspaceFolder}/services/vision/.venv/bin/python",
+  "python.useEnvironmentsExtension": false,
   "python-envs.workspaceSearchPaths": [
-    "services/vision"
+    "services/vision/.venv",
+    "services/*/.venv"
   ],
   "python.terminal.activateEnvironment": false,
+  "ruff.path": [
+    "${workspaceFolder}/services/vision/.venv/bin/ruff"
+  ],
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {
     "tsconfig.json": "tsconfig.*.json, env.d.ts, typed-router.d.ts",

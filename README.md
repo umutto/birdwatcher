@@ -10,3 +10,11 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 A practice project of a distributed, event-driven web scraper and recognition pipeline built with Go to extract, classify, and index bird species from a given URL.
+
+---
+
+## Data Sources & Attribution
+
+- **Illustrations**: John James Audubon, *The Birds of America* (1827–1838), Public Domain. All bird plates are Courtesy of the John James Audubon Center at Mill Grove, Montgomery County Audubon Collection, and Zebra Publishing.
+- **Audio Recordings**: Sourced from [xeno-canto.org](https://xeno-canto.org). Individual clips are licensed under Creative Commons (see `metadata.audio` in `species.json` for specific recordists and licenses).
+- **Species Summaries**: Sourced from [Wikipedia](https://wikipedia.org) under CC BY-SA 4.0.

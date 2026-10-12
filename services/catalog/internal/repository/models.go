@@ -134,4 +134,5 @@ type Species struct {
 	ImageUrl       string   `json:"image_url"`
 	CallUrl        *string  `json:"call_url"`
 	AudubonUrl     *string  `json:"audubon_url"`
+	Metadata       []byte   `json:"metadata"`
 }

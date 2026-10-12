@@ -47,14 +47,16 @@ EXECUTE FUNCTION SET_UPDATED_AT();
 
 CREATE TABLE species (
     plate_number INT PRIMARY KEY,
-    common_name TEXT NOT NULL UNIQUE,
+    common_name TEXT NOT NULL,
     aliases TEXT [] NOT NULL DEFAULT '{}',
 
     scientific_name TEXT NOT NULL,
     description TEXT,
     image_url TEXT NOT NULL,
     call_url TEXT,
-    audubon_url TEXT
+    audubon_url TEXT,
+
+    metadata JSONB NOT NULL DEFAULT '{}'::JSONB
 );
 
 
