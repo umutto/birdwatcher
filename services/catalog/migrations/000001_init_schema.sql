@@ -52,6 +52,7 @@ CREATE TABLE species (
     scientific_name TEXT NOT NULL,
     description TEXT,
     image_url TEXT NOT NULL,
+    call_url TEXT,
     audubon_url TEXT
 );
 

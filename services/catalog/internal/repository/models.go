@@ -131,5 +131,6 @@ type Species struct {
 	ScientificName string  `json:"scientific_name"`
 	Description    *string `json:"description"`
 	ImageUrl       string  `json:"image_url"`
+	CallUrl        *string `json:"call_url"`
 	AudubonUrl     *string `json:"audubon_url"`
 }

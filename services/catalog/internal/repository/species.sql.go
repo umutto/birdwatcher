@@ -14,7 +14,7 @@ import (
 
 const getCatalogForCrawl = `-- name: GetCatalogForCrawl :many
 SELECT
-    s.plate_number, s.common_name, s.scientific_name, s.description, s.image_url, s.audubon_url,
+    s.plate_number, s.common_name, s.scientific_name, s.description, s.image_url, s.call_url, s.audubon_url,
     COUNT(st.id) AS sighting_count,
     MAX(st.created_at)::TIMESTAMPTZ AS last_sighted_at
 FROM species s
@@ -32,6 +32,7 @@ type GetCatalogForCrawlRow struct {
 	ScientificName string    `json:"scientific_name"`
 	Description    *string   `json:"description"`
 	ImageUrl       string    `json:"image_url"`
+	CallUrl        *string   `json:"call_url"`
 	AudubonUrl     *string   `json:"audubon_url"`
 	SightingCount  int64     `json:"sighting_count"`
 	LastSightedAt  time.Time `json:"last_sighted_at"`
@@ -52,6 +53,7 @@ func (q *Queries) GetCatalogForCrawl(ctx context.Context, crawlID uuid.UUID) ([]
 			&i.ScientificName,
 			&i.Description,
 			&i.ImageUrl,
+			&i.CallUrl,
 			&i.AudubonUrl,
 			&i.SightingCount,
 			&i.LastSightedAt,
@@ -67,7 +69,7 @@ func (q *Queries) GetCatalogForCrawl(ctx context.Context, crawlID uuid.UUID) ([]
 }
 
 const getSpeciesByPlateNumber = `-- name: GetSpeciesByPlateNumber :one
-SELECT plate_number, common_name, scientific_name, description, image_url, audubon_url
+SELECT plate_number, common_name, scientific_name, description, image_url, call_url, audubon_url
 FROM species
 WHERE plate_number = $1
 `
@@ -81,13 +83,14 @@ func (q *Queries) GetSpeciesByPlateNumber(ctx context.Context, plateNumber int32
 		&i.ScientificName,
 		&i.Description,
 		&i.ImageUrl,
+		&i.CallUrl,
 		&i.AudubonUrl,
 	)
 	return i, err
 }
 
 const listAllSpecies = `-- name: ListAllSpecies :many
-SELECT plate_number, common_name, scientific_name, description, image_url, audubon_url
+SELECT plate_number, common_name, scientific_name, description, image_url, call_url, audubon_url
 FROM species
 ORDER BY plate_number ASC
 `
@@ -107,6 +110,7 @@ func (q *Queries) ListAllSpecies(ctx context.Context) ([]Species, error) {
 			&i.ScientificName,
 			&i.Description,
 			&i.ImageUrl,
+			&i.CallUrl,
 			&i.AudubonUrl,
 		); err != nil {
 			return nil, err
@@ -128,7 +132,7 @@ scientific_name = $3,
 description = $4,
 image_url = $5,
 audubon_url = $6
-RETURNING plate_number, common_name, scientific_name, description, image_url, audubon_url
+RETURNING plate_number, common_name, scientific_name, description, image_url, call_url, audubon_url
 `
 
 type UpsertSpeciesParams struct {
@@ -156,6 +160,7 @@ func (q *Queries) UpsertSpecies(ctx context.Context, arg UpsertSpeciesParams) (S
 		&i.ScientificName,
 		&i.Description,
 		&i.ImageUrl,
+		&i.CallUrl,
 		&i.AudubonUrl,
 	)
 	return i, err
