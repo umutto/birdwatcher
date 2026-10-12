@@ -1,11 +1,13 @@
 -- name: UpsertSpecies :one
-INSERT INTO species (plate_number, common_name, scientific_name, description, image_url, audubon_url)
-VALUES (@plate_number, @common_name, @scientific_name, @description, @image_url, @audubon_url)
+INSERT INTO species (plate_number, common_name, aliases, scientific_name, description, image_url, call_url, audubon_url)
+VALUES (@plate_number, @common_name, @aliases, @scientific_name, @description, @image_url, @call_url, @audubon_url)
 ON CONFLICT (plate_number)
 DO UPDATE SET common_name = @common_name,
+aliases = @aliases,
 scientific_name = @scientific_name,
 description = @description,
 image_url = @image_url,
+call_url = @call_url,
 audubon_url = @audubon_url
 RETURNING *;
 
@@ -31,3 +33,8 @@ LEFT JOIN sightings st
         AND st.crawl_id = @crawl_id
 GROUP BY s.plate_number
 ORDER BY s.plate_number;
+
+-- name: ListSpeciesDictionary :many
+SELECT plate_number, common_name, scientific_name, aliases
+FROM species
+ORDER BY plate_number ASC;

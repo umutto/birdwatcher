@@ -48,6 +48,7 @@ EXECUTE FUNCTION SET_UPDATED_AT();
 CREATE TABLE species (
     plate_number INT PRIMARY KEY,
     common_name TEXT NOT NULL UNIQUE,
+    aliases TEXT [] NOT NULL DEFAULT '{}',
 
     scientific_name TEXT NOT NULL,
     description TEXT,

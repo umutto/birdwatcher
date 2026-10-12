@@ -84,7 +84,7 @@ const listCrawlsWithSummary = `-- name: ListCrawlsWithSummary :many
 SELECT
     c.id, c.target_url, c.title, c.state, c.pages_crawled_count, c.images_scanned_count, c.created_at, c.updated_at, c.started_at, c.completed_at,
     COUNT(s.id) AS total_sightings,
-    COUNT(DISTINCT s.species_id) AS unique_species_count
+    COUNT(DISTINCT s.species_plate_number) AS unique_species_count
 FROM crawls AS c
 LEFT JOIN sightings AS s
     ON c.id = s.crawl_id

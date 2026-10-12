@@ -14,7 +14,7 @@ import (
 
 const getCatalogForCrawl = `-- name: GetCatalogForCrawl :many
 SELECT
-    s.plate_number, s.common_name, s.scientific_name, s.description, s.image_url, s.call_url, s.audubon_url,
+    s.plate_number, s.common_name, s.aliases, s.scientific_name, s.description, s.image_url, s.call_url, s.audubon_url,
     COUNT(st.id) AS sighting_count,
     MAX(st.created_at)::TIMESTAMPTZ AS last_sighted_at
 FROM species s
@@ -29,6 +29,7 @@ ORDER BY s.plate_number
 type GetCatalogForCrawlRow struct {
 	PlateNumber    int32     `json:"plate_number"`
 	CommonName     string    `json:"common_name"`
+	Aliases        []string  `json:"aliases"`
 	ScientificName string    `json:"scientific_name"`
 	Description    *string   `json:"description"`
 	ImageUrl       string    `json:"image_url"`
@@ -50,6 +51,7 @@ func (q *Queries) GetCatalogForCrawl(ctx context.Context, crawlID uuid.UUID) ([]
 		if err := rows.Scan(
 			&i.PlateNumber,
 			&i.CommonName,
+			&i.Aliases,
 			&i.ScientificName,
 			&i.Description,
 			&i.ImageUrl,
@@ -69,7 +71,7 @@ func (q *Queries) GetCatalogForCrawl(ctx context.Context, crawlID uuid.UUID) ([]
 }
 
 const getSpeciesByPlateNumber = `-- name: GetSpeciesByPlateNumber :one
-SELECT plate_number, common_name, scientific_name, description, image_url, call_url, audubon_url
+SELECT plate_number, common_name, aliases, scientific_name, description, image_url, call_url, audubon_url
 FROM species
 WHERE plate_number = $1
 `
@@ -80,6 +82,7 @@ func (q *Queries) GetSpeciesByPlateNumber(ctx context.Context, plateNumber int32
 	err := row.Scan(
 		&i.PlateNumber,
 		&i.CommonName,
+		&i.Aliases,
 		&i.ScientificName,
 		&i.Description,
 		&i.ImageUrl,
@@ -90,7 +93,7 @@ func (q *Queries) GetSpeciesByPlateNumber(ctx context.Context, plateNumber int32
 }
 
 const listAllSpecies = `-- name: ListAllSpecies :many
-SELECT plate_number, common_name, scientific_name, description, image_url, call_url, audubon_url
+SELECT plate_number, common_name, aliases, scientific_name, description, image_url, call_url, audubon_url
 FROM species
 ORDER BY plate_number ASC
 `
@@ -107,6 +110,7 @@ func (q *Queries) ListAllSpecies(ctx context.Context) ([]Species, error) {
 		if err := rows.Scan(
 			&i.PlateNumber,
 			&i.CommonName,
+			&i.Aliases,
 			&i.ScientificName,
 			&i.Description,
 			&i.ImageUrl,
@@ -123,40 +127,85 @@ func (q *Queries) ListAllSpecies(ctx context.Context) ([]Species, error) {
 	return items, nil
 }
 
+const listSpeciesDictionary = `-- name: ListSpeciesDictionary :many
+SELECT plate_number, common_name, scientific_name, aliases
+FROM species
+ORDER BY plate_number ASC
+`
+
+type ListSpeciesDictionaryRow struct {
+	PlateNumber    int32    `json:"plate_number"`
+	CommonName     string   `json:"common_name"`
+	ScientificName string   `json:"scientific_name"`
+	Aliases        []string `json:"aliases"`
+}
+
+func (q *Queries) ListSpeciesDictionary(ctx context.Context) ([]ListSpeciesDictionaryRow, error) {
+	rows, err := q.db.Query(ctx, listSpeciesDictionary)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []ListSpeciesDictionaryRow{}
+	for rows.Next() {
+		var i ListSpeciesDictionaryRow
+		if err := rows.Scan(
+			&i.PlateNumber,
+			&i.CommonName,
+			&i.ScientificName,
+			&i.Aliases,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const upsertSpecies = `-- name: UpsertSpecies :one
-INSERT INTO species (plate_number, common_name, scientific_name, description, image_url, audubon_url)
-VALUES ($1, $2, $3, $4, $5, $6)
+INSERT INTO species (plate_number, common_name, aliases, scientific_name, description, image_url, call_url, audubon_url)
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
 ON CONFLICT (plate_number)
 DO UPDATE SET common_name = $2,
-scientific_name = $3,
-description = $4,
-image_url = $5,
-audubon_url = $6
-RETURNING plate_number, common_name, scientific_name, description, image_url, call_url, audubon_url
+aliases = $3,
+scientific_name = $4,
+description = $5,
+image_url = $6,
+call_url = $7,
+audubon_url = $8
+RETURNING plate_number, common_name, aliases, scientific_name, description, image_url, call_url, audubon_url
 `
 
 type UpsertSpeciesParams struct {
-	PlateNumber    int32   `json:"plate_number"`
-	CommonName     string  `json:"common_name"`
-	ScientificName string  `json:"scientific_name"`
-	Description    *string `json:"description"`
-	ImageUrl       string  `json:"image_url"`
-	AudubonUrl     *string `json:"audubon_url"`
+	PlateNumber    int32    `json:"plate_number"`
+	CommonName     string   `json:"common_name"`
+	Aliases        []string `json:"aliases"`
+	ScientificName string   `json:"scientific_name"`
+	Description    *string  `json:"description"`
+	ImageUrl       string   `json:"image_url"`
+	CallUrl        *string  `json:"call_url"`
+	AudubonUrl     *string  `json:"audubon_url"`
 }
 
 func (q *Queries) UpsertSpecies(ctx context.Context, arg UpsertSpeciesParams) (Species, error) {
 	row := q.db.QueryRow(ctx, upsertSpecies,
 		arg.PlateNumber,
 		arg.CommonName,
+		arg.Aliases,
 		arg.ScientificName,
 		arg.Description,
 		arg.ImageUrl,
+		arg.CallUrl,
 		arg.AudubonUrl,
 	)
 	var i Species
 	err := row.Scan(
 		&i.PlateNumber,
 		&i.CommonName,
+		&i.Aliases,
 		&i.ScientificName,
 		&i.Description,
 		&i.ImageUrl,

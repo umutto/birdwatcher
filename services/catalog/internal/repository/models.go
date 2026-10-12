@@ -126,11 +126,12 @@ type Sighting struct {
 }
 
 type Species struct {
-	PlateNumber    int32   `json:"plate_number"`
-	CommonName     string  `json:"common_name"`
-	ScientificName string  `json:"scientific_name"`
-	Description    *string `json:"description"`
-	ImageUrl       string  `json:"image_url"`
-	CallUrl        *string `json:"call_url"`
-	AudubonUrl     *string `json:"audubon_url"`
+	PlateNumber    int32    `json:"plate_number"`
+	CommonName     string   `json:"common_name"`
+	Aliases        []string `json:"aliases"`
+	ScientificName string   `json:"scientific_name"`
+	Description    *string  `json:"description"`
+	ImageUrl       string   `json:"image_url"`
+	CallUrl        *string  `json:"call_url"`
+	AudubonUrl     *string  `json:"audubon_url"`
 }

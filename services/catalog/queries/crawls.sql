@@ -41,7 +41,7 @@ WHERE id = @id;
 SELECT
     c.*,
     COUNT(s.id) AS total_sightings,
-    COUNT(DISTINCT s.species_id) AS unique_species_count
+    COUNT(DISTINCT s.species_plate_number) AS unique_species_count
 FROM crawls AS c
 LEFT JOIN sightings AS s
     ON c.id = s.crawl_id
