@@ -27,3 +27,7 @@ sql:
             go_type:
               import: "time"
               type: "Time"
+          - db_type: "jsonb"
+            go_type:
+              import: "encoding/json"
+              type: "RawMessage"

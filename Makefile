@@ -1,4 +1,4 @@
-.PHONY: proto sqlc lint lint-proto lint-go lint-python lint-sql format format-go format-sql format-python test test-go test-python verify setup-hooks up down watch-catalog dev
+.PHONY: proto sqlc migrate migrate-reset seed lint lint-proto lint-go lint-python lint-sql format format-go format-sql format-python test test-go test-python verify setup-hooks up down watch-catalog dev
 
 GO_MODULES := \
 	./services/catalog/... \
@@ -16,6 +16,15 @@ proto:
 
 sqlc:
 	cd services/catalog && sqlc generate
+
+migrate:
+	cd services/catalog && set -a && . ./.env && set +a && goose -dir migrations postgres "$$DATABASE_URL" up
+
+migrate-reset:
+	cd services/catalog && set -a && . ./.env && set +a && goose -dir migrations postgres "$$DATABASE_URL" reset
+
+seed:
+	cd services/catalog && set -a && . ./.env && set +a && go run ./cmd/seed
 
 lint: lint-proto lint-go lint-python lint-sql
 

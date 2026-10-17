@@ -7,6 +7,7 @@ package repository
 
 import (
 	"context"
+	"encoding/json"
 	"time"
 
 	"github.com/google/uuid"
@@ -82,7 +83,7 @@ type ListSightingsByCrawlRow struct {
 	PageUrl            string             `json:"page_url"`
 	Snippet            *string            `json:"snippet"`
 	ImageUrl           *string            `json:"image_url"`
-	Metadata           []byte             `json:"metadata"`
+	Metadata           json.RawMessage    `json:"metadata"`
 	CreatedAt          time.Time          `json:"created_at"`
 	CommonName         string             `json:"common_name"`
 	ScientificName     string             `json:"scientific_name"`

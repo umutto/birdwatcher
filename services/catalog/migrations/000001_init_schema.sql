@@ -1,5 +1,3 @@
-/*  */
-
 -- +goose Up
 CREATE TYPE CRAWL_STATE AS ENUM (
     'pending',
@@ -11,6 +9,7 @@ CREATE TYPE CRAWL_STATE AS ENUM (
 
 CREATE TYPE SIGHTING_SOURCE_TYPE AS ENUM ('text', 'image');
 
+-- +goose StatementBegin
 CREATE OR REPLACE FUNCTION SET_UPDATED_AT()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -18,7 +17,7 @@ BEGIN
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
-
+-- +goose StatementEnd
 
 CREATE TABLE crawls (
     id UUID PRIMARY KEY DEFAULT UUIDV7(),

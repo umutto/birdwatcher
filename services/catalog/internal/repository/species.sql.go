@@ -7,6 +7,7 @@ package repository
 
 import (
 	"context"
+	"encoding/json"
 	"time"
 
 	"github.com/google/uuid"
@@ -27,17 +28,17 @@ ORDER BY s.plate_number
 `
 
 type GetCatalogForCrawlRow struct {
-	PlateNumber    int32     `json:"plate_number"`
-	CommonName     string    `json:"common_name"`
-	Aliases        []string  `json:"aliases"`
-	ScientificName string    `json:"scientific_name"`
-	Description    *string   `json:"description"`
-	ImageUrl       string    `json:"image_url"`
-	CallUrl        *string   `json:"call_url"`
-	AudubonUrl     *string   `json:"audubon_url"`
-	Metadata       []byte    `json:"metadata"`
-	SightingCount  int64     `json:"sighting_count"`
-	LastSightedAt  time.Time `json:"last_sighted_at"`
+	PlateNumber    int32           `json:"plate_number"`
+	CommonName     string          `json:"common_name"`
+	Aliases        []string        `json:"aliases"`
+	ScientificName string          `json:"scientific_name"`
+	Description    *string         `json:"description"`
+	ImageUrl       string          `json:"image_url"`
+	CallUrl        *string         `json:"call_url"`
+	AudubonUrl     *string         `json:"audubon_url"`
+	Metadata       json.RawMessage `json:"metadata"`
+	SightingCount  int64           `json:"sighting_count"`
+	LastSightedAt  time.Time       `json:"last_sighted_at"`
 }
 
 func (q *Queries) GetCatalogForCrawl(ctx context.Context, crawlID uuid.UUID) ([]GetCatalogForCrawlRow, error) {
@@ -197,15 +198,15 @@ RETURNING plate_number, common_name, aliases, scientific_name, description, imag
 `
 
 type UpsertSpeciesParams struct {
-	PlateNumber    int32    `json:"plate_number"`
-	CommonName     string   `json:"common_name"`
-	Aliases        []string `json:"aliases"`
-	ScientificName string   `json:"scientific_name"`
-	Description    *string  `json:"description"`
-	ImageUrl       string   `json:"image_url"`
-	CallUrl        *string  `json:"call_url"`
-	AudubonUrl     *string  `json:"audubon_url"`
-	Metadata       []byte   `json:"metadata"`
+	PlateNumber    int32           `json:"plate_number"`
+	CommonName     string          `json:"common_name"`
+	Aliases        []string        `json:"aliases"`
+	ScientificName string          `json:"scientific_name"`
+	Description    *string         `json:"description"`
+	ImageUrl       string          `json:"image_url"`
+	CallUrl        *string         `json:"call_url"`
+	AudubonUrl     *string         `json:"audubon_url"`
+	Metadata       json.RawMessage `json:"metadata"`
 }
 
 func (q *Queries) UpsertSpecies(ctx context.Context, arg UpsertSpeciesParams) (Species, error) {

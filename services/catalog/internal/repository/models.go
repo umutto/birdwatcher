@@ -6,6 +6,7 @@ package repository
 
 import (
 	"database/sql/driver"
+	"encoding/json"
 	"fmt"
 	"time"
 
@@ -121,18 +122,18 @@ type Sighting struct {
 	PageUrl            string             `json:"page_url"`
 	Snippet            *string            `json:"snippet"`
 	ImageUrl           *string            `json:"image_url"`
-	Metadata           []byte             `json:"metadata"`
+	Metadata           json.RawMessage    `json:"metadata"`
 	CreatedAt          time.Time          `json:"created_at"`
 }
 
 type Species struct {
-	PlateNumber    int32    `json:"plate_number"`
-	CommonName     string   `json:"common_name"`
-	Aliases        []string `json:"aliases"`
-	ScientificName string   `json:"scientific_name"`
-	Description    *string  `json:"description"`
-	ImageUrl       string   `json:"image_url"`
-	CallUrl        *string  `json:"call_url"`
-	AudubonUrl     *string  `json:"audubon_url"`
-	Metadata       []byte   `json:"metadata"`
+	PlateNumber    int32           `json:"plate_number"`
+	CommonName     string          `json:"common_name"`
+	Aliases        []string        `json:"aliases"`
+	ScientificName string          `json:"scientific_name"`
+	Description    *string         `json:"description"`
+	ImageUrl       string          `json:"image_url"`
+	CallUrl        *string         `json:"call_url"`
+	AudubonUrl     *string         `json:"audubon_url"`
+	Metadata       json.RawMessage `json:"metadata"`
 }
