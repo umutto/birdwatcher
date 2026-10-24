@@ -3,6 +3,7 @@ package server
 import (
 	"log/slog"
 	"net/http"
+	"slices"
 	"time"
 )
 
@@ -67,8 +68,8 @@ func requestLogger(log *slog.Logger) Middleware {
 
 // chain wraps an http.Handler with a sequence of Middlewares executed in slice order.
 func chain(h http.Handler, m ...Middleware) http.Handler {
-	for i := len(m) - 1; i >= 0; i-- {
-		h = m[i](h)
+	for _, v := range slices.Backward(m) {
+		h = v(h)
 	}
 	return h
 }
