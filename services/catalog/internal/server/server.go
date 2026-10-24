@@ -21,14 +21,14 @@ type Pinger interface {
 // Server encapsulates HTTP server dependencies and route handling.
 type Server struct {
 	log     *slog.Logger
-	repo    *repository.Queries
+	repo    repository.Querier
 	db      Pinger
 	cfg     config.ServerConfig
 	handler http.Handler
 }
 
 // New creates and configures a new HTTP Server instance.
-func New(log *slog.Logger, db Pinger, repo *repository.Queries, cfg config.ServerConfig) *Server {
+func New(log *slog.Logger, db Pinger, repo repository.Querier, cfg config.ServerConfig) *Server {
 	s := &Server{log: log, db: db, repo: repo, cfg: cfg}
 	s.handler = s.routes()
 
