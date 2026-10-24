@@ -2,7 +2,6 @@ package server
 
 import (
 	"context"
-	"encoding/json"
 	"log/slog"
 	"net/http"
 	"time"
@@ -15,9 +14,7 @@ type healthResponse struct {
 
 // handleLivez verifies the process is responsive.
 func (s *Server) handleLivez(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	_ = json.NewEncoder(w).Encode(healthResponse{Status: "ok"})
+	writeJSON(w, http.StatusOK, healthResponse{Status: "ok"})
 }
 
 // handleReadyz verifies the database connection is healthy before serving traffic.
@@ -27,13 +24,9 @@ func (s *Server) handleReadyz(w http.ResponseWriter, r *http.Request) {
 
 	if err := s.db.Ping(ctx); err != nil {
 		s.log.ErrorContext(r.Context(), "readiness probe failed: database ping", slog.Any("error", err))
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusServiceUnavailable)
-		_ = json.NewEncoder(w).Encode(healthResponse{Status: "unavailable"})
+		writeJSON(w, http.StatusServiceUnavailable, healthResponse{Status: "unavailable"})
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	_ = json.NewEncoder(w).Encode(healthResponse{Status: "ok"})
+	writeJSON(w, http.StatusOK, healthResponse{Status: "ok"})
 }

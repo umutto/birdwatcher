@@ -17,7 +17,7 @@ type mockPinger struct {
 	err error
 }
 
-func (m *mockPinger) Ping(ctx context.Context) error {
+func (m *mockPinger) Ping(_ context.Context) error {
 	return m.err
 }
 
@@ -31,21 +31,21 @@ func TestServer_HandleLivez(t *testing.T) {
 		s.ServeHTTP(rec, req)
 
 		if rec.Code != http.StatusOK {
-			t.Fatalf("expected status %d, got %d", http.StatusOK, rec.Code)
+			t.Fatalf("got status %d, want %d", rec.Code, http.StatusOK)
 		}
 
 		if ct := rec.Header().Get("Content-Type"); ct != "application/json" {
-			t.Errorf("expected Content-Type application/json, got %q", ct)
+			t.Errorf("got Content-Type %q, want %q", ct, "application/json")
 		}
 
-		var body struct {
+		var got struct {
 			Status string `json:"status"`
 		}
-		if err := json.NewDecoder(rec.Body).Decode(&body); err != nil {
+		if err := json.Unmarshal(rec.Body.Bytes(), &got); err != nil {
 			t.Fatalf("failed to decode response body: %v", err)
 		}
-		if body.Status != "ok" {
-			t.Errorf("expected status ok, got %q", body.Status)
+		if got.Status != "ok" {
+			t.Errorf("got status %q, want %q", got.Status, "ok")
 		}
 	})
 }
@@ -60,21 +60,21 @@ func TestServer_HandleReadyz(t *testing.T) {
 		s.ServeHTTP(rec, req)
 
 		if rec.Code != http.StatusOK {
-			t.Fatalf("expected status %d, got %d", http.StatusOK, rec.Code)
+			t.Fatalf("got status %d, want %d", rec.Code, http.StatusOK)
 		}
 
 		if ct := rec.Header().Get("Content-Type"); ct != "application/json" {
-			t.Errorf("expected Content-Type application/json, got %q", ct)
+			t.Errorf("got Content-Type %q, want %q", ct, "application/json")
 		}
 
-		var body struct {
+		var got struct {
 			Status string `json:"status"`
 		}
-		if err := json.NewDecoder(rec.Body).Decode(&body); err != nil {
+		if err := json.Unmarshal(rec.Body.Bytes(), &got); err != nil {
 			t.Fatalf("failed to decode response body: %v", err)
 		}
-		if body.Status != "ok" {
-			t.Errorf("expected status ok, got %q", body.Status)
+		if got.Status != "ok" {
+			t.Errorf("got status %q, want %q", got.Status, "ok")
 		}
 	})
 
@@ -87,21 +87,21 @@ func TestServer_HandleReadyz(t *testing.T) {
 		s.ServeHTTP(rec, req)
 
 		if rec.Code != http.StatusServiceUnavailable {
-			t.Fatalf("expected status %d, got %d", http.StatusServiceUnavailable, rec.Code)
+			t.Fatalf("got status %d, want %d", rec.Code, http.StatusServiceUnavailable)
 		}
 
 		if ct := rec.Header().Get("Content-Type"); ct != "application/json" {
-			t.Errorf("expected Content-Type application/json, got %q", ct)
+			t.Errorf("got Content-Type %q, want %q", ct, "application/json")
 		}
 
-		var body struct {
+		var got struct {
 			Status string `json:"status"`
 		}
-		if err := json.NewDecoder(rec.Body).Decode(&body); err != nil {
+		if err := json.Unmarshal(rec.Body.Bytes(), &got); err != nil {
 			t.Fatalf("failed to decode response body: %v", err)
 		}
-		if body.Status != "unavailable" {
-			t.Errorf("expected status unavailable, got %q", body.Status)
+		if got.Status != "unavailable" {
+			t.Errorf("got status %q, want %q", got.Status, "unavailable")
 		}
 	})
 }
