@@ -7,6 +7,7 @@ import (
 	"strconv"
 
 	"github.com/jackc/pgx/v5"
+	"github.com/umutto/birdwatcher/services/catalog/internal/repository"
 )
 
 // handleListSpecies returns the full master taxonomy of Audubon bird species.
@@ -58,4 +59,32 @@ func (s *Server) handleGetSpecies(w http.ResponseWriter, r *http.Request) {
 	}
 
 	writeJSON(w, http.StatusOK, species)
+}
+
+// handleListSpeciesSightings returns the latest sightings for a given plate number.
+func (s *Server) handleListSpeciesSightings(w http.ResponseWriter, r *http.Request) {
+	plate, err := strconv.ParseInt(r.PathValue("plate"), 10, 32)
+	if err != nil {
+		writeError(w, http.StatusBadRequest, "invalid plate number")
+		return
+	}
+	limit, offset := parsePagination(r)
+
+	sightings, err := s.repo.ListSightingsBySpecies(r.Context(), repository.ListSightingsBySpeciesParams{
+		SpeciesPlateNumber: int32(plate),
+		LimitRows:          limit,
+		OffsetRows:         offset,
+	})
+	if err != nil {
+		s.log.ErrorContext(
+			r.Context(),
+			"list sightings by species",
+			slog.Int64("plate_number", plate),
+			slog.Any("error", err),
+		)
+		writeError(w, http.StatusInternalServerError, "internal server error")
+		return
+	}
+
+	writeJSON(w, http.StatusOK, sightings)
 }

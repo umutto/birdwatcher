@@ -15,6 +15,7 @@ func (s *Server) routes() http.Handler {
 	mux.HandleFunc("GET /api/v1/species", s.handleListSpecies)
 	mux.HandleFunc("GET /api/v1/species/dictionary", s.handleListSpeciesDictionary)
 	mux.HandleFunc("GET /api/v1/species/{plate}", s.handleGetSpecies)
+	mux.HandleFunc("GET /api/v1/species/{plate}/sightings", s.handleListSpeciesSightings)
 
 	return chain(
 		mux,

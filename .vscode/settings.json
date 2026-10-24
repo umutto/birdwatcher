@@ -11,11 +11,13 @@
     "gonats",
     "gopls",
     "goroutines",
+    "Haliaeetus",
     "healthcheck",
     "healthz",
     "isready",
     "jackc",
     "jetstream",
+    "leucocephalus",
     "Livez",
     "oxfmt",
     "oxlint",
@@ -37,7 +39,8 @@
     "textparser",
     "timestamptz",
     "uuidv",
-    "volar"
+    "volar",
+    "webp"
   ],
   "cSpell.ignorePaths": [
     "gen/",
