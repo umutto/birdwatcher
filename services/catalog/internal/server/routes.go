@@ -17,6 +17,13 @@ func (s *Server) routes() http.Handler {
 	mux.HandleFunc("GET /api/v1/species/{plate}", s.handleGetSpecies)
 	mux.HandleFunc("GET /api/v1/species/{plate}/sightings", s.handleListSpeciesSightings)
 
+	// crawls handlers
+	mux.HandleFunc("POST /api/v1/crawls", s.handleCreateCrawl)
+	mux.HandleFunc("GET /api/v1/crawls", s.handleListCrawls)
+	mux.HandleFunc("GET /api/v1/crawls/{id}", s.handleGetCrawl)
+	mux.HandleFunc("GET /api/v1/crawls/{id}/catalog", s.handleGetCrawlCatalog)
+	mux.HandleFunc("GET /api/v1/crawls/{id}/sightings", s.handleListCrawlSightings)
+
 	return chain(
 		mux,
 		requestLogger(s.log),
