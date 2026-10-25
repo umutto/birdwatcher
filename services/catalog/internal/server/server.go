@@ -13,6 +13,12 @@ import (
 	"github.com/umutto/birdwatcher/services/catalog/internal/repository"
 )
 
+const (
+	defaultShutdownTimeout   = 15 * time.Second
+	defaultReadHeaderTimeout = 5 * time.Second
+	defaultIdleTimeout       = 60 * time.Second
+)
+
 // Pinger verifies connectivity to a backing dependency during readiness checks.
 type Pinger interface {
 	Ping(ctx context.Context) error
@@ -40,8 +46,8 @@ func (s *Server) Start(ctx context.Context) error {
 	srv := &http.Server{
 		Addr:              fmt.Sprintf(":%d", s.cfg.Port),
 		Handler:           s.handler,
-		ReadHeaderTimeout: 5 * time.Second,
-		IdleTimeout:       60 * time.Second,
+		ReadHeaderTimeout: defaultReadHeaderTimeout,
+		IdleTimeout:       defaultIdleTimeout,
 	}
 
 	errCh := make(chan error, 1)
@@ -62,7 +68,7 @@ func (s *Server) Start(ctx context.Context) error {
 	}
 
 	// ctx is already canceled; strip the cancel signal so srv.Shutdown doesn't abort immediately.
-	shutdownCtx, cancel := context.WithTimeout(context.WithoutCancel(ctx), 5*time.Second)
+	shutdownCtx, cancel := context.WithTimeout(context.WithoutCancel(ctx), defaultShutdownTimeout)
 	defer cancel()
 
 	if err := srv.Shutdown(shutdownCtx); err != nil {
