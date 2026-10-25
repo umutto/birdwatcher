@@ -3,10 +3,16 @@ package config
 
 import (
 	"errors"
+	"strings"
 	"time"
 
 	"github.com/umutto/birdwatcher/shared/env"
 )
+
+// ServerConfig holds HTTP server configuration options.
+type ServerConfig struct {
+	Port int32
+}
 
 // DatabaseConfig holds connection pool settings for PostgreSQL.
 type DatabaseConfig struct {
@@ -18,9 +24,11 @@ type DatabaseConfig struct {
 	HealthCheckPeriod time.Duration
 }
 
-// ServerConfig holds HTTP server configuration options.
-type ServerConfig struct {
-	Port int32
+// FrontierConfig holds connection settings and default crawl limits for the Frontier service.
+type FrontierConfig struct {
+	Addr     string
+	MaxDepth int32
+	MaxPages int32
 }
 
 // Config aggregates all runtime configuration for the catalog service.
@@ -28,12 +36,16 @@ type Config struct {
 	Env      env.Environment
 	Server   ServerConfig
 	Database DatabaseConfig
+	Frontier FrontierConfig
 }
 
 // Load reads environment variables and returns a validated Config.
 func Load() (*Config, error) {
 	var errs []error
 	var err error
+
+	port, err := env.Int32("PORT", 8080)
+	errs = append(errs, err)
 
 	dbURL, err := env.Require("DATABASE_URL")
 	errs = append(errs, err)
@@ -53,7 +65,12 @@ func Load() (*Config, error) {
 	dbHealthCheckPeriod, err := env.Duration("DATABASE_HEALTH_CHECK_PERIOD", 30*time.Second)
 	errs = append(errs, err)
 
-	port, err := env.Int32("PORT", 8080)
+	frontierAddr := env.String("FRONTIER_GRPC_ADDR", "localhost:9090")
+
+	frontierMaxDepth, err := env.Int32("FRONTIER_MAX_DEPTH", 4)
+	errs = append(errs, err)
+
+	frontierMaxPages, err := env.Int32("FRONTIER_MAX_PAGES", 200)
 	errs = append(errs, err)
 
 	if err := errors.Join(errs...); err != nil {
@@ -73,6 +90,11 @@ func Load() (*Config, error) {
 			MaxConnIdleTime:   dbMaxConnIdleTime,
 			HealthCheckPeriod: dbHealthCheckPeriod,
 		},
+		Frontier: FrontierConfig{
+			Addr:     frontierAddr,
+			MaxDepth: frontierMaxDepth,
+			MaxPages: frontierMaxPages,
+		},
 	}
 	if err := cfg.Validate(); err != nil {
 		return nil, err
@@ -88,6 +110,15 @@ func (c *Config) Validate() error {
 	}
 	if c.Database.MinConns > c.Database.MaxConns {
 		return errors.New("database min_conns cannot exceed max_conns")
+	}
+	if strings.TrimSpace(c.Frontier.Addr) == "" {
+		return errors.New("frontier grpc address cannot be empty")
+	}
+	if c.Frontier.MaxDepth < 0 {
+		return errors.New("frontier max_depth cannot be negative")
+	}
+	if c.Frontier.MaxPages <= 0 {
+		return errors.New("frontier max_pages must be greater than 0")
 	}
 	return nil
 }

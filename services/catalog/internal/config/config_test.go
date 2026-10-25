@@ -35,6 +35,27 @@ func TestConfig_Validate(t *testing.T) {
 			},
 			wantErr: true,
 		},
+		{
+			name: "empty frontier addr",
+			mutate: func(c *config.Config) {
+				c.Frontier.Addr = ""
+			},
+			wantErr: true,
+		},
+		{
+			name: "negative frontier max_depth",
+			mutate: func(c *config.Config) {
+				c.Frontier.MaxDepth = -10
+			},
+			wantErr: true,
+		},
+		{
+			name: "negative frontier max_pages",
+			mutate: func(c *config.Config) {
+				c.Frontier.MaxPages = -10
+			},
+			wantErr: true,
+		},
 	}
 
 	for _, tt := range tests {
@@ -87,6 +108,11 @@ func validConfig() *config.Config {
 			MaxConnLifetime:   1 * time.Hour,
 			MaxConnIdleTime:   30 * time.Minute,
 			HealthCheckPeriod: 30 * time.Second,
+		},
+		Frontier: config.FrontierConfig{
+			Addr:     "localhost:9090",
+			MaxDepth: 4,
+			MaxPages: 200,
 		},
 	}
 }
