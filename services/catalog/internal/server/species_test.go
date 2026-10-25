@@ -7,7 +7,6 @@ import (
 	"log/slog"
 	"net/http"
 	"net/http/httptest"
-	"reflect"
 	"testing"
 	"time"
 
@@ -50,29 +49,6 @@ func (m *mockSpeciesRepo) ListSightingsBySpecies(_ context.Context, _ repository
 	return m.sightings, m.err
 }
 
-func assertErrorResponse(t *testing.T, rec *httptest.ResponseRecorder, wantStatus int, wantError string) {
-	t.Helper()
-
-	if rec.Code != wantStatus {
-		t.Fatalf("got status %d, want %d", rec.Code, wantStatus)
-	}
-
-	if ct := rec.Header().Get("Content-Type"); ct != "application/json" {
-		t.Errorf("got Content-Type %q, want %q", ct, "application/json")
-	}
-
-	var got struct {
-		Error string `json:"error"`
-	}
-	if err := json.Unmarshal(rec.Body.Bytes(), &got); err != nil {
-		t.Fatalf("failed to decode response body: %v", err)
-	}
-
-	if got.Error != wantError {
-		t.Errorf("got error %q, want %q", got.Error, wantError)
-	}
-}
-
 func TestServer_HandleListSpecies(t *testing.T) {
 	t.Run("returns 200 with a json list of all species", func(t *testing.T) {
 		want := []repository.Species{
@@ -85,9 +61,7 @@ func TestServer_HandleListSpecies(t *testing.T) {
 				Metadata:       json.RawMessage(`{}`),
 			},
 		}
-		mockRepo := &mockSpeciesRepo{
-			species: want,
-		}
+		mockRepo := &mockSpeciesRepo{species: want}
 		s := server.New(slog.New(slog.DiscardHandler), nil, mockRepo, config.ServerConfig{Port: 8080})
 
 		req := httptest.NewRequest(http.MethodGet, "/api/v1/species", nil)
@@ -95,21 +69,7 @@ func TestServer_HandleListSpecies(t *testing.T) {
 
 		s.ServeHTTP(rec, req)
 
-		if rec.Code != http.StatusOK {
-			t.Fatalf("got status %d, want %d", rec.Code, http.StatusOK)
-		}
-
-		if ct := rec.Header().Get("Content-Type"); ct != "application/json" {
-			t.Errorf("got Content-Type %q, want %q", ct, "application/json")
-		}
-
-		var got []repository.Species
-		if err := json.Unmarshal(rec.Body.Bytes(), &got); err != nil {
-			t.Fatalf("failed to decode response body: %v", err)
-		}
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("got species %+v, want %+v", got, want)
-		}
+		assertJSONResponse(t, rec, http.StatusOK, want)
 	})
 
 	t.Run("returns 500 when repository fails", func(t *testing.T) {
@@ -135,9 +95,7 @@ func TestServer_HandleListSpeciesDictionary(t *testing.T) {
 				ScientificName: "Haliaeetus leucocephalus",
 			},
 		}
-		mockRepo := &mockSpeciesRepo{
-			dictionary: want,
-		}
+		mockRepo := &mockSpeciesRepo{dictionary: want}
 		s := server.New(slog.New(slog.DiscardHandler), nil, mockRepo, config.ServerConfig{Port: 8080})
 
 		req := httptest.NewRequest(http.MethodGet, "/api/v1/species/dictionary", nil)
@@ -145,21 +103,7 @@ func TestServer_HandleListSpeciesDictionary(t *testing.T) {
 
 		s.ServeHTTP(rec, req)
 
-		if rec.Code != http.StatusOK {
-			t.Fatalf("got status %d, want %d", rec.Code, http.StatusOK)
-		}
-
-		if ct := rec.Header().Get("Content-Type"); ct != "application/json" {
-			t.Errorf("got Content-Type %q, want %q", ct, "application/json")
-		}
-
-		var got []repository.ListSpeciesDictionaryRow
-		if err := json.Unmarshal(rec.Body.Bytes(), &got); err != nil {
-			t.Fatalf("failed to decode response body: %v", err)
-		}
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("got dictionary %+v, want %+v", got, want)
-		}
+		assertJSONResponse(t, rec, http.StatusOK, want)
 	})
 
 	t.Run("returns 500 when repository fails", func(t *testing.T) {
@@ -185,9 +129,7 @@ func TestServer_HandleGetSpecies(t *testing.T) {
 			ImageUrl:       "images/plate-11.webp",
 			Metadata:       json.RawMessage(`{}`),
 		}
-		mockRepo := &mockSpeciesRepo{
-			species: []repository.Species{want},
-		}
+		mockRepo := &mockSpeciesRepo{species: []repository.Species{want}}
 		s := server.New(slog.New(slog.DiscardHandler), nil, mockRepo, config.ServerConfig{Port: 8080})
 
 		req := httptest.NewRequest(http.MethodGet, "/api/v1/species/11", nil)
@@ -195,21 +137,7 @@ func TestServer_HandleGetSpecies(t *testing.T) {
 
 		s.ServeHTTP(rec, req)
 
-		if rec.Code != http.StatusOK {
-			t.Fatalf("got status %d, want %d", rec.Code, http.StatusOK)
-		}
-
-		if ct := rec.Header().Get("Content-Type"); ct != "application/json" {
-			t.Errorf("got Content-Type %q, want %q", ct, "application/json")
-		}
-
-		var got repository.Species
-		if err := json.Unmarshal(rec.Body.Bytes(), &got); err != nil {
-			t.Fatalf("failed to decode response body: %v", err)
-		}
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("got species %+v, want %+v", got, want)
-		}
+		assertJSONResponse(t, rec, http.StatusOK, want)
 	})
 
 	t.Run("returns 400 when plate number is invalid", func(t *testing.T) {
@@ -235,12 +163,8 @@ func TestServer_HandleGetSpecies(t *testing.T) {
 	})
 
 	t.Run("returns 500 when repository fails", func(t *testing.T) {
-		s := server.New(
-			slog.New(slog.DiscardHandler),
-			nil,
-			&mockSpeciesRepo{err: errors.New("db error")},
-			config.ServerConfig{Port: 8080},
-		)
+		mockRepo := &mockSpeciesRepo{err: errors.New("db error")}
+		s := server.New(slog.New(slog.DiscardHandler), nil, mockRepo, config.ServerConfig{Port: 8080})
 
 		req := httptest.NewRequest(http.MethodGet, "/api/v1/species/11", nil)
 		rec := httptest.NewRecorder()
@@ -267,9 +191,7 @@ func TestServer_HandleListSpeciesSightings(t *testing.T) {
 				CreatedAt:          time.Date(2026, time.October, 24, 12, 0, 0, 0, time.UTC),
 			},
 		}
-		mockRepo := &mockSpeciesRepo{
-			sightings: want,
-		}
+		mockRepo := &mockSpeciesRepo{sightings: want}
 		s := server.New(slog.New(slog.DiscardHandler), nil, mockRepo, config.ServerConfig{Port: 8080})
 
 		req := httptest.NewRequest(http.MethodGet, "/api/v1/species/11/sightings", nil)
@@ -277,21 +199,7 @@ func TestServer_HandleListSpeciesSightings(t *testing.T) {
 
 		s.ServeHTTP(rec, req)
 
-		if rec.Code != http.StatusOK {
-			t.Fatalf("got status %d, want %d", rec.Code, http.StatusOK)
-		}
-
-		if ct := rec.Header().Get("Content-Type"); ct != "application/json" {
-			t.Errorf("got Content-Type %q, want %q", ct, "application/json")
-		}
-
-		var got []repository.Sighting
-		if err := json.Unmarshal(rec.Body.Bytes(), &got); err != nil {
-			t.Fatalf("failed to decode response body: %v", err)
-		}
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("got sightings %+v, want %+v", got, want)
-		}
+		assertJSONResponse(t, rec, http.StatusOK, want)
 	})
 
 	t.Run("returns 400 when plate number is invalid", func(t *testing.T) {
@@ -306,12 +214,8 @@ func TestServer_HandleListSpeciesSightings(t *testing.T) {
 	})
 
 	t.Run("returns 500 when repository fails", func(t *testing.T) {
-		s := server.New(
-			slog.New(slog.DiscardHandler),
-			nil,
-			&mockSpeciesRepo{err: errors.New("db error")},
-			config.ServerConfig{Port: 8080},
-		)
+		mockRepo := &mockSpeciesRepo{err: errors.New("db error")}
+		s := server.New(slog.New(slog.DiscardHandler), nil, mockRepo, config.ServerConfig{Port: 8080})
 
 		req := httptest.NewRequest(http.MethodGet, "/api/v1/species/11/sightings", nil)
 		rec := httptest.NewRecorder()
