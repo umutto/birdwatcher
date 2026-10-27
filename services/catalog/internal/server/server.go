@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"time"
 
+	birdwatcherv1 "github.com/umutto/birdwatcher/gen/go/birdwatcher/v1"
 	"github.com/umutto/birdwatcher/services/catalog/internal/config"
 	"github.com/umutto/birdwatcher/services/catalog/internal/repository"
 )
@@ -26,16 +27,29 @@ type Pinger interface {
 
 // Server encapsulates HTTP server dependencies and route handling.
 type Server struct {
-	log     *slog.Logger
-	repo    repository.Querier
-	db      Pinger
-	cfg     config.ServerConfig
-	handler http.Handler
+	log      *slog.Logger
+	cfg      config.ServerConfig
+	db       Pinger
+	repo     repository.Querier
+	frontier birdwatcherv1.FrontierServiceClient
+	handler  http.Handler
 }
 
 // New creates and configures a new HTTP Server instance.
-func New(log *slog.Logger, db Pinger, repo repository.Querier, cfg config.ServerConfig) *Server {
-	s := &Server{log: log, db: db, repo: repo, cfg: cfg}
+func New(
+	log *slog.Logger,
+	cfg config.ServerConfig,
+	db Pinger,
+	repo repository.Querier,
+	frontier birdwatcherv1.FrontierServiceClient,
+) *Server {
+	s := &Server{
+		log:      log,
+		cfg:      cfg,
+		db:       db,
+		repo:     repo,
+		frontier: frontier,
+	}
 	s.handler = s.routes()
 
 	return s

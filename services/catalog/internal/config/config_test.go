@@ -28,31 +28,31 @@ func TestConfig_Validate(t *testing.T) {
 			wantErr: true,
 		},
 		{
-			name: "min_conns exceeds max_conns",
-			mutate: func(c *config.Config) {
-				c.Database.MaxConns = 5
-				c.Database.MinConns = 10
-			},
-			wantErr: true,
-		},
-		{
 			name: "empty frontier addr",
 			mutate: func(c *config.Config) {
-				c.Frontier.Addr = ""
+				c.Server.Frontier.Addr = ""
 			},
 			wantErr: true,
 		},
 		{
 			name: "negative frontier max_depth",
 			mutate: func(c *config.Config) {
-				c.Frontier.MaxDepth = -10
+				c.Server.Frontier.MaxDepth = -10
 			},
 			wantErr: true,
 		},
 		{
 			name: "negative frontier max_pages",
 			mutate: func(c *config.Config) {
-				c.Frontier.MaxPages = -10
+				c.Server.Frontier.MaxPages = -10
+			},
+			wantErr: true,
+		},
+		{
+			name: "min_conns exceeds max_conns",
+			mutate: func(c *config.Config) {
+				c.Database.MaxConns = 5
+				c.Database.MinConns = 10
 			},
 			wantErr: true,
 		},
@@ -100,6 +100,11 @@ func validConfig() *config.Config {
 	return &config.Config{
 		Server: config.ServerConfig{
 			Port: 8080,
+			Frontier: config.FrontierConfig{
+				Addr:     "localhost:9090",
+				MaxDepth: 4,
+				MaxPages: 200,
+			},
 		},
 		Database: config.DatabaseConfig{
 			URL:               "postgres://username:password@database-url:5432/birdwatcher_dev?sslmode=disable",
@@ -108,11 +113,6 @@ func validConfig() *config.Config {
 			MaxConnLifetime:   1 * time.Hour,
 			MaxConnIdleTime:   30 * time.Minute,
 			HealthCheckPeriod: 30 * time.Second,
-		},
-		Frontier: config.FrontierConfig{
-			Addr:     "localhost:9090",
-			MaxDepth: 4,
-			MaxPages: 200,
 		},
 	}
 }

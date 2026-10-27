@@ -12,9 +12,11 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5"
+	birdwatcherv1 "github.com/umutto/birdwatcher/gen/go/birdwatcher/v1"
 	"github.com/umutto/birdwatcher/services/catalog/internal/config"
 	"github.com/umutto/birdwatcher/services/catalog/internal/repository"
 	"github.com/umutto/birdwatcher/services/catalog/internal/server"
+	"google.golang.org/grpc"
 )
 
 var (
@@ -42,6 +44,15 @@ func (m *mockCrawlsRepo) CreateCrawl(_ context.Context, _ string) (repository.Cr
 	return m.crawls[0], nil
 }
 
+func (m *mockCrawlsRepo) UpdateCrawlState(_ context.Context, arg repository.UpdateCrawlStateParams) (repository.Crawl, error) {
+	if m.err != nil {
+		return repository.Crawl{}, m.err
+	}
+	c := m.crawls[0]
+	c.State = arg.State
+	return c, nil
+}
+
 func (m *mockCrawlsRepo) ListCrawlsWithSummary(_ context.Context, _ repository.ListCrawlsWithSummaryParams) ([]repository.ListCrawlsWithSummaryRow, error) {
 	return m.crawlSummaries, m.err
 }
@@ -66,10 +77,24 @@ func (m *mockCrawlsRepo) ListSightingsByCrawl(_ context.Context, _ repository.Li
 	return m.sightings, m.err
 }
 
+type mockFrontierClient struct {
+	err error
+}
+
+func (m *mockFrontierClient) StartJob(_ context.Context, _ *birdwatcherv1.StartJobRequest, _ ...grpc.CallOption) (*birdwatcherv1.StartJobResponse, error) {
+	return &birdwatcherv1.StartJobResponse{}, m.err
+}
+
 func TestServer_HandleCreateCrawl(t *testing.T) {
 	t.Run("returns 201 with the created crawl", func(t *testing.T) {
-		mockRepo := &mockCrawlsRepo{crawls: []repository.Crawl{mockCrawl}}
-		s := server.New(slog.New(slog.DiscardHandler), nil, mockRepo, config.ServerConfig{Port: 8080})
+		want := mockCrawl
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			nil,
+			&mockCrawlsRepo{crawls: []repository.Crawl{want}},
+			&mockFrontierClient{},
+		)
 
 		body := strings.NewReader(`{"target_url": "https://example.com/birds"}`)
 		req := httptest.NewRequest(http.MethodPost, "/api/v1/crawls", body)
@@ -77,11 +102,18 @@ func TestServer_HandleCreateCrawl(t *testing.T) {
 
 		s.ServeHTTP(rec, req)
 
-		assertJSONResponse(t, rec, http.StatusCreated, mockCrawl)
+		want.State = repository.CrawlStateRunning
+		assertJSONResponse(t, rec, http.StatusCreated, want)
 	})
 
 	t.Run("returns 400 when request body is invalid", func(t *testing.T) {
-		s := server.New(slog.New(slog.DiscardHandler), nil, &mockCrawlsRepo{}, config.ServerConfig{Port: 8080})
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			nil,
+			&mockCrawlsRepo{},
+			nil,
+		)
 
 		req := httptest.NewRequest(http.MethodPost, "/api/v1/crawls", strings.NewReader(`INVALID`))
 		rec := httptest.NewRecorder()
@@ -92,7 +124,13 @@ func TestServer_HandleCreateCrawl(t *testing.T) {
 	})
 
 	t.Run("returns 400 when target url is invalid", func(t *testing.T) {
-		s := server.New(slog.New(slog.DiscardHandler), nil, &mockCrawlsRepo{}, config.ServerConfig{Port: 8080})
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			nil,
+			&mockCrawlsRepo{},
+			nil,
+		)
 
 		body := strings.NewReader(`{"target_url": "INVALID"}`)
 		req := httptest.NewRequest(http.MethodPost, "/api/v1/crawls", body)
@@ -103,9 +141,32 @@ func TestServer_HandleCreateCrawl(t *testing.T) {
 		assertErrorResponse(t, rec, http.StatusBadRequest, "invalid target url")
 	})
 
+	t.Run("returns 500 when frontier fails", func(t *testing.T) {
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			nil,
+			&mockCrawlsRepo{crawls: []repository.Crawl{mockCrawl}},
+			&mockFrontierClient{err: errors.New("grpc error")},
+		)
+
+		body := strings.NewReader(`{"target_url": "https://example.com/birds"}`)
+		req := httptest.NewRequest(http.MethodPost, "/api/v1/crawls", body)
+		rec := httptest.NewRecorder()
+
+		s.ServeHTTP(rec, req)
+
+		assertErrorResponse(t, rec, http.StatusInternalServerError, "internal server error")
+	})
+
 	t.Run("returns 500 when repository fails", func(t *testing.T) {
-		mockRepo := &mockCrawlsRepo{err: errors.New("db error")}
-		s := server.New(slog.New(slog.DiscardHandler), nil, mockRepo, config.ServerConfig{Port: 8080})
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			nil,
+			&mockCrawlsRepo{err: errors.New("db error")},
+			nil,
+		)
 
 		body := strings.NewReader(`{"target_url": "https://example.com/birds"}`)
 		req := httptest.NewRequest(http.MethodPost, "/api/v1/crawls", body)
@@ -128,8 +189,13 @@ func TestServer_HandleListCrawls(t *testing.T) {
 				UniqueSpeciesCount: 7,
 			},
 		}
-		mockRepo := &mockCrawlsRepo{crawlSummaries: want}
-		s := server.New(slog.New(slog.DiscardHandler), nil, mockRepo, config.ServerConfig{Port: 8080})
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			nil,
+			&mockCrawlsRepo{crawlSummaries: want},
+			nil,
+		)
 
 		req := httptest.NewRequest(http.MethodGet, "/api/v1/crawls", nil)
 		rec := httptest.NewRecorder()
@@ -140,8 +206,13 @@ func TestServer_HandleListCrawls(t *testing.T) {
 	})
 
 	t.Run("returns 500 when repository fails", func(t *testing.T) {
-		mockRepo := &mockCrawlsRepo{err: errors.New("db error")}
-		s := server.New(slog.New(slog.DiscardHandler), nil, mockRepo, config.ServerConfig{Port: 8080})
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			nil,
+			&mockCrawlsRepo{err: errors.New("db error")},
+			nil,
+		)
 
 		req := httptest.NewRequest(http.MethodGet, "/api/v1/crawls", nil)
 		rec := httptest.NewRecorder()
@@ -154,8 +225,13 @@ func TestServer_HandleListCrawls(t *testing.T) {
 
 func TestServer_HandleGetCrawl(t *testing.T) {
 	t.Run("returns 200 with the crawl details of a crawl id", func(t *testing.T) {
-		mockRepo := &mockCrawlsRepo{crawls: []repository.Crawl{mockCrawl}}
-		s := server.New(slog.New(slog.DiscardHandler), nil, mockRepo, config.ServerConfig{Port: 8080})
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			nil,
+			&mockCrawlsRepo{crawls: []repository.Crawl{mockCrawl}},
+			nil,
+		)
 
 		req := httptest.NewRequest(http.MethodGet, "/api/v1/crawls/"+crawlID.String(), nil)
 		rec := httptest.NewRecorder()
@@ -166,7 +242,13 @@ func TestServer_HandleGetCrawl(t *testing.T) {
 	})
 
 	t.Run("returns 400 when crawl id is invalid", func(t *testing.T) {
-		s := server.New(slog.New(slog.DiscardHandler), nil, &mockCrawlsRepo{}, config.ServerConfig{Port: 8080})
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			nil,
+			&mockCrawlsRepo{},
+			nil,
+		)
 
 		req := httptest.NewRequest(http.MethodGet, "/api/v1/crawls/INVALID", nil)
 		rec := httptest.NewRecorder()
@@ -177,7 +259,13 @@ func TestServer_HandleGetCrawl(t *testing.T) {
 	})
 
 	t.Run("returns 404 when crawl not found", func(t *testing.T) {
-		s := server.New(slog.New(slog.DiscardHandler), nil, &mockCrawlsRepo{}, config.ServerConfig{Port: 8080})
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			nil,
+			&mockCrawlsRepo{},
+			nil,
+		)
 
 		req := httptest.NewRequest(http.MethodGet, "/api/v1/crawls/"+crawlID.String(), nil)
 		rec := httptest.NewRecorder()
@@ -188,8 +276,13 @@ func TestServer_HandleGetCrawl(t *testing.T) {
 	})
 
 	t.Run("returns 500 when repository fails", func(t *testing.T) {
-		mockRepo := &mockCrawlsRepo{err: errors.New("db error")}
-		s := server.New(slog.New(slog.DiscardHandler), nil, mockRepo, config.ServerConfig{Port: 8080})
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			nil,
+			&mockCrawlsRepo{err: errors.New("db error")},
+			nil,
+		)
 
 		req := httptest.NewRequest(http.MethodGet, "/api/v1/crawls/"+crawlID.String(), nil)
 		rec := httptest.NewRecorder()
@@ -213,8 +306,13 @@ func TestServer_HandleGetCrawlCatalog(t *testing.T) {
 				SightingCount:  3,
 			},
 		}
-		mockRepo := &mockCrawlsRepo{catalog: want}
-		s := server.New(slog.New(slog.DiscardHandler), nil, mockRepo, config.ServerConfig{Port: 8080})
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			nil,
+			&mockCrawlsRepo{catalog: want},
+			nil,
+		)
 
 		req := httptest.NewRequest(http.MethodGet, "/api/v1/crawls/"+crawlID.String()+"/catalog", nil)
 		rec := httptest.NewRecorder()
@@ -225,7 +323,13 @@ func TestServer_HandleGetCrawlCatalog(t *testing.T) {
 	})
 
 	t.Run("returns 400 when crawl id is invalid", func(t *testing.T) {
-		s := server.New(slog.New(slog.DiscardHandler), nil, &mockCrawlsRepo{}, config.ServerConfig{Port: 8080})
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			nil,
+			&mockCrawlsRepo{},
+			nil,
+		)
 
 		req := httptest.NewRequest(http.MethodGet, "/api/v1/crawls/INVALID/catalog", nil)
 		rec := httptest.NewRecorder()
@@ -236,8 +340,13 @@ func TestServer_HandleGetCrawlCatalog(t *testing.T) {
 	})
 
 	t.Run("returns 500 when repository fails", func(t *testing.T) {
-		mockRepo := &mockCrawlsRepo{err: errors.New("db error")}
-		s := server.New(slog.New(slog.DiscardHandler), nil, mockRepo, config.ServerConfig{Port: 8080})
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			nil,
+			&mockCrawlsRepo{err: errors.New("db error")},
+			nil,
+		)
 
 		req := httptest.NewRequest(http.MethodGet, "/api/v1/crawls/"+crawlID.String()+"/catalog", nil)
 		rec := httptest.NewRecorder()
@@ -263,8 +372,13 @@ func TestServer_HandleListCrawlSightings(t *testing.T) {
 				ScientificName:     "Haliaeetus leucocephalus",
 			},
 		}
-		mockRepo := &mockCrawlsRepo{sightings: want}
-		s := server.New(slog.New(slog.DiscardHandler), nil, mockRepo, config.ServerConfig{Port: 8080})
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			nil,
+			&mockCrawlsRepo{sightings: want},
+			nil,
+		)
 
 		req := httptest.NewRequest(http.MethodGet, "/api/v1/crawls/"+crawlID.String()+"/sightings", nil)
 		rec := httptest.NewRecorder()
@@ -275,7 +389,13 @@ func TestServer_HandleListCrawlSightings(t *testing.T) {
 	})
 
 	t.Run("returns 400 when crawl id is invalid", func(t *testing.T) {
-		s := server.New(slog.New(slog.DiscardHandler), nil, &mockCrawlsRepo{}, config.ServerConfig{Port: 8080})
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			nil,
+			&mockCrawlsRepo{},
+			nil,
+		)
 
 		req := httptest.NewRequest(http.MethodGet, "/api/v1/crawls/INVALID/sightings", nil)
 		rec := httptest.NewRecorder()
@@ -286,8 +406,13 @@ func TestServer_HandleListCrawlSightings(t *testing.T) {
 	})
 
 	t.Run("returns 500 when repository fails", func(t *testing.T) {
-		mockRepo := &mockCrawlsRepo{err: errors.New("db error")}
-		s := server.New(slog.New(slog.DiscardHandler), nil, mockRepo, config.ServerConfig{Port: 8080})
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			nil,
+			&mockCrawlsRepo{err: errors.New("db error")},
+			nil,
+		)
 
 		req := httptest.NewRequest(http.MethodGet, "/api/v1/crawls/"+crawlID.String()+"/sightings", nil)
 		rec := httptest.NewRecorder()

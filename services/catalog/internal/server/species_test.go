@@ -61,8 +61,13 @@ func TestServer_HandleListSpecies(t *testing.T) {
 				Metadata:       json.RawMessage(`{}`),
 			},
 		}
-		mockRepo := &mockSpeciesRepo{species: want}
-		s := server.New(slog.New(slog.DiscardHandler), nil, mockRepo, config.ServerConfig{Port: 8080})
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			nil,
+			&mockSpeciesRepo{species: want},
+			nil,
+		)
 
 		req := httptest.NewRequest(http.MethodGet, "/api/v1/species", nil)
 		rec := httptest.NewRecorder()
@@ -73,8 +78,13 @@ func TestServer_HandleListSpecies(t *testing.T) {
 	})
 
 	t.Run("returns 500 when repository fails", func(t *testing.T) {
-		mockRepo := &mockSpeciesRepo{err: errors.New("db error")}
-		s := server.New(slog.New(slog.DiscardHandler), nil, mockRepo, config.ServerConfig{Port: 8080})
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			nil,
+			&mockSpeciesRepo{err: errors.New("db error")},
+			nil,
+		)
 
 		req := httptest.NewRequest(http.MethodGet, "/api/v1/species", nil)
 		rec := httptest.NewRecorder()
@@ -95,8 +105,13 @@ func TestServer_HandleListSpeciesDictionary(t *testing.T) {
 				ScientificName: "Haliaeetus leucocephalus",
 			},
 		}
-		mockRepo := &mockSpeciesRepo{dictionary: want}
-		s := server.New(slog.New(slog.DiscardHandler), nil, mockRepo, config.ServerConfig{Port: 8080})
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			nil,
+			&mockSpeciesRepo{dictionary: want},
+			nil,
+		)
 
 		req := httptest.NewRequest(http.MethodGet, "/api/v1/species/dictionary", nil)
 		rec := httptest.NewRecorder()
@@ -107,8 +122,13 @@ func TestServer_HandleListSpeciesDictionary(t *testing.T) {
 	})
 
 	t.Run("returns 500 when repository fails", func(t *testing.T) {
-		mockRepo := &mockSpeciesRepo{err: errors.New("db error")}
-		s := server.New(slog.New(slog.DiscardHandler), nil, mockRepo, config.ServerConfig{Port: 8080})
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			nil,
+			&mockSpeciesRepo{err: errors.New("db error")},
+			nil,
+		)
 
 		req := httptest.NewRequest(http.MethodGet, "/api/v1/species/dictionary", nil)
 		rec := httptest.NewRecorder()
@@ -129,8 +149,13 @@ func TestServer_HandleGetSpecies(t *testing.T) {
 			ImageUrl:       "images/plate-11.webp",
 			Metadata:       json.RawMessage(`{}`),
 		}
-		mockRepo := &mockSpeciesRepo{species: []repository.Species{want}}
-		s := server.New(slog.New(slog.DiscardHandler), nil, mockRepo, config.ServerConfig{Port: 8080})
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			nil,
+			&mockSpeciesRepo{species: []repository.Species{want}},
+			nil,
+		)
 
 		req := httptest.NewRequest(http.MethodGet, "/api/v1/species/11", nil)
 		rec := httptest.NewRecorder()
@@ -141,7 +166,13 @@ func TestServer_HandleGetSpecies(t *testing.T) {
 	})
 
 	t.Run("returns 400 when plate number is invalid", func(t *testing.T) {
-		s := server.New(slog.New(slog.DiscardHandler), nil, &mockSpeciesRepo{}, config.ServerConfig{Port: 8080})
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			nil,
+			&mockSpeciesRepo{},
+			nil,
+		)
 
 		req := httptest.NewRequest(http.MethodGet, "/api/v1/species/INVALID", nil)
 		rec := httptest.NewRecorder()
@@ -152,7 +183,13 @@ func TestServer_HandleGetSpecies(t *testing.T) {
 	})
 
 	t.Run("returns 404 when species not found", func(t *testing.T) {
-		s := server.New(slog.New(slog.DiscardHandler), nil, &mockSpeciesRepo{}, config.ServerConfig{Port: 8080})
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			nil,
+			&mockSpeciesRepo{},
+			nil,
+		)
 
 		req := httptest.NewRequest(http.MethodGet, "/api/v1/species/999", nil)
 		rec := httptest.NewRecorder()
@@ -163,8 +200,13 @@ func TestServer_HandleGetSpecies(t *testing.T) {
 	})
 
 	t.Run("returns 500 when repository fails", func(t *testing.T) {
-		mockRepo := &mockSpeciesRepo{err: errors.New("db error")}
-		s := server.New(slog.New(slog.DiscardHandler), nil, mockRepo, config.ServerConfig{Port: 8080})
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			nil,
+			&mockSpeciesRepo{err: errors.New("db error")},
+			nil,
+		)
 
 		req := httptest.NewRequest(http.MethodGet, "/api/v1/species/11", nil)
 		rec := httptest.NewRecorder()
@@ -191,8 +233,13 @@ func TestServer_HandleListSpeciesSightings(t *testing.T) {
 				CreatedAt:          time.Date(2026, time.October, 24, 12, 0, 0, 0, time.UTC),
 			},
 		}
-		mockRepo := &mockSpeciesRepo{sightings: want}
-		s := server.New(slog.New(slog.DiscardHandler), nil, mockRepo, config.ServerConfig{Port: 8080})
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			nil,
+			&mockSpeciesRepo{sightings: want},
+			nil,
+		)
 
 		req := httptest.NewRequest(http.MethodGet, "/api/v1/species/11/sightings", nil)
 		rec := httptest.NewRecorder()
@@ -203,7 +250,13 @@ func TestServer_HandleListSpeciesSightings(t *testing.T) {
 	})
 
 	t.Run("returns 400 when plate number is invalid", func(t *testing.T) {
-		s := server.New(slog.New(slog.DiscardHandler), nil, &mockSpeciesRepo{}, config.ServerConfig{Port: 8080})
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			nil,
+			&mockSpeciesRepo{},
+			nil,
+		)
 
 		req := httptest.NewRequest(http.MethodGet, "/api/v1/species/INVALID/sightings", nil)
 		rec := httptest.NewRecorder()
@@ -214,8 +267,13 @@ func TestServer_HandleListSpeciesSightings(t *testing.T) {
 	})
 
 	t.Run("returns 500 when repository fails", func(t *testing.T) {
-		mockRepo := &mockSpeciesRepo{err: errors.New("db error")}
-		s := server.New(slog.New(slog.DiscardHandler), nil, mockRepo, config.ServerConfig{Port: 8080})
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			nil,
+			&mockSpeciesRepo{err: errors.New("db error")},
+			nil,
+		)
 
 		req := httptest.NewRequest(http.MethodGet, "/api/v1/species/11/sightings", nil)
 		rec := httptest.NewRecorder()

@@ -23,7 +23,13 @@ func (m *mockPinger) Ping(_ context.Context) error {
 
 func TestServer_HandleLivez(t *testing.T) {
 	t.Run("returns 200 ok with valid status json", func(t *testing.T) {
-		s := server.New(slog.New(slog.DiscardHandler), nil, nil, config.ServerConfig{Port: 8080})
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			nil,
+			nil,
+			nil,
+		)
 
 		req := httptest.NewRequest(http.MethodGet, "/livez", nil)
 		rec := httptest.NewRecorder()
@@ -52,7 +58,13 @@ func TestServer_HandleLivez(t *testing.T) {
 
 func TestServer_HandleReadyz(t *testing.T) {
 	t.Run("returns 200 ok when database is healthy", func(t *testing.T) {
-		s := server.New(slog.New(slog.DiscardHandler), &mockPinger{err: nil}, nil, config.ServerConfig{Port: 8080})
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			&mockPinger{err: nil},
+			nil,
+			nil,
+		)
 
 		req := httptest.NewRequest(http.MethodGet, "/readyz", nil)
 		rec := httptest.NewRecorder()
@@ -79,7 +91,13 @@ func TestServer_HandleReadyz(t *testing.T) {
 	})
 
 	t.Run("returns 503 service unavailable when database fails", func(t *testing.T) {
-		s := server.New(slog.New(slog.DiscardHandler), &mockPinger{err: errors.New("connection failed")}, nil, config.ServerConfig{Port: 8080})
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			&mockPinger{err: errors.New("connection failed")},
+			nil,
+			nil,
+		)
 
 		req := httptest.NewRequest(http.MethodGet, "/readyz", nil)
 		rec := httptest.NewRecorder()

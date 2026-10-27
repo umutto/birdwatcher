@@ -11,7 +11,15 @@ import (
 
 // ServerConfig holds HTTP server configuration options.
 type ServerConfig struct {
-	Port int32
+	Port     int32
+	Frontier FrontierConfig
+}
+
+// FrontierConfig holds connection settings and default crawl limits for the Frontier service.
+type FrontierConfig struct {
+	Addr     string
+	MaxDepth int32
+	MaxPages int32
 }
 
 // DatabaseConfig holds connection pool settings for PostgreSQL.
@@ -24,19 +32,11 @@ type DatabaseConfig struct {
 	HealthCheckPeriod time.Duration
 }
 
-// FrontierConfig holds connection settings and default crawl limits for the Frontier service.
-type FrontierConfig struct {
-	Addr     string
-	MaxDepth int32
-	MaxPages int32
-}
-
 // Config aggregates all runtime configuration for the catalog service.
 type Config struct {
 	Env      env.Environment
 	Server   ServerConfig
 	Database DatabaseConfig
-	Frontier FrontierConfig
 }
 
 // Load reads environment variables and returns a validated Config.
@@ -45,6 +45,14 @@ func Load() (*Config, error) {
 	var err error
 
 	port, err := env.Int32("PORT", 8080)
+	errs = append(errs, err)
+
+	frontierAddr := env.String("FRONTIER_GRPC_ADDR", "localhost:9090")
+
+	frontierMaxDepth, err := env.Int32("FRONTIER_MAX_DEPTH", 4)
+	errs = append(errs, err)
+
+	frontierMaxPages, err := env.Int32("FRONTIER_MAX_PAGES", 200)
 	errs = append(errs, err)
 
 	dbURL, err := env.Require("DATABASE_URL")
@@ -65,14 +73,6 @@ func Load() (*Config, error) {
 	dbHealthCheckPeriod, err := env.Duration("DATABASE_HEALTH_CHECK_PERIOD", 30*time.Second)
 	errs = append(errs, err)
 
-	frontierAddr := env.String("FRONTIER_GRPC_ADDR", "localhost:9090")
-
-	frontierMaxDepth, err := env.Int32("FRONTIER_MAX_DEPTH", 4)
-	errs = append(errs, err)
-
-	frontierMaxPages, err := env.Int32("FRONTIER_MAX_PAGES", 200)
-	errs = append(errs, err)
-
 	if err := errors.Join(errs...); err != nil {
 		return nil, err
 	}
@@ -81,6 +81,11 @@ func Load() (*Config, error) {
 		Env: env.Current(),
 		Server: ServerConfig{
 			Port: port,
+			Frontier: FrontierConfig{
+				Addr:     frontierAddr,
+				MaxDepth: frontierMaxDepth,
+				MaxPages: frontierMaxPages,
+			},
 		},
 		Database: DatabaseConfig{
 			URL:               dbURL,
@@ -89,11 +94,6 @@ func Load() (*Config, error) {
 			MaxConnLifetime:   dbMaxConnLifetime,
 			MaxConnIdleTime:   dbMaxConnIdleTime,
 			HealthCheckPeriod: dbHealthCheckPeriod,
-		},
-		Frontier: FrontierConfig{
-			Addr:     frontierAddr,
-			MaxDepth: frontierMaxDepth,
-			MaxPages: frontierMaxPages,
 		},
 	}
 	if err := cfg.Validate(); err != nil {
@@ -108,17 +108,17 @@ func (c *Config) Validate() error {
 	if c.Server.Port <= 0 || c.Server.Port > 65535 {
 		return errors.New("server port must be between 1 and 65535")
 	}
-	if c.Database.MinConns > c.Database.MaxConns {
-		return errors.New("database min_conns cannot exceed max_conns")
-	}
-	if strings.TrimSpace(c.Frontier.Addr) == "" {
+	if strings.TrimSpace(c.Server.Frontier.Addr) == "" {
 		return errors.New("frontier grpc address cannot be empty")
 	}
-	if c.Frontier.MaxDepth < 0 {
+	if c.Server.Frontier.MaxDepth < 0 {
 		return errors.New("frontier max_depth cannot be negative")
 	}
-	if c.Frontier.MaxPages <= 0 {
+	if c.Server.Frontier.MaxPages <= 0 {
 		return errors.New("frontier max_pages must be greater than 0")
+	}
+	if c.Database.MinConns > c.Database.MaxConns {
+		return errors.New("database min_conns cannot exceed max_conns")
 	}
 	return nil
 }

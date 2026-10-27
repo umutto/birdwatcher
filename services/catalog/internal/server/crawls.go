@@ -1,15 +1,18 @@
 package server
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"log/slog"
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5"
+	birdwatcherv1 "github.com/umutto/birdwatcher/gen/go/birdwatcher/v1"
 	"github.com/umutto/birdwatcher/services/catalog/internal/repository"
 )
 
@@ -39,6 +42,62 @@ func (s *Server) handleCreateCrawl(w http.ResponseWriter, r *http.Request) {
 			r.Context(),
 			"create crawl",
 			slog.String("target_url", targetURL),
+			slog.Any("error", err),
+		)
+		writeError(w, http.StatusInternalServerError, "internal server error")
+		return
+	}
+
+	jobRequest := &birdwatcherv1.StartJobRequest{
+		JobId:    crawl.ID.String(),
+		RootUrl:  targetURL,
+		MaxDepth: s.cfg.Frontier.MaxDepth,
+		MaxPages: s.cfg.Frontier.MaxPages,
+	}
+
+	rpcCtx, cancel := context.WithTimeout(r.Context(), 3*time.Second)
+	defer cancel()
+
+	if _, err := s.frontier.StartJob(rpcCtx, jobRequest); err != nil {
+		s.log.ErrorContext(
+			r.Context(),
+			"start frontier job",
+			slog.String("crawl_id", jobRequest.JobId),
+			slog.String("target_url", jobRequest.RootUrl),
+			slog.Int("max_depth", int(jobRequest.MaxDepth)),
+			slog.Int("max_pages", int(jobRequest.MaxPages)),
+			slog.Any("error", err),
+		)
+		if _, dbErr := s.repo.UpdateCrawlState(
+			r.Context(),
+			repository.UpdateCrawlStateParams{
+				ID:    crawl.ID,
+				State: repository.CrawlStateFailed,
+			},
+		); dbErr != nil {
+			s.log.ErrorContext(
+				r.Context(),
+				"update crawl state to failed",
+				slog.String("crawl_id", crawl.ID.String()),
+				slog.Any("error", dbErr),
+			)
+		}
+		writeError(w, http.StatusInternalServerError, "internal server error")
+		return
+	}
+
+	crawl, err = s.repo.UpdateCrawlState(
+		r.Context(),
+		repository.UpdateCrawlStateParams{
+			ID:    crawl.ID,
+			State: repository.CrawlStateRunning,
+		},
+	)
+	if err != nil {
+		s.log.ErrorContext(
+			r.Context(),
+			"update crawl state to running",
+			slog.String("crawl_id", crawl.ID.String()),
 			slog.Any("error", err),
 		)
 		writeError(w, http.StatusInternalServerError, "internal server error")
