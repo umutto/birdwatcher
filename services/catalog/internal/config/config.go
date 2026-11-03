@@ -22,6 +22,11 @@ type FrontierConfig struct {
 	MaxPages int32
 }
 
+// NATSConfig holds connection settings for NATS JetStream.
+type NATSConfig struct {
+	URL string
+}
+
 // DatabaseConfig holds connection pool settings for PostgreSQL.
 type DatabaseConfig struct {
 	URL               string
@@ -36,6 +41,7 @@ type DatabaseConfig struct {
 type Config struct {
 	Env      env.Environment
 	Server   ServerConfig
+	NATS     NATSConfig
 	Database DatabaseConfig
 }
 
@@ -54,6 +60,8 @@ func Load() (*Config, error) {
 
 	frontierMaxPages, err := env.Int32("FRONTIER_MAX_PAGES", 200)
 	errs = append(errs, err)
+
+	natsURL := env.String("NATS_URL", "nats://localhost:4222")
 
 	dbURL, err := env.Require("DATABASE_URL")
 	errs = append(errs, err)
@@ -87,6 +95,9 @@ func Load() (*Config, error) {
 				MaxPages: frontierMaxPages,
 			},
 		},
+		NATS: NATSConfig{
+			URL: natsURL,
+		},
 		Database: DatabaseConfig{
 			URL:               dbURL,
 			MaxConns:          dbMaxConns,
@@ -116,6 +127,9 @@ func (c *Config) Validate() error {
 	}
 	if c.Server.Frontier.MaxPages <= 0 {
 		return errors.New("frontier max_pages must be greater than 0")
+	}
+	if strings.TrimSpace(c.NATS.URL) == "" {
+		return errors.New("nats url cannot be empty")
 	}
 	if c.Database.MinConns > c.Database.MaxConns {
 		return errors.New("database min_conns cannot exceed max_conns")

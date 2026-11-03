@@ -81,7 +81,7 @@ All async events use Protobuf binary encoding on the `BIRDWATCHER` stream (`bird
 
 Make sure the following tools are installed on your system (Linux / macOS / WSL2):
 
-- **Go** `1.27+` (ensure `$(go env GOPATH)/bin` is in your `PATH`)
+- **Go** `1.27+`
 - **Python** `3.14+` with [**uv**](https://docs.astral.sh/uv/)
 - **Node.js** `24+` with [**pnpm**](https://pnpm.io/)
 - **Docker** & **Docker Compose**
@@ -223,7 +223,7 @@ Run tasks from the repository root using `make`:
 - [x] PostgreSQL 18 schema, `sqlc` repository layer, and 435-species Audubon dataset & seed tool
 - [x] `catalog` HTTP REST API, health probes, and gRPC crawl job dispatch to `frontier`
 - [x] `web` Vue 3 + TypeScript + Tailwind v4 + TanStack Query project scaffolding
-- [ ] `catalog` NATS consumer for recording sightings and crawl progress
+- [x] `catalog` NATS consumer for recording sightings and crawl progress
 - [ ] `frontier` gRPC server, BFS URL queue, deduplication, and host rate limiting
 - [ ] `scraper` HTML fetcher and link/text/image extractor
 - [ ] `textparser` Aho-Corasick bird name matcher

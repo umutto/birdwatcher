@@ -49,6 +49,13 @@ func TestConfig_Validate(t *testing.T) {
 			wantErr: true,
 		},
 		{
+			name: "empty nats url",
+			mutate: func(c *config.Config) {
+				c.NATS.URL = " "
+			},
+			wantErr: true,
+		},
+		{
 			name: "min_conns exceeds max_conns",
 			mutate: func(c *config.Config) {
 				c.Database.MaxConns = 5
@@ -105,6 +112,9 @@ func validConfig() *config.Config {
 				MaxDepth: 4,
 				MaxPages: 200,
 			},
+		},
+		NATS: config.NATSConfig{
+			URL: "nats://localhost:4222",
 		},
 		Database: config.DatabaseConfig{
 			URL:               "postgres://username:password@database-url:5432/birdwatcher_dev?sslmode=disable",

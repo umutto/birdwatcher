@@ -9,15 +9,19 @@ import (
 	"os/signal"
 	"syscall"
 
+	"golang.org/x/sync/errgroup"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
+
 	birdwatcherv1 "github.com/umutto/birdwatcher/gen/go/birdwatcher/v1"
 	"github.com/umutto/birdwatcher/services/catalog/internal/config"
+	"github.com/umutto/birdwatcher/services/catalog/internal/consumer"
 	"github.com/umutto/birdwatcher/services/catalog/internal/database"
 	"github.com/umutto/birdwatcher/services/catalog/internal/repository"
 	"github.com/umutto/birdwatcher/services/catalog/internal/server"
 	"github.com/umutto/birdwatcher/shared/env"
 	"github.com/umutto/birdwatcher/shared/logger"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
+	"github.com/umutto/birdwatcher/shared/nats"
 )
 
 // main sets up the signal trap, runs the service, and routes the process exit code.
@@ -75,12 +79,37 @@ func run(ctx context.Context, log *slog.Logger) error {
 			log.ErrorContext(ctx, "close frontier grpc connection", slog.Any("error", err))
 		}
 	}()
+
 	frontier := birdwatcherv1.NewFrontierServiceClient(cc)
 
-	srv := server.New(log, cfg.Server, pool, repo, frontier)
+	nc, err := nats.Connect(ctx, nats.Config{URL: cfg.NATS.URL}, log)
+	if err != nil {
+		return fmt.Errorf("initialize nats: %w", err)
+	}
+	defer func() {
+		if err := nc.Close(); err != nil {
+			log.ErrorContext(ctx, "close nats connection", slog.Any("error", err))
+		}
+	}()
 
-	if err := srv.Start(ctx); err != nil {
-		return fmt.Errorf("start server: %w", err)
+	if _, err := nc.CreateOrUpdateStream(ctx, nats.DefaultStreamConfig()); err != nil {
+		return fmt.Errorf("create or update stream: %w", err)
+	}
+
+	srv := server.New(log, cfg.Server, pool, repo, frontier)
+	cons := consumer.New(log, repo, nc.JS)
+
+	g, gCtx := errgroup.WithContext(ctx)
+
+	g.Go(func() error {
+		return srv.Start(gCtx)
+	})
+	g.Go(func() error {
+		return cons.Start(gCtx)
+	})
+
+	if err := g.Wait(); err != nil {
+		return fmt.Errorf("run services: %w", err)
 	}
 
 	return nil

@@ -1,6 +1,8 @@
 {
   "cSpell.words": [
+    "acked",
     "birdwatcherv",
+    "bufbuild",
     "bwnats",
     "Corasick",
     "DBTX",
@@ -10,6 +12,7 @@
     "golangci",
     "gonats",
     "gopls",
+    "goquery",
     "goroutines",
     "Haliaeetus",
     "healthcheck",
@@ -19,6 +22,7 @@
     "jetstream",
     "leucocephalus",
     "Livez",
+    "naks",
     "oxfmt",
     "oxlint",
     "pgconn",
@@ -26,6 +30,7 @@
     "pgtype",
     "pgxpool",
     "plpgsql",
+    "pressly",
     "protoc",
     "protocolbuffers",
     "pytest",
@@ -40,7 +45,8 @@
     "timestamptz",
     "uuidv",
     "volar",
-    "webp"
+    "webp",
+    "xeno"
   ],
   "cSpell.ignorePaths": [
     "gen/",
