@@ -188,7 +188,7 @@ func (q *Queries) UpdateCrawlState(ctx context.Context, arg UpdateCrawlStatePara
 
 const updateCrawlTitle = `-- name: UpdateCrawlTitle :exec
 UPDATE crawls
-SET title = $1
+SET title = COALESCE(title, $1)
 WHERE id = $2
 `
 

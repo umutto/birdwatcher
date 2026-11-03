@@ -11,7 +11,7 @@ LIMIT 1;
 
 -- name: UpdateCrawlTitle :exec
 UPDATE crawls
-SET title = @title
+SET title = COALESCE(title, @title)
 WHERE id = @id;
 
 -- name: UpdateCrawlState :one
