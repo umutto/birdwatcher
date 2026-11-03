@@ -58,7 +58,7 @@ flowchart TD
 
 | Directory | Stack | Port | Purpose |
 | :--- | :--- | :--- | :--- |
-| [`services/catalog`](services/catalog) | Go (`net/http`, `pgx`, `sqlc`) | `8080` | Owns PostgreSQL storage, records sightings from NATS, and serves the REST API and CLI. See [README](services/catalog/README.md). |
+| [`services/catalog`](services/catalog) | Go (`net/http`, `pgx`, `sqlc`) | `8080` | Owns PostgreSQL storage, records sightings from NATS, and serves the REST API and CLI. |
 | [`services/frontier`](services/frontier) | Go (`gRPC`, NATS) | `9090` | Breadth-first URL queue, visited-link deduplication, `robots.txt` checks, and host rate limiting. |
 | [`services/scraper`](services/scraper) | Go (`net/http`, `goquery`) | — | Stateless worker that fetches HTML and extracts links, text, and image URLs. |
 | [`services/textparser`](services/textparser) | Go (Aho-Corasick, NLP) | — | Worker that scans scraped text for bird names and aliases using Aho-Corasick matching and NLP. |
