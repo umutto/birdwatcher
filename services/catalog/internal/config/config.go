@@ -48,7 +48,6 @@ type Config struct {
 // Load reads environment variables and returns a validated Config.
 func Load() (*Config, error) {
 	var errs []error
-	var err error
 
 	port, err := env.Int32("PORT", 8080)
 	errs = append(errs, err)

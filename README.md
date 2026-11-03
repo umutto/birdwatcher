@@ -229,7 +229,12 @@ Run tasks from the repository root using `make`:
 - [ ] `textparser` Aho-Corasick bird name matcher
 - [ ] `vision` Python image classification worker
 - [ ] `web` dashboard views for browsing the catalog and monitoring crawls
-- [ ] **(Bonus)** OpenTelemetry distributed tracing (`shared/telemetry`) and Terraform cloud deployment
+
+### Stretch Goals & Extensions
+
+- [ ] **Observability**: OpenTelemetry distributed tracing (`shared/telemetry`) across services
+- [ ] **Cloud Hosting**: Terraform / OpenTofu zero-cost infrastructure (`deploy/`)
+- [ ] **CLI Client**: Terminal client for dispatching crawls and exploring sightings (`catalog/cmd/cli`)
 
 ---
 
