@@ -30,7 +30,6 @@ enum CrawlStatus {
 // Pipeline Events
 // -----------------------------------------------------------------------------
 
-
 // PageFetchRequested is published by frontier to instruct scraper to fetch a URL.
 // Subject: birdwatcher.v1.page.fetch
 message PageFetchRequested {
@@ -63,7 +62,7 @@ message PageScraped {
 message SightingText {
   EventMetadata meta = 1;
   string url = 2;
-  string species = 3; // Bird common name (e.g. "Bald Eagle")
+  int32 plate_number = 3; // Audubon plate number (1-435)
   float confidence = 4; // Confidence score between 0.0 and 1.0
   string snippet = 5; // Context snippet containing the bird name
 }
@@ -73,7 +72,7 @@ message SightingText {
 message SightingImage {
   EventMetadata meta = 1;
   string url = 2;
-  string species = 3; // Bird common name (e.g. "Bald Eagle")
+  int32 plate_number = 3; // Audubon plate number (1-435)
   float confidence = 4; // Classifier confidence score between 0.0 and 1.0
   string image_url = 5;
 }

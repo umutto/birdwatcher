@@ -25,7 +25,7 @@ _sym_db = _symbol_database.Default()
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1b\x62irdwatcher/v1/events.proto\x12\x0e\x62irdwatcher.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"\x96\x01\n\rEventMetadata\x12\x19\n\x08\x65vent_id\x18\x01 \x01(\tR\x07\x65ventId\x12\x15\n\x06job_id\x18\x02 \x01(\tR\x05jobId\x12\x19\n\x08trace_id\x18\x03 \x01(\tR\x07traceId\x12\x38\n\ttimestamp\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.TimestampR\ttimestamp\"o\n\x12PageFetchRequested\x12\x31\n\x04meta\x18\x01 \x01(\x0b\x32\x1d.birdwatcher.v1.EventMetadataR\x04meta\x12\x10\n\x03url\x18\x02 \x01(\tR\x03url\x12\x14\n\x05\x64\x65pth\x18\x03 \x01(\x05R\x05\x64\x65pth\"\x92\x01\n\rUrlDiscovered\x12\x31\n\x04meta\x18\x01 \x01(\x0b\x32\x1d.birdwatcher.v1.EventMetadataR\x04meta\x12\x1d\n\nparent_url\x18\x02 \x01(\tR\tparentUrl\x12\x19\n\x08new_urls\x18\x03 \x03(\tR\x07newUrls\x12\x14\n\x05\x64\x65pth\x18\x04 \x01(\x05R\x05\x64\x65pth\"\xa4\x01\n\x0bPageScraped\x12\x31\n\x04meta\x18\x01 \x01(\x0b\x32\x1d.birdwatcher.v1.EventMetadataR\x04meta\x12\x10\n\x03url\x18\x02 \x01(\tR\x03url\x12\x14\n\x05title\x18\x03 \x01(\tR\x05title\x12\x1b\n\tbody_text\x18\x04 \x01(\tR\x08\x62odyText\x12\x1d\n\nimage_urls\x18\x05 \x03(\tR\timageUrls\"\xa7\x01\n\x0cSightingText\x12\x31\n\x04meta\x18\x01 \x01(\x0b\x32\x1d.birdwatcher.v1.EventMetadataR\x04meta\x12\x10\n\x03url\x18\x02 \x01(\tR\x03url\x12\x18\n\x07species\x18\x03 \x01(\tR\x07species\x12\x1e\n\nconfidence\x18\x04 \x01(\x02R\nconfidence\x12\x18\n\x07snippet\x18\x05 \x01(\tR\x07snippet\"\xab\x01\n\rSightingImage\x12\x31\n\x04meta\x18\x01 \x01(\x0b\x32\x1d.birdwatcher.v1.EventMetadataR\x04meta\x12\x10\n\x03url\x18\x02 \x01(\tR\x03url\x12\x18\n\x07species\x18\x03 \x01(\tR\x07species\x12\x1e\n\nconfidence\x18\x04 \x01(\x02R\nconfidence\x12\x1b\n\timage_url\x18\x05 \x01(\tR\x08imageUrl\"\x9b\x01\n\x0cJobCompleted\x12\x31\n\x04meta\x18\x01 \x01(\x0b\x32\x1d.birdwatcher.v1.EventMetadataR\x04meta\x12\x33\n\x06status\x18\x02 \x01(\x0e\x32\x1b.birdwatcher.v1.CrawlStatusR\x06status\x12#\n\rerror_message\x18\x03 \x01(\tR\x0c\x65rrorMessage*|\n\x0b\x43rawlStatus\x12\x1c\n\x18\x43RAWL_STATUS_UNSPECIFIED\x10\x00\x12\x1a\n\x16\x43RAWL_STATUS_COMPLETED\x10\x01\x12\x17\n\x13\x43RAWL_STATUS_FAILED\x10\x02\x12\x1a\n\x16\x43RAWL_STATUS_CANCELLED\x10\x03\x42\x43ZAgithub.com/umutto/birdwatcher/gen/go/birdwatcher/v1;birdwatcherv1b\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1b\x62irdwatcher/v1/events.proto\x12\x0e\x62irdwatcher.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"\x96\x01\n\rEventMetadata\x12\x19\n\x08\x65vent_id\x18\x01 \x01(\tR\x07\x65ventId\x12\x15\n\x06job_id\x18\x02 \x01(\tR\x05jobId\x12\x19\n\x08trace_id\x18\x03 \x01(\tR\x07traceId\x12\x38\n\ttimestamp\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.TimestampR\ttimestamp\"o\n\x12PageFetchRequested\x12\x31\n\x04meta\x18\x01 \x01(\x0b\x32\x1d.birdwatcher.v1.EventMetadataR\x04meta\x12\x10\n\x03url\x18\x02 \x01(\tR\x03url\x12\x14\n\x05\x64\x65pth\x18\x03 \x01(\x05R\x05\x64\x65pth\"\x92\x01\n\rUrlDiscovered\x12\x31\n\x04meta\x18\x01 \x01(\x0b\x32\x1d.birdwatcher.v1.EventMetadataR\x04meta\x12\x1d\n\nparent_url\x18\x02 \x01(\tR\tparentUrl\x12\x19\n\x08new_urls\x18\x03 \x03(\tR\x07newUrls\x12\x14\n\x05\x64\x65pth\x18\x04 \x01(\x05R\x05\x64\x65pth\"\xa4\x01\n\x0bPageScraped\x12\x31\n\x04meta\x18\x01 \x01(\x0b\x32\x1d.birdwatcher.v1.EventMetadataR\x04meta\x12\x10\n\x03url\x18\x02 \x01(\tR\x03url\x12\x14\n\x05title\x18\x03 \x01(\tR\x05title\x12\x1b\n\tbody_text\x18\x04 \x01(\tR\x08\x62odyText\x12\x1d\n\nimage_urls\x18\x05 \x03(\tR\timageUrls\"\xb0\x01\n\x0cSightingText\x12\x31\n\x04meta\x18\x01 \x01(\x0b\x32\x1d.birdwatcher.v1.EventMetadataR\x04meta\x12\x10\n\x03url\x18\x02 \x01(\tR\x03url\x12!\n\x0cplate_number\x18\x03 \x01(\x05R\x0bplateNumber\x12\x1e\n\nconfidence\x18\x04 \x01(\x02R\nconfidence\x12\x18\n\x07snippet\x18\x05 \x01(\tR\x07snippet\"\xb4\x01\n\rSightingImage\x12\x31\n\x04meta\x18\x01 \x01(\x0b\x32\x1d.birdwatcher.v1.EventMetadataR\x04meta\x12\x10\n\x03url\x18\x02 \x01(\tR\x03url\x12!\n\x0cplate_number\x18\x03 \x01(\x05R\x0bplateNumber\x12\x1e\n\nconfidence\x18\x04 \x01(\x02R\nconfidence\x12\x1b\n\timage_url\x18\x05 \x01(\tR\x08imageUrl\"\x9b\x01\n\x0cJobCompleted\x12\x31\n\x04meta\x18\x01 \x01(\x0b\x32\x1d.birdwatcher.v1.EventMetadataR\x04meta\x12\x33\n\x06status\x18\x02 \x01(\x0e\x32\x1b.birdwatcher.v1.CrawlStatusR\x06status\x12#\n\rerror_message\x18\x03 \x01(\tR\x0c\x65rrorMessage*|\n\x0b\x43rawlStatus\x12\x1c\n\x18\x43RAWL_STATUS_UNSPECIFIED\x10\x00\x12\x1a\n\x16\x43RAWL_STATUS_COMPLETED\x10\x01\x12\x17\n\x13\x43RAWL_STATUS_FAILED\x10\x02\x12\x1a\n\x16\x43RAWL_STATUS_CANCELLED\x10\x03\x42\x43ZAgithub.com/umutto/birdwatcher/gen/go/birdwatcher/v1;birdwatcherv1b\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -33,8 +33,8 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'birdwatcher.v1.events_pb2',
 if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
   _globals['DESCRIPTOR']._serialized_options = b'ZAgithub.com/umutto/birdwatcher/gen/go/birdwatcher/v1;birdwatcherv1'
-  _globals['_CRAWLSTATUS']._serialized_start=1164
-  _globals['_CRAWLSTATUS']._serialized_end=1288
+  _globals['_CRAWLSTATUS']._serialized_start=1182
+  _globals['_CRAWLSTATUS']._serialized_end=1306
   _globals['_EVENTMETADATA']._serialized_start=81
   _globals['_EVENTMETADATA']._serialized_end=231
   _globals['_PAGEFETCHREQUESTED']._serialized_start=233
@@ -44,9 +44,9 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_PAGESCRAPED']._serialized_start=496
   _globals['_PAGESCRAPED']._serialized_end=660
   _globals['_SIGHTINGTEXT']._serialized_start=663
-  _globals['_SIGHTINGTEXT']._serialized_end=830
-  _globals['_SIGHTINGIMAGE']._serialized_start=833
-  _globals['_SIGHTINGIMAGE']._serialized_end=1004
-  _globals['_JOBCOMPLETED']._serialized_start=1007
-  _globals['_JOBCOMPLETED']._serialized_end=1162
+  _globals['_SIGHTINGTEXT']._serialized_end=839
+  _globals['_SIGHTINGIMAGE']._serialized_start=842
+  _globals['_SIGHTINGIMAGE']._serialized_end=1022
+  _globals['_JOBCOMPLETED']._serialized_start=1025
+  _globals['_JOBCOMPLETED']._serialized_end=1180
 # @@protoc_insertion_point(module_scope)
