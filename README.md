@@ -15,6 +15,17 @@
 
 ## How It Works
 
+1. **Submit a Job**: A user submits a URL through the Vue dashboard (`web`) or CLI to `catalog` (`POST /api/v1/crawls`).
+2. **Schedule URLs**: `catalog` records the crawl in PostgreSQL and calls `frontier` over gRPC (`FrontierService.StartJob`). `frontier` tracks visited links, enforces domain rate limits, and publishes `PageFetchRequested` events to NATS JetStream.
+3. **Scrape Content**: `scraper` workers fetch the HTML page, send discovered `<a href>` links back to `frontier` via `UrlDiscovered`, and publish the page title, text, and `<img src>` URLs via `PageScraped`.
+4. **Detect Birds**: Two services process `PageScraped` in parallel:
+   - `textparser` uses Aho-Corasick string matching and text normalization to scan page text for bird common names, scientific names, and aliases, emitting `SightingText`.
+   - `vision` downloads page images, classifies birds using a computer vision model, and emits `SightingImage`.
+5. **Index Results**: `catalog` consumes sighting and completion events, saves observations to PostgreSQL, and serves crawl progress and the species catalog to the frontend and CLI.
+
+<details open>
+<summary><b>System Architecture Diagram</b></summary>
+
 ```mermaid
 flowchart TD
     SPA["web (Vue 3 Dashboard)"] <-->|HTTP REST| CAT["catalog (Go API & CLI)"]
@@ -39,13 +50,7 @@ flowchart TD
 
 > **Diagram key**: Solid lines (`-->`) show direct requests and published events; dashed lines (`-.->`) show workers subscribing to events from NATS JetStream.
 
-1. **Submit a Job**: A user submits a URL through the Vue dashboard (`web`) or CLI to `catalog` (`POST /api/v1/crawls`).
-2. **Schedule URLs**: `catalog` records the crawl in PostgreSQL and calls `frontier` over gRPC (`FrontierService.StartJob`). `frontier` tracks visited links, enforces domain rate limits, and publishes `PageFetchRequested` events to NATS JetStream.
-3. **Scrape Content**: `scraper` workers fetch the HTML page, send discovered `<a href>` links back to `frontier` via `UrlDiscovered`, and publish the page title, text, and `<img src>` URLs via `PageScraped`.
-4. **Detect Birds**: Two services process `PageScraped` in parallel:
-   - `textparser` uses Aho-Corasick string matching and text normalization to scan page text for bird common names, scientific names, and aliases, emitting `SightingText`.
-   - `vision` downloads page images, classifies birds using a computer vision model, and emits `SightingImage`.
-5. **Index Results**: `catalog` consumes sighting and completion events, saves observations to PostgreSQL, and serves crawl progress and the species catalog to the frontend and CLI.
+</details>
 
 ---
 
@@ -53,7 +58,7 @@ flowchart TD
 
 | Directory | Stack | Port | Purpose |
 | :--- | :--- | :--- | :--- |
-| `services/catalog` | Go (`net/http`, `pgx`, `sqlc`) | `8080` | Owns the PostgreSQL database, records sightings from NATS, and exposes two interfaces: an HTTP API backend for `web` (`cmd/catalog`) and a CLI (`cmd/cli`). |
+| [`services/catalog`](services/catalog) | Go (`net/http`, `pgx`, `sqlc`) | `8080` | Owns PostgreSQL storage, records sightings from NATS, and serves the REST API and CLI. See [README](services/catalog/README.md). |
 | `services/frontier` | Go (`gRPC`, NATS) | `9090` | Breadth-first URL queue, visited-link deduplication, `robots.txt` checks, and host rate limiting. |
 | `services/scraper` | Go (`net/http`, `goquery`) | — | Stateless worker that fetches HTML and extracts links, text, and image URLs. |
 | `services/textparser` | Go (Aho-Corasick, NLP) | — | Worker that scans scraped text for bird names and aliases using Aho-Corasick matching and NLP. |
@@ -79,31 +84,17 @@ All async events use Protobuf binary encoding on the `BIRDWATCHER` stream (`bird
 
 ## Prerequisites
 
-Make sure the following tools are installed on your system (Linux / macOS / WSL2):
+Make sure the following runtimes are installed on your system (Linux / macOS / WSL2):
 
 - **Go** `1.27+`
 - **Python** `3.14+` with [**uv**](https://docs.astral.sh/uv/)
 - **Node.js** `24+` with [**pnpm**](https://pnpm.io/)
 - **Docker** & **Docker Compose**
 
-Install the project CLI tools:
+Install the project development tools (`buf`, `sqlc`, `goose`, `golangci-lint`, `air`, `sqruff`):
 
 ```bash
-# Protobuf compiler & linter
-go install github.com/bufbuild/buf/cmd/buf@latest
-
-# Type-safe SQL generator & database migration runner
-go install github.com/sqlc-dev/sqlc/cmd/sqlc@latest
-go install github.com/pressly/goose/v3/cmd/goose@latest
-
-# Go linter
-go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
-
-# Optional: live-reload runner for local Go development
-go install github.com/air-verse/air@latest
-
-# SQL linter & formatter
-uv tool install sqruff
+make tools
 ```
 
 ---
@@ -121,24 +112,17 @@ for svc in catalog frontier scraper textparser vision; do
 done
 ```
 
-### 2. Start Local Infrastructure
+### 2. Start Local Infrastructure & Seed Data
 
-Start **NATS JetStream** (`localhost:4222`, monitoring at `http://localhost:8222`) and **PostgreSQL 18** (`localhost:5432`):
+Start **NATS JetStream** (`localhost:4222`, monitoring at `http://localhost:8222`) and **PostgreSQL 18** (`localhost:5432`), apply schema migrations, and seed the Audubon catalog:
 
 ```bash
 make up
-```
-
-### 3. Run Migrations & Seed the Catalog
-
-Apply the database schema and populate the 435 Audubon bird species:
-
-```bash
 make migrate
 make seed
 ```
 
-### 4. Set Up Git Hooks
+### 3. Set Up Git Hooks
 
 Enable the pre-push hook to check for `sqlc`, `buf`, and `go.work.sum` drift before pushing:
 
@@ -146,7 +130,7 @@ Enable the pre-push hook to check for `sqlc`, `buf`, and `go.work.sum` drift bef
 make setup-hooks
 ```
 
-### 5. Run the Application
+### 4. Run the Application
 
 ```bash
 # Run Catalog API with live reload (http://localhost:8080)
@@ -166,52 +150,18 @@ cd web && pnpm install && pnpm dev
 
 ---
 
-## Development Commands
+## API & Documentation
 
-Run tasks from the repository root using `make`:
-
-| Command | Description |
-| :--- | :--- |
-| `make up` / `make down` | Start or stop NATS JetStream and PostgreSQL containers. |
-| `make migrate` / `make migrate-reset` | Apply or roll back PostgreSQL migrations with `goose`. |
-| `make seed` | Seed the 435 Audubon species into PostgreSQL. |
-| `make proto` | Generate Go and Python stubs from `proto/` using `buf`. |
-| `make sqlc` | Generate Go database queries in `services/catalog` using `sqlc`. |
-| `make lint` | Run all linters (`buf`, `golangci-lint`, `ruff`, `sqlc`, `sqruff`). |
-| `make format` | Format Go (`gofmt`), Python (`ruff`), and SQL (`sqruff`) files. |
-| `make test` | Run Go and Python test suites. |
-| `make verify` | Run pre-push code generation and workspace drift checks manually. |
-| `make dev` | Run `services/catalog` with `air` hot-reloading. |
-
-> **Go Workspace Note**: This repository uses `go.work` to link local Go modules (`gen/go`, `shared/*`, `services/*`). Run `go work sync` at the root to sync dependencies instead of running `go mod tidy` inside individual modules.
-
----
-
-## Catalog HTTP API
-
-`services/catalog` serves the following endpoints on port `8080`:
-
-| Method & Path | Description |
-| :--- | :--- |
-| `GET /livez`, `GET /healthz` | Liveness check (`200 OK`). |
-| `GET /readyz` | Readiness check (verifies PostgreSQL connectivity). |
-| `GET /api/v1/species` | List all 435 bird species. |
-| `GET /api/v1/species/dictionary` | Lightweight list of species names, scientific names, and aliases for text matching. |
-| `GET /api/v1/species/{plate}` | Get details for a single species by Audubon plate number (`1–435`). |
-| `GET /api/v1/species/{plate}/sightings` | List paginated sightings for a specific species. |
-| `POST /api/v1/crawls` | Create a new crawl job and dispatch it to `frontier`. |
-| `GET /api/v1/crawls` | List paginated crawl jobs with sighting summaries. |
-| `GET /api/v1/crawls/{id}` | Get details and progress counters for a crawl job. |
-| `GET /api/v1/crawls/{id}/catalog` | List all 435 species with sighting counts for a specific crawl. |
-| `GET /api/v1/crawls/{id}/sightings` | List paginated sightings discovered during a crawl. |
+- **Catalog HTTP REST API**: Full endpoint documentation and health probes are documented in [`services/catalog/README.md`](services/catalog/README.md).
+- **Event & gRPC Schemas**: Protobuf contracts for async NATS JetStream events and gRPC service definitions are located in [`proto/birdwatcher/v1`](proto/birdwatcher/v1).
 
 ---
 
 ## CI/CD & Deployment
 
-- **Continuous Integration (`.github/workflows/ci.yml`)**: Path-filtered GitHub Actions jobs verify Protobuf drift (`buf`), SQL generation and linting (`sqlc`, `sqruff`), Go linting and race-enabled tests (`golangci-lint`, `go test -race`), Python checks (`ruff`, `pytest`), and frontend builds (`oxlint`, `eslint`, `oxfmt`, `vue-tsc`, `vite`).
-- **Container Registry**: Pushes to `main` build multi-stage Docker images for modified services and publish them to GitHub Container Registry (`ghcr.io/umutto/birdwatcher/<service>`).
-- **Cloud Infrastructure (`deploy/`)**: Designed for zero-cost hosting using Terraform/OpenTofu with Google Cloud Run (scale-to-zero services), GCP Compute Engine `e2-micro` (NATS JetStream), Google Cloud Storage (bird plates and audio), Neon (serverless PostgreSQL), and Cloudflare (DNS and CDN).
+- **Continuous Integration (`.github/workflows/ci.yml`)**: Path-filtered GitHub Actions verify Protobuf schemas (`buf`), SQL generation (`sqlc`, `sqruff`), Go race-enabled tests and linters (`golangci-lint`), Python suites (`ruff`, `pytest`), and frontend builds.
+- **Container Registry**: Pushes to `main` build multi-stage Docker images published to GitHub Container Registry (`ghcr.io/umutto/birdwatcher/<service>`).
+- **Cloud Infrastructure (`deploy/`)**: Zero-cost hosting architecture using Terraform/OpenTofu targeting Google Cloud Run, Neon (serverless PostgreSQL), GCP Compute Engine `e2-micro` (NATS JetStream), and Cloudflare (DNS and CDN).
 
 ---
 

@@ -1,4 +1,4 @@
-.PHONY: proto sqlc migrate migrate-reset seed lint lint-proto lint-go lint-python lint-sql format format-go format-sql format-python test test-go test-python verify setup-hooks up down watch-catalog dev
+.PHONY: proto sqlc migrate migrate-reset seed lint lint-proto lint-go lint-python lint-sql format format-go format-sql format-python test test-go test-python verify setup-hooks up down watch-catalog dev tools
 
 GO_MODULES := \
 	./services/catalog/... \
@@ -66,6 +66,14 @@ verify:
 setup-hooks:
 	git config core.hooksPath .githooks
 	chmod +x .githooks/pre-push
+
+tools:
+	go install github.com/bufbuild/buf/cmd/buf@latest
+	go install github.com/sqlc-dev/sqlc/cmd/sqlc@latest
+	go install github.com/pressly/goose/v3/cmd/goose@latest
+	go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+	go install github.com/air-verse/air@latest
+	uv tool install sqruff
 
 up:
 	docker compose up -d
