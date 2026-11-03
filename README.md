@@ -59,13 +59,13 @@ flowchart TD
 | Directory | Stack | Port | Purpose |
 | :--- | :--- | :--- | :--- |
 | [`services/catalog`](services/catalog) | Go (`net/http`, `pgx`, `sqlc`) | `8080` | Owns PostgreSQL storage, records sightings from NATS, and serves the REST API and CLI. See [README](services/catalog/README.md). |
-| `services/frontier` | Go (`gRPC`, NATS) | `9090` | Breadth-first URL queue, visited-link deduplication, `robots.txt` checks, and host rate limiting. |
-| `services/scraper` | Go (`net/http`, `goquery`) | — | Stateless worker that fetches HTML and extracts links, text, and image URLs. |
-| `services/textparser` | Go (Aho-Corasick, NLP) | — | Worker that scans scraped text for bird names and aliases using Aho-Corasick matching and NLP. |
-| `services/vision` | Python 3.14+ (`uv`) | — | Worker that downloads scraped images and runs bird species classification. |
-| `web` | Vue 3, TypeScript, Vite, Tailwind v4 | `5173` | Single-page app for browsing the 435-species catalog and monitoring crawl jobs. |
-| `proto` & `gen` | Protobuf, Buf v2 | — | Shared gRPC and event schemas (`events.proto`, `frontier.proto`) and generated Go/Python code. |
-| `shared/*` | Go | — | Internal packages for config loading (`env`), structured logging (`logger`), NATS (`nats`), and tracing (`telemetry`). |
+| [`services/frontier`](services/frontier) | Go (`gRPC`, NATS) | `9090` | Breadth-first URL queue, visited-link deduplication, `robots.txt` checks, and host rate limiting. |
+| [`services/scraper`](services/scraper) | Go (`net/http`, `goquery`) | — | Stateless worker that fetches HTML and extracts links, text, and image URLs. |
+| [`services/textparser`](services/textparser) | Go (Aho-Corasick, NLP) | — | Worker that scans scraped text for bird names and aliases using Aho-Corasick matching and NLP. |
+| [`services/vision`](services/vision) | Python 3.14+ (`uv`) | — | Worker that downloads scraped images and runs bird species classification. |
+| [`web`](web) | Vue 3, TypeScript, Vite, Tailwind v4 | `5173` | Single-page app for browsing the 435-species catalog and monitoring crawl jobs. |
+| [`proto`](proto) & [`gen`](gen) | Protobuf, Buf v2 | — | Shared gRPC and event schemas (`events.proto`, `frontier.proto`) and generated Go/Python code. |
+| [`shared/*`](shared) | Go | — | Internal packages for config loading (`env`), structured logging (`logger`), NATS (`nats`), and tracing (`telemetry`). |
 
 ### NATS JetStream Events
 

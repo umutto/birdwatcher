@@ -1,0 +1,7 @@
+default: true
+MD033:
+  allowed_elements:
+    - details
+    - summary
+    - b
+MD0013: false
