@@ -58,10 +58,10 @@ type mockMsg struct {
 }
 
 func (m *mockMsg) Subject() string { return m.subject }
-func (m *mockMsg) Data() []byte     { return m.data }
-func (m *mockMsg) Ack() error       { m.acked = true; return nil }
-func (m *mockMsg) Nak() error       { m.naked = true; return nil }
-func (m *mockMsg) Term() error      { m.termed = true; return nil }
+func (m *mockMsg) Data() []byte    { return m.data }
+func (m *mockMsg) Ack() error      { m.acked = true; return nil }
+func (m *mockMsg) Nak() error      { m.naked = true; return nil }
+func (m *mockMsg) Term() error     { m.termed = true; return nil }
 
 func TestConsumer_HandlePageScraped(t *testing.T) {
 	t.Run("successfully updates title and increments progress", func(t *testing.T) {
