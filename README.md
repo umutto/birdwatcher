@@ -217,16 +217,19 @@ Run tasks from the repository root using `make`:
 
 ## Project Status (Work in Progress)
 
-- [x] Monorepo setup, Protobuf contracts (`buf`), and GitHub Actions CI/CD pipeline
+- [x] Polyglot monorepo setup (`go.work`, `uv`, `pnpm`) and GitHub Actions CI/CD pipeline
+- [x] Protobuf event & gRPC contracts (`buf`) with generated Go and Python stubs
 - [x] Shared Go packages for config (`env`), structured logging (`logger`), and NATS JetStream (`nats`)
-- [x] `catalog` PostgreSQL schema, 435-species Audubon seed tool, REST API, and gRPC job dispatch
-- [ ] `catalog` NATS consumer for saving sightings and job status updates
-- [ ] `frontier` gRPC server, BFS URL queue, deduplication, and rate limiting
+- [x] PostgreSQL 18 schema, `sqlc` repository layer, and 435-species Audubon dataset & seed tool
+- [x] `catalog` HTTP REST API, health probes, and gRPC crawl job dispatch to `frontier`
+- [x] `web` Vue 3 + TypeScript + Tailwind v4 + TanStack Query project scaffolding
+- [ ] `catalog` NATS consumer for recording sightings and crawl progress
+- [ ] `frontier` gRPC server, BFS URL queue, deduplication, and host rate limiting
 - [ ] `scraper` HTML fetcher and link/text/image extractor
 - [ ] `textparser` Aho-Corasick bird name matcher
 - [ ] `vision` Python image classification worker
-- [ ] `web` Vue 3 dashboard views for browsing the catalog and monitoring crawls
-- [ ] OpenTelemetry distributed tracing (`shared/telemetry`) and Terraform cloud deployment
+- [ ] `web` dashboard views for browsing the catalog and monitoring crawls
+- [ ] **(Bonus)** OpenTelemetry distributed tracing (`shared/telemetry`) and Terraform cloud deployment
 
 ---
 
