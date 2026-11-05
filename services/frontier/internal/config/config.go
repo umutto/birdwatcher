@@ -19,6 +19,11 @@ type NATSConfig struct {
 	URL string
 }
 
+// ValkeyConfig holds connection parameters for the Valkey instance.
+type ValkeyConfig struct {
+	Addr string
+}
+
 // CrawlConfig holds scheduling, rate limiting and politeness parameters.
 type CrawlConfig struct {
 	HostDelay          time.Duration
@@ -30,6 +35,7 @@ type Config struct {
 	Env    env.Environment
 	Server ServerConfig
 	NATS   NATSConfig
+	Valkey ValkeyConfig
 	Crawl  CrawlConfig
 }
 
@@ -41,6 +47,8 @@ func Load() (*Config, error) {
 	errs = append(errs, err)
 
 	natsURL := env.String("NATS_URL", "nats://localhost:4222")
+
+	valkeyAddr := env.String("VALKEY_ADDR", "localhost:6379")
 
 	hostDelay, err := env.Duration("CRAWL_HOST_DELAY", 250*time.Millisecond)
 	errs = append(errs, err)
@@ -59,6 +67,9 @@ func Load() (*Config, error) {
 		},
 		NATS: NATSConfig{
 			URL: natsURL,
+		},
+		Valkey: ValkeyConfig{
+			Addr: valkeyAddr,
 		},
 		Crawl: CrawlConfig{
 			HostDelay:          hostDelay,
@@ -79,6 +90,9 @@ func (c *Config) Validate() error {
 	}
 	if strings.TrimSpace(c.NATS.URL) == "" {
 		return errors.New("nats url cannot be empty")
+	}
+	if strings.TrimSpace(c.Valkey.Addr) == "" {
+		return errors.New("valkey addr cannot be empty")
 	}
 	if c.Crawl.HostDelay < 0 {
 		return errors.New("host delay cannot be negative")

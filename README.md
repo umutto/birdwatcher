@@ -31,6 +31,7 @@ flowchart TD
     SPA["web (Vue 3 Dashboard)"] <-->|HTTP REST| CAT["catalog (Go API & CLI)"]
     CAT <-->|SQL| DB[(PostgreSQL 18)]
     CAT -->|gRPC: StartJob| FR["frontier (Go URL Queue & Rate Limiter)"]
+    FR <-->|Deduplication| VK[(Valkey 9)]
 
     FR -->|PageFetchRequested| NATS{{NATS JetStream}}
     NATS -.->|PageFetchRequested| SC["scraper (Go HTML Scraper)"]
@@ -59,7 +60,7 @@ flowchart TD
 | Directory | Stack | Port | Purpose |
 | :--- | :--- | :--- | :--- |
 | [`services/catalog`](services/catalog) | Go (`net/http`, `pgx`, `sqlc`) | `8080` | Owns PostgreSQL storage, records sightings from NATS, and serves the REST API and CLI. |
-| [`services/frontier`](services/frontier) | Go (`gRPC`, NATS) | `9090` | Breadth-first URL queue, visited-link deduplication, `robots.txt` checks, and host rate limiting. |
+| [`services/frontier`](services/frontier) | Go (`gRPC`, NATS, Valkey) | `9090` | Breadth-first URL queue, visited-link deduplication (Valkey), and host rate limiting. |
 | [`services/scraper`](services/scraper) | Go (`net/http`, `goquery`) | — | Stateless worker that fetches HTML and extracts links, text, and image URLs. |
 | [`services/textparser`](services/textparser) | Go (Aho-Corasick, NLP) | — | Worker that scans scraped text for bird names and aliases using Aho-Corasick matching and NLP. |
 | [`services/vision`](services/vision) | Python 3.14+ (`uv`) | — | Worker that downloads scraped images and runs bird species classification. |
@@ -114,7 +115,7 @@ done
 
 ### 2. Start Local Infrastructure & Seed Data
 
-Start **NATS JetStream** (`localhost:4222`, monitoring at `http://localhost:8222`) and **PostgreSQL 18** (`localhost:5432`), apply schema migrations, and seed the Audubon catalog:
+Start **NATS JetStream** (`localhost:4222`, monitoring at `http://localhost:8222`), **PostgreSQL 18** (`localhost:5432`), and **Valkey 9** (`localhost:6379`), apply schema migrations, and seed the Audubon catalog:
 
 ```bash
 make up

@@ -33,6 +33,13 @@ func TestConfig_Validate(t *testing.T) {
 			wantErr: true,
 		},
 		{
+			name: "empty valkey address",
+			mutate: func(c *config.Config) {
+				c.Valkey.Addr = " "
+			},
+			wantErr: true,
+		},
+		{
 			name: "negative host delay",
 			mutate: func(c *config.Config) {
 				c.Crawl.HostDelay = -1
@@ -68,6 +75,9 @@ func validConfig() *config.Config {
 		},
 		NATS: config.NATSConfig{
 			URL: "nats://localhost:4222",
+		},
+		Valkey: config.ValkeyConfig{
+			Addr: "localhost:6379",
 		},
 		Crawl: config.CrawlConfig{
 			HostDelay:          250 * time.Millisecond,

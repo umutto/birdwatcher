@@ -1,6 +1,7 @@
 {
   "cSpell.words": [
     "acked",
+    "appendonly",
     "birdwatcherv",
     "bufbuild",
     "bwnats",
@@ -35,6 +36,7 @@
     "protocolbuffers",
     "pytest",
     "Readyz",
+    "sadd",
     "sqlc",
     "sqlfluff",
     "sqruff",
@@ -44,6 +46,7 @@
     "textparser",
     "timestamptz",
     "uuidv",
+    "valkey",
     "volar",
     "webp",
     "xeno"
