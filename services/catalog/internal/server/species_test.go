@@ -50,7 +50,11 @@ func (m *mockSpeciesRepo) ListSightingsBySpecies(_ context.Context, _ repository
 }
 
 func TestServer_HandleListSpecies(t *testing.T) {
+	t.Parallel()
+
 	t.Run("returns 200 with a json list of all species", func(t *testing.T) {
+		t.Parallel()
+
 		want := []repository.Species{
 			{
 				PlateNumber:    11,
@@ -78,6 +82,8 @@ func TestServer_HandleListSpecies(t *testing.T) {
 	})
 
 	t.Run("returns 500 when repository fails", func(t *testing.T) {
+		t.Parallel()
+
 		s := server.New(
 			slog.New(slog.DiscardHandler),
 			config.ServerConfig{Port: 8080},
@@ -96,7 +102,11 @@ func TestServer_HandleListSpecies(t *testing.T) {
 }
 
 func TestServer_HandleListSpeciesDictionary(t *testing.T) {
+	t.Parallel()
+
 	t.Run("returns 200 with a json list of all species name attributes", func(t *testing.T) {
+		t.Parallel()
+
 		want := []repository.ListSpeciesDictionaryRow{
 			{
 				PlateNumber:    11,
@@ -122,6 +132,8 @@ func TestServer_HandleListSpeciesDictionary(t *testing.T) {
 	})
 
 	t.Run("returns 500 when repository fails", func(t *testing.T) {
+		t.Parallel()
+
 		s := server.New(
 			slog.New(slog.DiscardHandler),
 			config.ServerConfig{Port: 8080},
@@ -140,7 +152,11 @@ func TestServer_HandleListSpeciesDictionary(t *testing.T) {
 }
 
 func TestServer_HandleGetSpecies(t *testing.T) {
+	t.Parallel()
+
 	t.Run("returns 200 with the species details of a plate number", func(t *testing.T) {
+		t.Parallel()
+
 		want := repository.Species{
 			PlateNumber:    11,
 			CommonName:     "Bald Eagle",
@@ -166,6 +182,8 @@ func TestServer_HandleGetSpecies(t *testing.T) {
 	})
 
 	t.Run("returns 400 when plate number is invalid", func(t *testing.T) {
+		t.Parallel()
+
 		s := server.New(
 			slog.New(slog.DiscardHandler),
 			config.ServerConfig{Port: 8080},
@@ -183,6 +201,8 @@ func TestServer_HandleGetSpecies(t *testing.T) {
 	})
 
 	t.Run("returns 404 when species not found", func(t *testing.T) {
+		t.Parallel()
+
 		s := server.New(
 			slog.New(slog.DiscardHandler),
 			config.ServerConfig{Port: 8080},
@@ -200,6 +220,8 @@ func TestServer_HandleGetSpecies(t *testing.T) {
 	})
 
 	t.Run("returns 500 when repository fails", func(t *testing.T) {
+		t.Parallel()
+
 		s := server.New(
 			slog.New(slog.DiscardHandler),
 			config.ServerConfig{Port: 8080},
@@ -218,7 +240,11 @@ func TestServer_HandleGetSpecies(t *testing.T) {
 }
 
 func TestServer_HandleListSpeciesSightings(t *testing.T) {
+	t.Parallel()
+
 	t.Run("returns 200 with a json list of sightings for a plate number", func(t *testing.T) {
+		t.Parallel()
+
 		snippet := "saw a Bald Eagle perched near the river"
 		want := []repository.Sighting{
 			{
@@ -250,6 +276,8 @@ func TestServer_HandleListSpeciesSightings(t *testing.T) {
 	})
 
 	t.Run("returns 400 when plate number is invalid", func(t *testing.T) {
+		t.Parallel()
+
 		s := server.New(
 			slog.New(slog.DiscardHandler),
 			config.ServerConfig{Port: 8080},
@@ -267,6 +295,8 @@ func TestServer_HandleListSpeciesSightings(t *testing.T) {
 	})
 
 	t.Run("returns 500 when repository fails", func(t *testing.T) {
+		t.Parallel()
+
 		s := server.New(
 			slog.New(slog.DiscardHandler),
 			config.ServerConfig{Port: 8080},

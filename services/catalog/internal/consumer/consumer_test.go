@@ -64,7 +64,11 @@ func (m *mockMsg) Nak() error      { m.naked = true; return nil }
 func (m *mockMsg) Term() error     { m.termed = true; return nil }
 
 func TestConsumer_HandlePageScraped(t *testing.T) {
+	t.Parallel()
+
 	t.Run("successfully updates title and increments progress", func(t *testing.T) {
+		t.Parallel()
+
 		evt := &birdwatcherv1.PageScraped{
 			Meta:      &birdwatcherv1.EventMetadata{JobId: testCrawlID.String()},
 			Title:     "The Birds of America",
@@ -93,6 +97,8 @@ func TestConsumer_HandlePageScraped(t *testing.T) {
 	})
 
 	t.Run("naks when database fails", func(t *testing.T) {
+		t.Parallel()
+
 		evt := &birdwatcherv1.PageScraped{
 			Meta: &birdwatcherv1.EventMetadata{JobId: testCrawlID.String()},
 		}
@@ -113,6 +119,8 @@ func TestConsumer_HandlePageScraped(t *testing.T) {
 	})
 
 	t.Run("terms message when protobuf is malformed", func(t *testing.T) {
+		t.Parallel()
+
 		repo := &mockRepo{}
 		msg := &mockMsg{subject: nats.SubjectPageScraped, data: []byte("corrupt-bytes")}
 		c := New(slog.New(slog.DiscardHandler), repo, nil)
@@ -125,6 +133,8 @@ func TestConsumer_HandlePageScraped(t *testing.T) {
 	})
 
 	t.Run("terms message when job id is invalid uuid", func(t *testing.T) {
+		t.Parallel()
+
 		evt := &birdwatcherv1.PageScraped{
 			Meta: &birdwatcherv1.EventMetadata{JobId: "not-a-uuid"},
 		}
@@ -146,7 +156,11 @@ func TestConsumer_HandlePageScraped(t *testing.T) {
 }
 
 func TestConsumer_HandleSightingText(t *testing.T) {
+	t.Parallel()
+
 	t.Run("successfully records text sighting", func(t *testing.T) {
+		t.Parallel()
+
 		evt := &birdwatcherv1.SightingText{
 			Meta:               &birdwatcherv1.EventMetadata{JobId: testCrawlID.String()},
 			PageUrl:            "https://example.com/birds",
@@ -183,6 +197,8 @@ func TestConsumer_HandleSightingText(t *testing.T) {
 	})
 
 	t.Run("naks on database error", func(t *testing.T) {
+		t.Parallel()
+
 		evt := &birdwatcherv1.SightingText{
 			Meta:               &birdwatcherv1.EventMetadata{JobId: testCrawlID.String()},
 			SpeciesPlateNumber: 11,
@@ -205,7 +221,11 @@ func TestConsumer_HandleSightingText(t *testing.T) {
 }
 
 func TestConsumer_HandleSightingImage(t *testing.T) {
+	t.Parallel()
+
 	t.Run("successfully records image sighting", func(t *testing.T) {
+		t.Parallel()
+
 		evt := &birdwatcherv1.SightingImage{
 			Meta:               &birdwatcherv1.EventMetadata{JobId: testCrawlID.String()},
 			PageUrl:            "https://example.com/birds",
@@ -242,6 +262,8 @@ func TestConsumer_HandleSightingImage(t *testing.T) {
 	})
 
 	t.Run("naks on database error", func(t *testing.T) {
+		t.Parallel()
+
 		evt := &birdwatcherv1.SightingImage{
 			Meta:               &birdwatcherv1.EventMetadata{JobId: testCrawlID.String()},
 			SpeciesPlateNumber: 42,
@@ -264,7 +286,11 @@ func TestConsumer_HandleSightingImage(t *testing.T) {
 }
 
 func TestConsumer_HandleJobCompleted(t *testing.T) {
+	t.Parallel()
+
 	t.Run("successfully transitions crawl state", func(t *testing.T) {
+		t.Parallel()
+
 		evt := &birdwatcherv1.JobCompleted{
 			Meta:   &birdwatcherv1.EventMetadata{JobId: testCrawlID.String()},
 			Status: birdwatcherv1.CrawlStatus_CRAWL_STATUS_COMPLETED,
@@ -289,6 +315,8 @@ func TestConsumer_HandleJobCompleted(t *testing.T) {
 	})
 
 	t.Run("naks on database error", func(t *testing.T) {
+		t.Parallel()
+
 		evt := &birdwatcherv1.JobCompleted{
 			Meta:   &birdwatcherv1.EventMetadata{JobId: testCrawlID.String()},
 			Status: birdwatcherv1.CrawlStatus_CRAWL_STATUS_COMPLETED,
@@ -310,6 +338,8 @@ func TestConsumer_HandleJobCompleted(t *testing.T) {
 	})
 
 	t.Run("terms message on unsupported status", func(t *testing.T) {
+		t.Parallel()
+
 		evt := &birdwatcherv1.JobCompleted{
 			Meta:   &birdwatcherv1.EventMetadata{JobId: testCrawlID.String()},
 			Status: birdwatcherv1.CrawlStatus_CRAWL_STATUS_UNSPECIFIED,
@@ -332,6 +362,8 @@ func TestConsumer_HandleJobCompleted(t *testing.T) {
 }
 
 func TestConsumer_HandleMessage_UnknownSubject(t *testing.T) {
+	t.Parallel()
+
 	repo := &mockRepo{}
 	msg := &mockMsg{subject: "unknown.subject", data: []byte("data")}
 	c := New(slog.New(slog.DiscardHandler), repo, nil)

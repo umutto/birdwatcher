@@ -14,6 +14,8 @@ import (
 )
 
 func TestServer_StartJob(t *testing.T) {
+	t.Parallel()
+
 	const validJobID = "550e8400-e29b-41d4-a716-446655440000"
 	const validURL = "https://audubon.org"
 
@@ -96,6 +98,8 @@ func TestServer_StartJob(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
 			s := server.New(
 				slog.New(slog.DiscardHandler),
 				config.ServerConfig{Port: 9090},

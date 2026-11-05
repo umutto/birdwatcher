@@ -22,7 +22,11 @@ func (m *mockPinger) Ping(_ context.Context) error {
 }
 
 func TestServer_HandleLivez(t *testing.T) {
+	t.Parallel()
+
 	t.Run("returns 200 ok with valid status json", func(t *testing.T) {
+		t.Parallel()
+
 		s := server.New(
 			slog.New(slog.DiscardHandler),
 			config.ServerConfig{Port: 8080},
@@ -57,7 +61,11 @@ func TestServer_HandleLivez(t *testing.T) {
 }
 
 func TestServer_HandleReadyz(t *testing.T) {
+	t.Parallel()
+
 	t.Run("returns 200 ok when database is healthy", func(t *testing.T) {
+		t.Parallel()
+
 		s := server.New(
 			slog.New(slog.DiscardHandler),
 			config.ServerConfig{Port: 8080},
@@ -91,6 +99,8 @@ func TestServer_HandleReadyz(t *testing.T) {
 	})
 
 	t.Run("returns 503 service unavailable when database fails", func(t *testing.T) {
+		t.Parallel()
+
 		s := server.New(
 			slog.New(slog.DiscardHandler),
 			config.ServerConfig{Port: 8080},

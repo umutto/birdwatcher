@@ -86,7 +86,11 @@ func (m *mockFrontierClient) StartJob(_ context.Context, _ *birdwatcherv1.StartJ
 }
 
 func TestServer_HandleCreateCrawl(t *testing.T) {
+	t.Parallel()
+
 	t.Run("returns 201 with the created crawl", func(t *testing.T) {
+		t.Parallel()
+
 		want := mockCrawl
 		s := server.New(
 			slog.New(slog.DiscardHandler),
@@ -107,6 +111,8 @@ func TestServer_HandleCreateCrawl(t *testing.T) {
 	})
 
 	t.Run("returns 400 when request body is invalid", func(t *testing.T) {
+		t.Parallel()
+
 		s := server.New(
 			slog.New(slog.DiscardHandler),
 			config.ServerConfig{Port: 8080},
@@ -124,6 +130,8 @@ func TestServer_HandleCreateCrawl(t *testing.T) {
 	})
 
 	t.Run("returns 400 when target url is invalid", func(t *testing.T) {
+		t.Parallel()
+
 		s := server.New(
 			slog.New(slog.DiscardHandler),
 			config.ServerConfig{Port: 8080},
@@ -142,6 +150,8 @@ func TestServer_HandleCreateCrawl(t *testing.T) {
 	})
 
 	t.Run("returns 500 when frontier fails", func(t *testing.T) {
+		t.Parallel()
+
 		s := server.New(
 			slog.New(slog.DiscardHandler),
 			config.ServerConfig{Port: 8080},
@@ -160,6 +170,8 @@ func TestServer_HandleCreateCrawl(t *testing.T) {
 	})
 
 	t.Run("returns 500 when repository fails", func(t *testing.T) {
+		t.Parallel()
+
 		s := server.New(
 			slog.New(slog.DiscardHandler),
 			config.ServerConfig{Port: 8080},
@@ -179,7 +191,11 @@ func TestServer_HandleCreateCrawl(t *testing.T) {
 }
 
 func TestServer_HandleListCrawls(t *testing.T) {
+	t.Parallel()
+
 	t.Run("returns 200 with a json list of crawls", func(t *testing.T) {
+		t.Parallel()
+
 		want := []repository.ListCrawlsWithSummaryRow{
 			{
 				ID:                 crawlID,
@@ -206,6 +222,8 @@ func TestServer_HandleListCrawls(t *testing.T) {
 	})
 
 	t.Run("returns 500 when repository fails", func(t *testing.T) {
+		t.Parallel()
+
 		s := server.New(
 			slog.New(slog.DiscardHandler),
 			config.ServerConfig{Port: 8080},
@@ -224,7 +242,11 @@ func TestServer_HandleListCrawls(t *testing.T) {
 }
 
 func TestServer_HandleGetCrawl(t *testing.T) {
+	t.Parallel()
+
 	t.Run("returns 200 with the crawl details of a crawl id", func(t *testing.T) {
+		t.Parallel()
+
 		s := server.New(
 			slog.New(slog.DiscardHandler),
 			config.ServerConfig{Port: 8080},
@@ -242,6 +264,8 @@ func TestServer_HandleGetCrawl(t *testing.T) {
 	})
 
 	t.Run("returns 400 when crawl id is invalid", func(t *testing.T) {
+		t.Parallel()
+
 		s := server.New(
 			slog.New(slog.DiscardHandler),
 			config.ServerConfig{Port: 8080},
@@ -259,6 +283,8 @@ func TestServer_HandleGetCrawl(t *testing.T) {
 	})
 
 	t.Run("returns 404 when crawl not found", func(t *testing.T) {
+		t.Parallel()
+
 		s := server.New(
 			slog.New(slog.DiscardHandler),
 			config.ServerConfig{Port: 8080},
@@ -276,6 +302,8 @@ func TestServer_HandleGetCrawl(t *testing.T) {
 	})
 
 	t.Run("returns 500 when repository fails", func(t *testing.T) {
+		t.Parallel()
+
 		s := server.New(
 			slog.New(slog.DiscardHandler),
 			config.ServerConfig{Port: 8080},
@@ -294,7 +322,11 @@ func TestServer_HandleGetCrawl(t *testing.T) {
 }
 
 func TestServer_HandleGetCrawlCatalog(t *testing.T) {
+	t.Parallel()
+
 	t.Run("returns 200 with a json list of catalog species for a crawl id", func(t *testing.T) {
+		t.Parallel()
+
 		want := []repository.GetCatalogForCrawlRow{
 			{
 				PlateNumber:    11,
@@ -323,6 +355,8 @@ func TestServer_HandleGetCrawlCatalog(t *testing.T) {
 	})
 
 	t.Run("returns 400 when crawl id is invalid", func(t *testing.T) {
+		t.Parallel()
+
 		s := server.New(
 			slog.New(slog.DiscardHandler),
 			config.ServerConfig{Port: 8080},
@@ -340,6 +374,8 @@ func TestServer_HandleGetCrawlCatalog(t *testing.T) {
 	})
 
 	t.Run("returns 500 when repository fails", func(t *testing.T) {
+		t.Parallel()
+
 		s := server.New(
 			slog.New(slog.DiscardHandler),
 			config.ServerConfig{Port: 8080},
@@ -358,7 +394,11 @@ func TestServer_HandleGetCrawlCatalog(t *testing.T) {
 }
 
 func TestServer_HandleListCrawlSightings(t *testing.T) {
+	t.Parallel()
+
 	t.Run("returns 200 with a json list of sightings for a crawl id", func(t *testing.T) {
+		t.Parallel()
+
 		want := []repository.ListSightingsByCrawlRow{
 			{
 				ID:                 uuid.MustParse("0195c000-0000-7000-8000-000000000002"),
@@ -389,6 +429,8 @@ func TestServer_HandleListCrawlSightings(t *testing.T) {
 	})
 
 	t.Run("returns 400 when crawl id is invalid", func(t *testing.T) {
+		t.Parallel()
+
 		s := server.New(
 			slog.New(slog.DiscardHandler),
 			config.ServerConfig{Port: 8080},
@@ -406,6 +448,8 @@ func TestServer_HandleListCrawlSightings(t *testing.T) {
 	})
 
 	t.Run("returns 500 when repository fails", func(t *testing.T) {
+		t.Parallel()
+
 		s := server.New(
 			slog.New(slog.DiscardHandler),
 			config.ServerConfig{Port: 8080},

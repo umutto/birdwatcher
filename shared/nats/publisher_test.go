@@ -10,6 +10,8 @@ import (
 )
 
 func TestClient_PublishProto(t *testing.T) {
+	t.Parallel()
+
 	testSubject := bwnats.SubjectPageFetchRequested
 	testEvent := &birdwatcherv1.PageFetchRequested{
 		Meta: &birdwatcherv1.EventMetadata{
@@ -20,6 +22,8 @@ func TestClient_PublishProto(t *testing.T) {
 	}
 
 	t.Run("successfully publishes proto message to jetstream", func(t *testing.T) {
+		t.Parallel()
+
 		client := createTestClientWithStream(t)
 
 		ack, err := client.PublishProto(context.Background(), testSubject, testEvent)
@@ -37,6 +41,8 @@ func TestClient_PublishProto(t *testing.T) {
 	})
 
 	t.Run("fails when publishing nil message", func(t *testing.T) {
+		t.Parallel()
+
 		client := createTestClientWithStream(t)
 
 		_, err := client.PublishProto(context.Background(), testSubject, nil)
@@ -46,6 +52,8 @@ func TestClient_PublishProto(t *testing.T) {
 	})
 
 	t.Run("fails when context is canceled", func(t *testing.T) {
+		t.Parallel()
+
 		client := &bwnats.Client{}
 		ctx, cancel := context.WithCancel(context.Background())
 		cancel()
@@ -57,6 +65,8 @@ func TestClient_PublishProto(t *testing.T) {
 	})
 
 	t.Run("fails when client or jetstream is uninitialized", func(t *testing.T) {
+		t.Parallel()
+
 		var nilClient *bwnats.Client
 		if _, err := nilClient.PublishProto(context.Background(), testSubject, testEvent); err == nil {
 			t.Errorf("expected error on nil client pointer, got nil")

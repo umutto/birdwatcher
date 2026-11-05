@@ -9,7 +9,11 @@ import (
 )
 
 func TestClient_CreateOrUpdateStream(t *testing.T) {
+	t.Parallel()
+
 	t.Run("successfully creates stream with default config", func(t *testing.T) {
+		t.Parallel()
+
 		client := createTestClient(t)
 
 		cfg := bwnats.DefaultStreamConfig()
@@ -30,6 +34,8 @@ func TestClient_CreateOrUpdateStream(t *testing.T) {
 	})
 
 	t.Run("updates existing stream configuration idempotently", func(t *testing.T) {
+		t.Parallel()
+
 		client := createTestClient(t)
 
 		cfg := bwnats.DefaultStreamConfig()
@@ -54,6 +60,8 @@ func TestClient_CreateOrUpdateStream(t *testing.T) {
 	})
 
 	t.Run("fails when context is canceled", func(t *testing.T) {
+		t.Parallel()
+
 		client := createTestClient(t)
 
 		ctx, cancel := context.WithCancel(context.Background())
@@ -65,6 +73,8 @@ func TestClient_CreateOrUpdateStream(t *testing.T) {
 	})
 
 	t.Run("fails when client or jetstream is uninitialized", func(t *testing.T) {
+		t.Parallel()
+
 		client := &bwnats.Client{}
 
 		if _, err := client.CreateOrUpdateStream(context.Background(), bwnats.DefaultStreamConfig()); err == nil {

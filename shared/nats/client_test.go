@@ -11,7 +11,11 @@ import (
 )
 
 func TestConnect(t *testing.T) {
+	t.Parallel()
+
 	t.Run("successfully connects and closes with live JetStream broker", func(t *testing.T) {
+		t.Parallel()
+
 		url := startTestServer(t)
 
 		cfg := bwnats.DefaultConfig()
@@ -38,6 +42,8 @@ func TestConnect(t *testing.T) {
 	})
 
 	t.Run("fails on unreachable address", func(t *testing.T) {
+		t.Parallel()
+
 		cfg := bwnats.Config{
 			URL:     "nats://127.0.0.1:59999",
 			Timeout: 5 * time.Millisecond,
@@ -54,6 +60,8 @@ func TestConnect(t *testing.T) {
 	})
 
 	t.Run("fails when context is canceled", func(t *testing.T) {
+		t.Parallel()
+
 		ctx, cancel := context.WithCancel(context.Background())
 		cancel()
 		client, err := bwnats.Connect(ctx, bwnats.DefaultConfig(), nil)
@@ -68,12 +76,15 @@ func TestConnect(t *testing.T) {
 }
 
 func TestClient_Close(t *testing.T) {
+	t.Parallel()
+
 	t.Run("safe with nil connection", func(t *testing.T) {
+		t.Parallel()
+
 		client := &bwnats.Client{}
 		if err := client.Close(); err != nil {
 			t.Errorf("expected nil error on nil Conn close, got %v", err)
 		}
-
 	})
 }
 
