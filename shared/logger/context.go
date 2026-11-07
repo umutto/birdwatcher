@@ -5,6 +5,7 @@ import (
 	"log/slog"
 )
 
+// contextKey defines a private context key type to prevent context collisions.
 type contextKey struct{}
 
 var jobIDKey = contextKey{}
@@ -20,6 +21,7 @@ func JobIDFromContext(ctx context.Context) (string, bool) {
 	return val, ok
 }
 
+// contextKey defines a private context key type to prevent context collisions.
 type contextHandler struct {
 	slog.Handler
 }

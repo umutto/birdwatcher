@@ -37,6 +37,8 @@
     "pytest",
     "Readyz",
     "sadd",
+    "scard",
+    "sismember",
     "sqlc",
     "sqlfluff",
     "sqruff",

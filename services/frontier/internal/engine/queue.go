@@ -10,8 +10,8 @@ type Item struct {
 	// URL is the normalized target address to crawl.
 	URL string
 
-	// Depth is the crawl distance from the seed URL.
-	Depth int
+	// Depth is the crawl distance from the root URL.
+	Depth int32
 }
 
 // Queue is a thread-safe FIFO queue for crawl items.
