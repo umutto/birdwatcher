@@ -2,6 +2,7 @@ package server_test
 
 import (
 	"context"
+	"errors"
 	"log/slog"
 	"testing"
 
@@ -10,8 +11,19 @@ import (
 
 	birdwatcherv1 "github.com/umutto/birdwatcher/gen/go/birdwatcher/v1"
 	"github.com/umutto/birdwatcher/services/frontier/internal/config"
+	"github.com/umutto/birdwatcher/services/frontier/internal/engine"
 	"github.com/umutto/birdwatcher/services/frontier/internal/server"
 )
+
+// mockStarter implements server.Starter for testing.
+type mockStarter struct {
+	err error
+}
+
+// StartJob returns the configured mock error.
+func (m *mockStarter) StartJob(_ context.Context, _, _ string, _, _ int32) error {
+	return m.err
+}
 
 func TestServer_StartJob(t *testing.T) {
 	t.Parallel()
@@ -22,6 +34,7 @@ func TestServer_StartJob(t *testing.T) {
 	tests := []struct {
 		name     string
 		req      *birdwatcherv1.StartJobRequest
+		starter  server.Starter
 		wantCode codes.Code
 	}{
 		{
@@ -94,15 +107,43 @@ func TestServer_StartJob(t *testing.T) {
 			},
 			wantCode: codes.InvalidArgument,
 		},
+		{
+			name: "duplicate job error",
+			req: &birdwatcherv1.StartJobRequest{
+				JobId:    validJobID,
+				RootUrl:  validURL,
+				MaxDepth: 2,
+				MaxPages: 50,
+			},
+			starter:  &mockStarter{err: engine.ErrJobAlreadyExists},
+			wantCode: codes.AlreadyExists,
+		},
+		{
+			name: "internal engine failure",
+			req: &birdwatcherv1.StartJobRequest{
+				JobId:    validJobID,
+				RootUrl:  validURL,
+				MaxDepth: 2,
+				MaxPages: 50,
+			},
+			starter:  &mockStarter{err: errors.New("valkey store failed")},
+			wantCode: codes.Internal,
+		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
+			starter := tt.starter
+			if starter == nil {
+				starter = &mockStarter{}
+			}
+
 			s := server.New(
 				slog.New(slog.DiscardHandler),
 				config.ServerConfig{Port: 9090},
+				starter,
 			)
 
 			resp, err := s.StartJob(context.Background(), tt.req)

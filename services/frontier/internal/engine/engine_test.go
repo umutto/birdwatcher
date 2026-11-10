@@ -142,8 +142,8 @@ func TestEngine_StartJob(t *testing.T) {
 			t.Fatalf("initial StartJob() error = %v, want nil", err)
 		}
 
-		if err := eng.StartJob(ctx, "job-1", "https://example.com", 2, 10); err == nil {
-			t.Errorf("duplicate StartJob() error = nil, want error")
+		if err := eng.StartJob(ctx, "job-1", "https://example.com", 2, 10); !errors.Is(err, engine.ErrJobAlreadyExists) {
+			t.Errorf("duplicate StartJob() error = %v, want %v", err, engine.ErrJobAlreadyExists)
 		}
 	})
 }

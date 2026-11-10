@@ -66,7 +66,7 @@ func (c *Consumer) Start(ctx context.Context) error {
 	defer cc.Stop()
 
 	<-ctx.Done()
-	c.log.InfoContext(ctx, "shutting down jetstream consumer")
+	c.log.InfoContext(ctx, "shutting down jetstream consumer", slog.String("consumer", defaultConsumerName))
 
 	return nil
 }

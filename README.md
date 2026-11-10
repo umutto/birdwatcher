@@ -183,7 +183,7 @@ cd web && pnpm install && pnpm dev
 - [x] `catalog` HTTP REST API, health probes, and gRPC crawl job dispatch to `frontier`
 - [x] `web` Vue 3 + TypeScript + Tailwind v4 + TanStack Query project scaffolding
 - [x] `catalog` NATS consumer for recording sightings and crawl progress
-- [ ] `frontier` gRPC server, BFS URL queue, deduplication, and host rate limiting
+- [x] `frontier` gRPC server, BFS URL queue, deduplication, and host rate limiting
 - [ ] `scraper` HTML fetcher and link/text/image extractor
 - [ ] `textparser` Aho-Corasick bird name matcher
 - [ ] `vision` Python image classification worker

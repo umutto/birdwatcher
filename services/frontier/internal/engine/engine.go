@@ -13,6 +13,9 @@ import (
 	"github.com/umutto/birdwatcher/services/frontier/internal/config"
 )
 
+// ErrJobAlreadyExists indicates that a crawl job with the given ID is already registered.
+var ErrJobAlreadyExists = errors.New("job already exists")
+
 // defaultDispatchInterval is the polling frequency of the engine's background dispatch loop.
 const defaultDispatchInterval = 25 * time.Millisecond
 
@@ -80,7 +83,7 @@ func (e *Engine) StartJob(ctx context.Context, jobID, rootURL string, maxDepth, 
 	e.mu.Lock()
 	if _, ok := e.jobs[jobID]; ok {
 		e.mu.Unlock()
-		return fmt.Errorf("job %q already exists", jobID)
+		return fmt.Errorf("job %q: %w", jobID, ErrJobAlreadyExists)
 	}
 	e.jobs[jobID] = &jobState{
 		host:     parsed.Host,

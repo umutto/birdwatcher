@@ -3,6 +3,7 @@ package server
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"log/slog"
 	"net"
@@ -17,25 +18,33 @@ import (
 
 	birdwatcherv1 "github.com/umutto/birdwatcher/gen/go/birdwatcher/v1"
 	"github.com/umutto/birdwatcher/services/frontier/internal/config"
+	"github.com/umutto/birdwatcher/services/frontier/internal/engine"
 )
 
 const (
 	defaultShutdownTimeout = 15 * time.Second
 )
 
+// Starter initiates a crawl traversal for a given job.
+type Starter interface {
+	StartJob(ctx context.Context, jobID, rootURL string, maxDepth, maxPages int32) error
+}
+
 // Server implements the gRPC FrontierServiceServer interface.
 type Server struct {
 	birdwatcherv1.UnimplementedFrontierServiceServer
 
-	log *slog.Logger
-	cfg config.ServerConfig
+	log    *slog.Logger
+	cfg    config.ServerConfig
+	engine Starter
 }
 
 // New creates and initializes a new frontier gRPC Server instance.
-func New(log *slog.Logger, cfg config.ServerConfig) *Server {
+func New(log *slog.Logger, cfg config.ServerConfig, engine Starter) *Server {
 	return &Server{
-		log: log,
-		cfg: cfg,
+		log:    log,
+		cfg:    cfg,
+		engine: engine,
 	}
 }
 
@@ -110,9 +119,23 @@ func (s *Server) StartJob(
 		return nil, status.Error(codes.InvalidArgument, "invalid max_pages: must be greater than 0")
 	}
 
+	if err := s.engine.StartJob(ctx, jobID.String(), rootURL.String(), maxDepth, maxPages); err != nil {
+		if errors.Is(err, engine.ErrJobAlreadyExists) {
+			return nil, status.Error(codes.AlreadyExists, err.Error())
+		}
+
+		s.log.ErrorContext(
+			ctx,
+			"failed to start crawl job",
+			slog.String("job_id", jobID.String()),
+			slog.Any("error", err),
+		)
+		return nil, status.Errorf(codes.Internal, "start job: %v", err)
+	}
+
 	s.log.InfoContext(
 		ctx,
-		"start job",
+		"started crawl job",
 		slog.String("job_id", jobID.String()),
 		slog.String("root_url", rootURL.String()),
 		slog.Int("max_depth", int(maxDepth)),

@@ -1,0 +1,76 @@
+// Package publisher provides NATS JetStream event publishing for crawl traversal tasks.
+package publisher
+
+import (
+	"context"
+	"fmt"
+	"uuid"
+
+	"github.com/nats-io/nats.go/jetstream"
+	"google.golang.org/protobuf/proto"
+	"google.golang.org/protobuf/types/known/timestamppb"
+
+	birdwatcherv1 "github.com/umutto/birdwatcher/gen/go/birdwatcher/v1"
+	"github.com/umutto/birdwatcher/shared/nats"
+)
+
+// JetStreamPublisher publishes Protobuf messages to JetStream subjects.
+type JetStreamPublisher interface {
+	PublishProto(ctx context.Context, subject string, msg proto.Message) (*jetstream.PubAck, error)
+}
+
+// Publisher dispatches crawl task and lifecycle events to NATS JetStream.
+type Publisher struct {
+	client JetStreamPublisher
+}
+
+// New creates and initializes a new Publisher instance.
+func New(client JetStreamPublisher) *Publisher {
+	return &Publisher{
+		client: client,
+	}
+}
+
+// PublishFetch emits a PageFetchRequested event to instruct scraper workers to fetch a URL.
+func (p *Publisher) PublishFetch(ctx context.Context, jobID, targetURL string, depth int32) error {
+	msg := &birdwatcherv1.PageFetchRequested{
+		Url:   targetURL,
+		Depth: depth,
+		Meta:  newMetadata(jobID),
+	}
+
+	_, err := p.client.PublishProto(ctx, nats.SubjectPageFetchRequested, msg)
+	if err != nil {
+		return fmt.Errorf("publish proto: %w", err)
+	}
+
+	return nil
+}
+
+// PublishJobCompleted emits a JobCompleted event marking the termination of a crawl job.
+func (p *Publisher) PublishJobCompleted(ctx context.Context, jobID, errMsg string) error {
+	msg := &birdwatcherv1.JobCompleted{
+		Status: birdwatcherv1.CrawlStatus_CRAWL_STATUS_COMPLETED,
+		Meta:   newMetadata(jobID),
+	}
+	if errMsg != "" {
+		msg.Status = birdwatcherv1.CrawlStatus_CRAWL_STATUS_FAILED
+		msg.ErrorMessage = errMsg
+	}
+
+	_, err := p.client.PublishProto(ctx, nats.SubjectJobCompleted, msg)
+	if err != nil {
+		return fmt.Errorf("publish proto: %w", err)
+	}
+
+	return nil
+}
+
+// newMetadata constructs standard EventMetadata with a unique event ID and timestamp.
+func newMetadata(jobID string) *birdwatcherv1.EventMetadata {
+	return &birdwatcherv1.EventMetadata{
+		EventId:   uuid.New().String(),
+		JobId:     jobID,
+		Timestamp: timestamppb.Now(),
+	}
+}

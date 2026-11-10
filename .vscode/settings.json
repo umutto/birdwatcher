@@ -1,6 +1,7 @@
 {
   "cSpell.words": [
     "acked",
+    "acks",
     "appendonly",
     "birdwatcherv",
     "bufbuild",
@@ -46,6 +47,7 @@
     "tailwindcss",
     "tanstack",
     "textparser",
+    "timestamppb",
     "timestamptz",
     "uuidv",
     "valkey",
