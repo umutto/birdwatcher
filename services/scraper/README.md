@@ -5,7 +5,7 @@ The **Scraper** service (`services/scraper`) is a stateless, horizontally scalab
 ## Responsibilities & Interfaces
 
 - **Page Fetching**: Pulls fetch tasks asynchronously from NATS JetStream and retrieves pages with proper timeouts, user-agent headers, and error handling.
-- **HTML Extraction**: Parses HTML using `net/http` and `goquery` to extract page titles, main body text, and links.
+- **HTML Extraction**: Parses HTML using `net/http` to extract page titles, main body text, and links.
 - **Event Consumer**:
   - Consumes `PageFetchRequested` (`birdwatcher.v1.page.fetch`) from `frontier`.
 - **Event Producer**:
