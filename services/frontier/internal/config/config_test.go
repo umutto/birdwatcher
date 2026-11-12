@@ -8,6 +8,8 @@ import (
 )
 
 func TestConfig_Validate(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		name    string
 		mutate  func(c *config.Config)
@@ -57,6 +59,8 @@ func TestConfig_Validate(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
 			cfg := validConfig()
 			tt.mutate(cfg)
 
