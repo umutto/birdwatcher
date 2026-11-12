@@ -69,7 +69,7 @@ flowchart TD
 | :--- | :--- | :--- | :--- |
 | [`services/catalog`](services/catalog) | Go (`net/http`, `pgx`, `sqlc`) | `8080` | Owns PostgreSQL storage, records sightings from NATS, and serves the REST API and CLI. |
 | [`services/frontier`](services/frontier) | Go (`gRPC`, NATS, Valkey) | `9090` | Breadth-first URL queue, visited-link deduplication (Valkey), and host rate limiting. |
-| [`services/scraper`](services/scraper) | Go (`net/http`, `goquery`) | — | Stateless worker that fetches HTML and extracts links, text, and image URLs. |
+| [`services/scraper`](services/scraper) | Go (`net/http`) | — | Stateless worker that fetches HTML and extracts links, text, and image URLs. |
 | [`services/textparser`](services/textparser) | Go (Aho-Corasick, NLP) | — | Worker that scans scraped text for bird names and aliases using Aho-Corasick matching and NLP. |
 | [`services/vision`](services/vision) | Python 3.14+ (`uv`) | — | Worker that downloads scraped images and runs bird species classification. |
 | [`web`](web) | Vue 3, TypeScript, Vite, Tailwind v4 | `5173` | Single-page app for browsing the 435-species catalog and monitoring crawl jobs. |
