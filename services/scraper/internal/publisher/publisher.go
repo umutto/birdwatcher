@@ -4,11 +4,9 @@ package publisher
 import (
 	"context"
 	"fmt"
-	"uuid"
 
 	"github.com/nats-io/nats.go/jetstream"
 	"google.golang.org/protobuf/proto"
-	"google.golang.org/protobuf/types/known/timestamppb"
 
 	birdwatcherv1 "github.com/umutto/birdwatcher/gen/go/birdwatcher/v1"
 	"github.com/umutto/birdwatcher/shared/nats"
@@ -34,7 +32,7 @@ func New(client JetStreamPublisher) *Publisher {
 // PublishURLDiscovered emits a UrlDiscovered event notifying for URL discovery.
 func (p *Publisher) PublishURLDiscovered(ctx context.Context, jobID, parentURL string, depth int32, newURLs []string) error {
 	msg := &birdwatcherv1.UrlDiscovered{
-		Meta:      newMetadata(jobID),
+		Meta:      nats.NewEventMetadata(jobID, nats.SubjectUrlDiscovered, parentURL),
 		ParentUrl: parentURL,
 		NewUrls:   newURLs,
 		Depth:     depth,
@@ -50,7 +48,7 @@ func (p *Publisher) PublishURLDiscovered(ctx context.Context, jobID, parentURL s
 // PublishPageScraped emits a PageScraped event containing the extracted content of a scraped page.
 func (p *Publisher) PublishPageScraped(ctx context.Context, jobID, pageURL, title, bodyText string, imageURLs []string) error {
 	msg := &birdwatcherv1.PageScraped{
-		Meta:      newMetadata(jobID),
+		Meta:      nats.NewEventMetadata(jobID, nats.SubjectPageScraped, pageURL),
 		Url:       pageURL,
 		Title:     title,
 		BodyText:  bodyText,
@@ -62,13 +60,4 @@ func (p *Publisher) PublishPageScraped(ctx context.Context, jobID, pageURL, titl
 	}
 
 	return nil
-}
-
-// newMetadata constructs standard EventMetadata with a unique event ID and timestamp.
-func newMetadata(jobID string) *birdwatcherv1.EventMetadata {
-	return &birdwatcherv1.EventMetadata{
-		EventId:   uuid.New().String(),
-		JobId:     jobID,
-		Timestamp: timestamppb.Now(),
-	}
 }

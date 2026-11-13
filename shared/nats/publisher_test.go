@@ -40,6 +40,39 @@ func TestClient_PublishProto(t *testing.T) {
 		}
 	})
 
+	t.Run("deduplicates messages with identical event_id", func(t *testing.T) {
+		t.Parallel()
+
+		client := createTestClientWithStream(t)
+		dedupEvent := &birdwatcherv1.PageFetchRequested{
+			Meta: &birdwatcherv1.EventMetadata{
+				EventId: "evt-dedup-123",
+				JobId:   "job-123",
+			},
+			Url:   "https://example.com",
+			Depth: 1,
+		}
+
+		ack1, err := client.PublishProto(context.Background(), testSubject, dedupEvent)
+		if err != nil {
+			t.Fatalf("first publish proto to %q: %v", testSubject, err)
+		}
+		if ack1.Duplicate {
+			t.Errorf("ack1.Duplicate = true, want false")
+		}
+
+		ack2, err := client.PublishProto(context.Background(), testSubject, dedupEvent)
+		if err != nil {
+			t.Fatalf("second publish proto to %q: %v", testSubject, err)
+		}
+		if !ack2.Duplicate {
+			t.Errorf("ack2.Duplicate = false, want true")
+		}
+		if ack2.Sequence != ack1.Sequence {
+			t.Errorf("ack2.Sequence = %d, want %d", ack2.Sequence, ack1.Sequence)
+		}
+	})
+
 	t.Run("fails when publishing nil message", func(t *testing.T) {
 		t.Parallel()
 

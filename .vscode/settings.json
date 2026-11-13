@@ -8,6 +8,7 @@
     "bwnats",
     "Corasick",
     "DBTX",
+    "dedup",
     "errgroup",
     "flocci",
     "gofmt",

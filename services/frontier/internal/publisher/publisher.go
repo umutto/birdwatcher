@@ -4,11 +4,9 @@ package publisher
 import (
 	"context"
 	"fmt"
-	"uuid"
 
 	"github.com/nats-io/nats.go/jetstream"
 	"google.golang.org/protobuf/proto"
-	"google.golang.org/protobuf/types/known/timestamppb"
 
 	birdwatcherv1 "github.com/umutto/birdwatcher/gen/go/birdwatcher/v1"
 	"github.com/umutto/birdwatcher/shared/nats"
@@ -34,7 +32,7 @@ func New(client JetStreamPublisher) *Publisher {
 // PublishFetch emits a PageFetchRequested event to instruct scraper workers to fetch a URL.
 func (p *Publisher) PublishFetch(ctx context.Context, jobID, targetURL string, depth int32) error {
 	msg := &birdwatcherv1.PageFetchRequested{
-		Meta:  newMetadata(jobID),
+		Meta:  nats.NewEventMetadata(jobID, nats.SubjectPageFetchRequested, targetURL),
 		Url:   targetURL,
 		Depth: depth,
 	}
@@ -49,7 +47,7 @@ func (p *Publisher) PublishFetch(ctx context.Context, jobID, targetURL string, d
 // PublishJobCompleted emits a JobCompleted event marking the termination of a crawl job.
 func (p *Publisher) PublishJobCompleted(ctx context.Context, jobID, errMsg string) error {
 	msg := &birdwatcherv1.JobCompleted{
-		Meta:   newMetadata(jobID),
+		Meta:   nats.NewEventMetadata(jobID, nats.SubjectJobCompleted),
 		Status: birdwatcherv1.CrawlStatus_CRAWL_STATUS_COMPLETED,
 	}
 	if errMsg != "" {
@@ -62,13 +60,4 @@ func (p *Publisher) PublishJobCompleted(ctx context.Context, jobID, errMsg strin
 	}
 
 	return nil
-}
-
-// newMetadata constructs standard EventMetadata with a unique event ID and timestamp.
-func newMetadata(jobID string) *birdwatcherv1.EventMetadata {
-	return &birdwatcherv1.EventMetadata{
-		EventId:   uuid.New().String(),
-		JobId:     jobID,
-		Timestamp: timestamppb.Now(),
-	}
 }
