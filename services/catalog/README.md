@@ -47,7 +47,12 @@ cp .env.example .env
 | `FRONTIER_MAX_DEPTH` | `4` | Default crawl depth limit. |
 | `FRONTIER_MAX_PAGES` | `200` | Default maximum pages per crawl. |
 | `NATS_URL` | `nats://localhost:4222` | NATS JetStream connection URL. |
-| `DATABASE_URL` | `postgres://birdwatcher:birdwatcher@localhost:5432/birdwatcher?sslmode=disable` | PostgreSQL connection string. |
+| `DATABASE_URL` | *(required)* | PostgreSQL connection string (e.g., `postgres://birdwatcher:birdwatcher@localhost:5432/birdwatcher?sslmode=disable`). |
+| `DATABASE_MAX_CONNS` | `10` | Maximum number of connections in the PostgreSQL pool. |
+| `DATABASE_MIN_CONNS` | `2` | Minimum number of idle connections in the PostgreSQL pool. |
+| `DATABASE_MAX_CONN_LIFETIME` | `1h` | Maximum lifetime of a connection before renewal. |
+| `DATABASE_MAX_CONN_IDLE_TIME` | `30m` | Maximum time a connection can remain idle in the pool. |
+| `DATABASE_HEALTH_CHECK_PERIOD` | `30s` | Interval between background connection health checks. |
 
 ---
 
@@ -63,4 +68,10 @@ Or run directly:
 
 ```bash
 go run ./cmd/catalog
+```
+
+Run tests:
+
+```bash
+go test ./...
 ```

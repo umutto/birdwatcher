@@ -5,7 +5,7 @@ The **Scraper** service (`services/scraper`) is a stateless, horizontally scalab
 ## Responsibilities & Interfaces
 
 - **Page Fetching**: Pulls fetch tasks asynchronously from NATS JetStream and retrieves pages with proper timeouts, user-agent headers, and error handling.
-- **HTML Extraction**: Parses HTML using `net/http` to extract page titles, main body text, and links.
+- **HTML Extraction**: Parses HTML using `golang.org/x/net/html` to extract page titles, main body text, outgoing links, and image URLs.
 - **Event Consumer**:
   - Consumes `PageFetchRequested` (`birdwatcher.v1.page.fetch`) from `frontier`.
 - **Event Producer**:
@@ -26,6 +26,8 @@ cp .env.example .env
 | :--- | :--- | :--- |
 | `ENV` | `development` | Environment mode (`development`, `production`). |
 | `NATS_URL` | `nats://localhost:4222` | NATS JetStream connection URL. |
+| `HTTP_TIMEOUT` | `10s` | Maximum timeout per outbound HTTP page fetch. |
+| `HTTP_MAX_BODY_BYTES` | `5242880` | Maximum response body size in bytes (default 5 MiB). |
 
 ---
 

@@ -9,7 +9,7 @@ The **Vision** service (`services/vision`) is a Python 3.14+ worker managed with
 - **Event Consumer**:
   - Consumes `PageScraped` (`birdwatcher.v1.page.scraped`) from `scraper`.
 - **Event Producer**:
-  - Emits `SightingImage` (`birdwatcher.v1.sighting.image`) containing detected species plate number, image bounding data, and model confidence score to `catalog`.
+  - Emits `SightingImage` (`birdwatcher.v1.sighting.image`) containing the detected species plate number, source page and image URLs, and model confidence score to `catalog`.
 
 ---
 
