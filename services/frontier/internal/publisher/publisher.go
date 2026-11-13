@@ -34,13 +34,12 @@ func New(client JetStreamPublisher) *Publisher {
 // PublishFetch emits a PageFetchRequested event to instruct scraper workers to fetch a URL.
 func (p *Publisher) PublishFetch(ctx context.Context, jobID, targetURL string, depth int32) error {
 	msg := &birdwatcherv1.PageFetchRequested{
+		Meta:  newMetadata(jobID),
 		Url:   targetURL,
 		Depth: depth,
-		Meta:  newMetadata(jobID),
 	}
 
-	_, err := p.client.PublishProto(ctx, nats.SubjectPageFetchRequested, msg)
-	if err != nil {
+	if _, err := p.client.PublishProto(ctx, nats.SubjectPageFetchRequested, msg); err != nil {
 		return fmt.Errorf("publish proto: %w", err)
 	}
 
@@ -50,16 +49,15 @@ func (p *Publisher) PublishFetch(ctx context.Context, jobID, targetURL string, d
 // PublishJobCompleted emits a JobCompleted event marking the termination of a crawl job.
 func (p *Publisher) PublishJobCompleted(ctx context.Context, jobID, errMsg string) error {
 	msg := &birdwatcherv1.JobCompleted{
-		Status: birdwatcherv1.CrawlStatus_CRAWL_STATUS_COMPLETED,
 		Meta:   newMetadata(jobID),
+		Status: birdwatcherv1.CrawlStatus_CRAWL_STATUS_COMPLETED,
 	}
 	if errMsg != "" {
 		msg.Status = birdwatcherv1.CrawlStatus_CRAWL_STATUS_FAILED
 		msg.ErrorMessage = errMsg
 	}
 
-	_, err := p.client.PublishProto(ctx, nats.SubjectJobCompleted, msg)
-	if err != nil {
+	if _, err := p.client.PublishProto(ctx, nats.SubjectJobCompleted, msg); err != nil {
 		return fmt.Errorf("publish proto: %w", err)
 	}
 
