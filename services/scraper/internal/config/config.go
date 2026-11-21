@@ -65,11 +65,11 @@ func (c *Config) Validate() error {
 	if strings.TrimSpace(c.NATS.URL) == "" {
 		return errors.New("nats url cannot be empty")
 	}
-	if c.Scrape.Timeout < 1 {
-		return errors.New("timeout cannot be less than 1")
+	if c.Scrape.Timeout <= 0 {
+		return errors.New("timeout must be greater than 0")
 	}
-	if c.Scrape.MaxBodyBytes < 1 {
-		return errors.New("max body bytes cannot be less than 1")
+	if c.Scrape.MaxBodyBytes <= 0 {
+		return errors.New("max body bytes must be greater than 0")
 	}
 	return nil
 }

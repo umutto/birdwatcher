@@ -100,7 +100,7 @@ func (c *Consumer) handleURLDiscovered(ctx context.Context, msg jetstream.Msg) e
 	jobID, err := uuid.Parse(evt.GetMeta().GetJobId())
 	if err != nil {
 		_ = msg.Term()
-		return fmt.Errorf("parse uuid: %w", err)
+		return fmt.Errorf("parse job_id: %w", err)
 	}
 
 	if err = c.handler.HandleDiscoveredURLs(ctx, jobID.String(), evt.GetParentUrl(), evt.GetDepth(), evt.GetNewUrls()); err != nil {

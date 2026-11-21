@@ -105,7 +105,7 @@ func (c *Consumer) handlePageFetchRequested(ctx context.Context, msg jetstream.M
 	jobID, err := uuid.Parse(evt.GetMeta().GetJobId())
 	if err != nil {
 		_ = msg.Term()
-		return fmt.Errorf("parse uuid: %w", err)
+		return fmt.Errorf("parse job_id: %w", err)
 	}
 
 	body, err := c.fetcher.Fetch(ctx, evt.GetUrl())

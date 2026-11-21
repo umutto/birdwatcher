@@ -97,8 +97,8 @@ func (c *Config) Validate() error {
 	if c.Crawl.HostDelay < 0 {
 		return errors.New("host delay cannot be negative")
 	}
-	if c.Crawl.MaxInflightPerHost < 1 {
-		return errors.New("max inflight per host cannot be less than 1")
+	if c.Crawl.MaxInflightPerHost <= 0 {
+		return errors.New("max inflight per host must be greater than 0")
 	}
 	return nil
 }
