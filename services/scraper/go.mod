@@ -3,7 +3,7 @@ module github.com/umutto/birdwatcher/services/scraper
 go 1.27.1
 
 require (
-	github.com/nats-io/nats.go v1.54.0
+	github.com/nats-io/nats.go v1.56.0
 	golang.org/x/net v0.62.0
 	google.golang.org/protobuf v1.36.12
 )
