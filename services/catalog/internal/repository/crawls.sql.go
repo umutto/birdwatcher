@@ -149,14 +149,14 @@ func (q *Queries) ListCrawlsWithSummary(ctx context.Context, arg ListCrawlsWithS
 const updateCrawlState = `-- name: UpdateCrawlState :one
 UPDATE crawls
 SET
-    state = $1,
+    state = $1::CRAWL_STATE,
     started_at = CASE
-        WHEN $1 = 'running' THEN COALESCE(started_at, NOW())
+        WHEN $1::CRAWL_STATE = 'running' THEN COALESCE(started_at, NOW())
         ELSE started_at
     END,
     completed_at = CASE
-        WHEN $1 IN ('completed', 'failed', 'cancelled') THEN COALESCE(completed_at, NOW())
-        WHEN $1 = 'running' THEN NULL
+        WHEN $1::CRAWL_STATE IN ('completed', 'failed', 'cancelled') THEN COALESCE(completed_at, NOW())
+        WHEN $1::CRAWL_STATE = 'running' THEN NULL
         ELSE completed_at
     END
 WHERE id = $2

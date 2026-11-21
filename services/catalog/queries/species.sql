@@ -14,14 +14,16 @@ VALUES (
     @metadata
 )
 ON CONFLICT (plate_number)
-DO UPDATE SET common_name = @common_name,
-aliases = @aliases,
-scientific_name = @scientific_name,
-description = @description,
-image_url = @image_url,
-call_url = @call_url,
-audubon_url = @audubon_url,
-metadata = @metadata
+DO UPDATE
+    SET
+        common_name = @common_name,
+        aliases = @aliases,
+        scientific_name = @scientific_name,
+        description = @description,
+        image_url = @image_url,
+        call_url = @call_url,
+        audubon_url = @audubon_url,
+        metadata = @metadata
 RETURNING *;
 
 -- name: GetSpeciesByPlateNumber :one

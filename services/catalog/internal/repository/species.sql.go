@@ -186,14 +186,16 @@ VALUES (
     $9
 )
 ON CONFLICT (plate_number)
-DO UPDATE SET common_name = $2,
-aliases = $3,
-scientific_name = $4,
-description = $5,
-image_url = $6,
-call_url = $7,
-audubon_url = $8,
-metadata = $9
+DO UPDATE
+    SET
+        common_name = $2,
+        aliases = $3,
+        scientific_name = $4,
+        description = $5,
+        image_url = $6,
+        call_url = $7,
+        audubon_url = $8,
+        metadata = $9
 RETURNING plate_number, common_name, aliases, scientific_name, description, image_url, call_url, audubon_url, metadata
 `
 

@@ -17,14 +17,14 @@ WHERE id = @id;
 -- name: UpdateCrawlState :one
 UPDATE crawls
 SET
-    state = @state,
+    state = @state::CRAWL_STATE,
     started_at = CASE
-        WHEN @state = 'running' THEN COALESCE(started_at, NOW())
+        WHEN @state::CRAWL_STATE = 'running' THEN COALESCE(started_at, NOW())
         ELSE started_at
     END,
     completed_at = CASE
-        WHEN @state IN ('completed', 'failed', 'cancelled') THEN COALESCE(completed_at, NOW())
-        WHEN @state = 'running' THEN NULL
+        WHEN @state::CRAWL_STATE IN ('completed', 'failed', 'cancelled') THEN COALESCE(completed_at, NOW())
+        WHEN @state::CRAWL_STATE = 'running' THEN NULL
         ELSE completed_at
     END
 WHERE id = @id
