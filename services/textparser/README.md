@@ -4,7 +4,7 @@ The **Textparser** service (`services/textparser`) scans scraped web page text t
 
 ## Responsibilities & Interfaces
 
-- **Pattern Matching**: Implements linear-time multi-pattern string matching over page content to find species occurrences without repeated regex scans.
+- **Pattern Matching**: Implements linear-time multi-pattern string matching over page content using [`github.com/petar-dambovaliev/aho-corasick`](https://github.com/petar-dambovaliev/aho-corasick) to find species occurrences without repeated regex scans.
 - **Event Consumer**:
   - Consumes `PageScraped` (`birdwatcher.v1.page.scraped`) from `scraper`.
 - **Event Producer**:
@@ -24,6 +24,8 @@ cp .env.example .env
 | :--- | :--- | :--- |
 | `ENV` | `development` | Environment mode (`development`, `production`). |
 | `NATS_URL` | `nats://localhost:4222` | NATS JetStream connection URL. |
+| `CATALOG_URL` | `http://localhost:8080` | Catalog service URL. |
+| `CATALOG_TIMEOUT` | `10s` | Catalog service connection timeout. |
 
 ---
 
