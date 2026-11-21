@@ -12,6 +12,7 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5"
+
 	birdwatcherv1 "github.com/umutto/birdwatcher/gen/go/birdwatcher/v1"
 	"github.com/umutto/birdwatcher/services/catalog/internal/repository"
 )

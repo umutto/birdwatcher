@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/nats-io/nats-server/v2/server"
+
 	bwnats "github.com/umutto/birdwatcher/shared/nats"
 )
 

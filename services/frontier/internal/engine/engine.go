@@ -30,7 +30,7 @@ type VisitedStore interface {
 // Publisher publishes crawl task events to the messaging transport.
 type Publisher interface {
 	PublishFetch(ctx context.Context, jobID, targetURL string, depth int32) error
-	PublishJobCompleted(ctx context.Context, jobID string, errMsg string) error
+	PublishJobCompleted(ctx context.Context, jobID, errMsg string) error
 }
 
 // jobState tracks traversal bounds, progress counters, and active tasks for a crawl job.

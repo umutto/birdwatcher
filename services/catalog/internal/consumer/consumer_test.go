@@ -8,15 +8,14 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/nats-io/nats.go/jetstream"
+	"google.golang.org/protobuf/proto"
+
 	birdwatcherv1 "github.com/umutto/birdwatcher/gen/go/birdwatcher/v1"
 	"github.com/umutto/birdwatcher/services/catalog/internal/repository"
 	"github.com/umutto/birdwatcher/shared/nats"
-	"google.golang.org/protobuf/proto"
 )
 
-var (
-	testCrawlID = uuid.MustParse("0195c000-0000-7000-8000-000000000001")
-)
+var testCrawlID = uuid.MustParse("0195c000-0000-7000-8000-000000000001")
 
 type mockRepo struct {
 	repository.Querier

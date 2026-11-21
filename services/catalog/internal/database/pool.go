@@ -7,6 +7,7 @@ import (
 	"fmt"
 
 	"github.com/jackc/pgx/v5/pgxpool"
+
 	"github.com/umutto/birdwatcher/services/catalog/internal/config"
 )
 

@@ -18,7 +18,6 @@ func TestClient_CreateOrUpdateStream(t *testing.T) {
 
 		cfg := bwnats.DefaultStreamConfig()
 		stream, err := client.CreateOrUpdateStream(context.Background(), cfg)
-
 		if err != nil {
 			t.Fatalf("expected stream to be created, got %v", err)
 		}
@@ -100,5 +99,4 @@ func createTestClient(t *testing.T) *bwnats.Client {
 	})
 
 	return client
-
 }

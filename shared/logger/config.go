@@ -24,9 +24,7 @@ func ParseLevel(s string) (slog.Level, error) {
 		return slog.LevelInfo, nil
 	}
 
-	err := lvl.UnmarshalText([]byte(s))
-
-	if err != nil {
+	if err := lvl.UnmarshalText([]byte(s)); err != nil {
 		return slog.LevelInfo, fmt.Errorf("invalid log level %q: %w", s, err)
 	}
 

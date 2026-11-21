@@ -12,11 +12,12 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5"
+	"google.golang.org/grpc"
+
 	birdwatcherv1 "github.com/umutto/birdwatcher/gen/go/birdwatcher/v1"
 	"github.com/umutto/birdwatcher/services/catalog/internal/config"
 	"github.com/umutto/birdwatcher/services/catalog/internal/repository"
 	"github.com/umutto/birdwatcher/services/catalog/internal/server"
-	"google.golang.org/grpc"
 )
 
 var (

@@ -7,6 +7,7 @@ import (
 	"strconv"
 
 	"github.com/jackc/pgx/v5"
+
 	"github.com/umutto/birdwatcher/services/catalog/internal/repository"
 )
 

@@ -1,6 +1,18 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
+GO_MODULES=(
+    ./services/catalog/...
+    ./services/frontier/...
+    ./services/scraper/...
+    ./services/textparser/...
+    ./shared/env/...
+    ./shared/logger/...
+    ./shared/nats/...
+    ./shared/telemetry/...
+    ./gen/go/...
+)
+
 # Check sqlc code generation drift
 if [ -d "services/catalog" ]; then
     (cd services/catalog && sqlc compile && sqlc generate) >/dev/null 2>&1
@@ -11,8 +23,13 @@ if [ -d "services/catalog" ]; then
     fi
 fi
 
-# Check protobuf code generation drift (only if proto/ changed)
+# Check protobuf lint and code generation drift (drift check only if proto/ changed)
 if [ -d "proto" ] && command -v buf >/dev/null 2>&1; then
+    if ! (cd proto && buf lint); then
+        echo "❌ Protobuf lint failed."
+        echo "   👉 Fix the proto lint issues above and push again."
+        exit 1
+    fi
     if git diff --name-only @{u} HEAD 2>/dev/null | grep -qE '^proto/'; then
         (cd proto && buf generate) >/dev/null 2>&1
         if ! git diff --quiet gen/; then
@@ -33,4 +50,41 @@ if [ -f "go.work" ]; then
     fi
 fi
 
-echo "✅ Generated code and workspace are in sync."
+# Check Go formatting (gofumpt + gci) and static analysis (golangci-lint)
+if ! command -v golangci-lint >/dev/null 2>&1; then
+    echo "❌ golangci-lint not found in PATH."
+    echo "   👉 Install tools with 'make tools' and push again."
+    exit 1
+fi
+
+if ! golangci-lint fmt --diff "${GO_MODULES[@]}"; then
+    echo "❌ Go formatting drift detected (gofumpt / gci)."
+    echo "   👉 Run 'golangci-lint fmt ${GO_MODULES[*]}', commit the changes, and push again."
+    exit 1
+fi
+
+if ! golangci-lint run "${GO_MODULES[@]}"; then
+    echo "❌ Go lint checks failed."
+    echo "   👉 Run 'make lint-go' to inspect and fix issues before pushing."
+    exit 1
+fi
+
+# Check SQL lint (sqruff)
+if [ -d "services/catalog" ] && command -v sqruff >/dev/null 2>&1; then
+    if ! sqruff lint services/catalog; then
+        echo "❌ SQL lint checks failed."
+        echo "   👉 Run 'make format-sql' or 'make lint-sql' to fix issues before pushing."
+        exit 1
+    fi
+fi
+
+# Check Python formatting and lint (ruff)
+if [ -d "services/vision" ] && command -v uv >/dev/null 2>&1; then
+    if ! (cd services/vision && uv run ruff format --check . && uv run ruff check .); then
+        echo "❌ Python format or lint checks failed."
+        echo "   👉 Run 'make format-python' / 'make lint-python' to fix issues before pushing."
+        exit 1
+    fi
+fi
+
+echo "✅ Generated code, workspace, formatting, and lint checks passed."

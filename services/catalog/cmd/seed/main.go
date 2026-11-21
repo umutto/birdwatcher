@@ -3,7 +3,6 @@ package main
 
 import (
 	"context"
-	_ "embed"
 	"encoding/json"
 	"fmt"
 	"log/slog"
@@ -12,11 +11,14 @@ import (
 	"syscall"
 
 	"github.com/jackc/pgx/v5/pgxpool"
+
 	"github.com/umutto/birdwatcher/services/catalog/internal/config"
 	"github.com/umutto/birdwatcher/services/catalog/internal/database"
 	"github.com/umutto/birdwatcher/services/catalog/internal/repository"
 	"github.com/umutto/birdwatcher/shared/env"
 	"github.com/umutto/birdwatcher/shared/logger"
+
+	_ "embed"
 )
 
 // speciesJSON holds the embedded Audubon bird taxonomy dataset.
