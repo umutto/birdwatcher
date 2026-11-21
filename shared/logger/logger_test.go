@@ -48,7 +48,7 @@ func TestNew(t *testing.T) {
 			env          env.Environment
 			wantContains string
 		}{
-			{name: "dev text format", env: env.DevEnv, wantContains: `msg="hello world"`},
+			{name: "dev text format", env: env.DevEnv, wantContains: "INF logger_test.go:"},
 			{name: "prod json format", env: env.ProdEnv, wantContains: `"msg":"hello world"`},
 		}
 
