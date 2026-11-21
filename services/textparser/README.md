@@ -4,6 +4,7 @@ The **Textparser** service (`services/textparser`) scans scraped web page text t
 
 ## Responsibilities & Interfaces
 
+- **Dictionary Loading**: Fetches the 435 Audubon species dictionary from `catalog` (`GET /api/v1/species/dictionary`) on startup before subscribing to NATS.
 - **Pattern Matching**: Implements linear-time multi-pattern string matching over page content using [`github.com/petar-dambovaliev/aho-corasick`](https://github.com/petar-dambovaliev/aho-corasick) to find species occurrences without repeated regex scans.
 - **Event Consumer**:
   - Consumes `PageScraped` (`birdwatcher.v1.page.scraped`) from `scraper`.

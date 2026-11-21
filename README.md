@@ -70,7 +70,7 @@ flowchart TD
 | [`services/catalog`](services/catalog) | Go (`net/http`, `gRPC`, NATS, `pgx`, `sqlc`) | `8080` | Owns PostgreSQL storage, records sightings from NATS, and serves the REST API and CLI. |
 | [`services/frontier`](services/frontier) | Go (`gRPC`, NATS, Valkey) | `9090` | Breadth-first URL queue, visited-link deduplication (Valkey), and host rate limiting. |
 | [`services/scraper`](services/scraper) | Go (`net/http`, `x/net/html`, NATS) | — | Stateless worker that fetches HTML and extracts links, text, and image URLs. |
-| [`services/textparser`](services/textparser) | Go (Aho-Corasick, NLP, NATS) | — | Worker that scans scraped text for bird names and aliases using Aho-Corasick matching and NLP. |
+| [`services/textparser`](services/textparser) | Go (Aho-Corasick, NATS) | — | Worker that scans scraped text for bird names and aliases using Aho-Corasick matching and text normalization. |
 | [`services/vision`](services/vision) | Python 3.14+ (`uv`, NATS) | — | Worker that downloads scraped images and runs bird species classification. |
 | [`web`](web) | Vue 3, TypeScript, Vite, Tailwind v4 | `5173` | Single-page app for browsing the 435-species catalog and monitoring crawl jobs. |
 | [`proto`](proto) & [`gen`](gen) | Protobuf, Buf v2 | — | Shared gRPC and event schemas (`events.proto`, `frontier.proto`) and generated Go/Python code. |
@@ -185,7 +185,7 @@ cd web && pnpm install && pnpm dev
 - [x] `catalog` NATS consumer for recording sightings and crawl progress
 - [x] `frontier` gRPC server, BFS URL queue, deduplication, and host rate limiting
 - [x] `scraper` HTML fetcher and link/text/image extractor
-- [ ] `textparser` Aho-Corasick bird name matcher
+- [x] `textparser` Aho-Corasick bird name matcher
 - [ ] `vision` Python image classification worker
 - [ ] `web` dashboard views for browsing the catalog and monitoring crawls
 
