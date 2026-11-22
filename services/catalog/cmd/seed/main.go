@@ -23,7 +23,7 @@ import (
 
 // speciesJSON holds the embedded Audubon bird taxonomy dataset.
 //
-//go:embed data/species.json
+//go:embed species.json
 var speciesJSON []byte
 
 // main initializes the logger, executes the seed workflow, and exits with a non-zero status on error.

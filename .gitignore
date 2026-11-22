@@ -42,3 +42,7 @@ pnpm-debug.log*
 # System & OS Artifacts
 .DS_Store
 Thumbs.db
+
+# Keep Large Media Out of GitHub
+**/media/*
+

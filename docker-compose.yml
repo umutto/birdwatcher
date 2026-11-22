@@ -43,6 +43,13 @@ services:
       timeout: 3s
       retries: 3
 
+  media:
+    image: nginx:alpine
+    ports:
+      - "${MEDIA_PORT:-8081}:80"
+    volumes:
+      - ./media:/usr/share/nginx/html:ro
+
 volumes:
   nats_data:
   postgres_data:

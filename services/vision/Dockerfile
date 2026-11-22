@@ -2,7 +2,7 @@
 
 # Stage 1: Build virtualenv using official uv binary
 FROM ghcr.io/astral-sh/uv:latest AS uv
-FROM python:3.12-slim-bookworm AS builder
+FROM python:3.14-slim-trixie AS builder
 
 ENV UV_COMPILE_BYTECODE=1
 ENV UV_LINK_MODE=copy
@@ -20,7 +20,7 @@ COPY services/vision/ ./services/vision/
 RUN cd services/vision && uv sync --no-dev
 
 # Stage 2: Minimal runtime image
-FROM python:3.12-slim-bookworm AS runner
+FROM python:3.14-slim-trixie AS runner
 
 WORKDIR /app
 
