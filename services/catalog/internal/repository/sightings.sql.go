@@ -122,6 +122,81 @@ func (q *Queries) ListSightingsByCrawl(ctx context.Context, arg ListSightingsByC
 	return items, nil
 }
 
+const listSightingsByCrawlAndSpecies = `-- name: ListSightingsByCrawlAndSpecies :many
+SELECT
+    st.id, st.crawl_id, st.species_plate_number, st.source_type, st.confidence, st.page_url, st.snippet, st.image_url, st.metadata, st.created_at,
+    s.common_name,
+    s.scientific_name
+FROM sightings st
+INNER JOIN species s
+    ON st.species_plate_number = s.plate_number
+WHERE
+    st.crawl_id = $1
+    AND st.species_plate_number = $2
+ORDER BY st.created_at DESC
+LIMIT $4 OFFSET $3
+`
+
+type ListSightingsByCrawlAndSpeciesParams struct {
+	CrawlID            uuid.UUID `json:"crawl_id"`
+	SpeciesPlateNumber int32     `json:"species_plate_number"`
+	OffsetRows         int32     `json:"offset_rows"`
+	LimitRows          int32     `json:"limit_rows"`
+}
+
+type ListSightingsByCrawlAndSpeciesRow struct {
+	ID                 uuid.UUID          `json:"id"`
+	CrawlID            uuid.UUID          `json:"crawl_id"`
+	SpeciesPlateNumber int32              `json:"species_plate_number"`
+	SourceType         SightingSourceType `json:"source_type"`
+	Confidence         float32            `json:"confidence"`
+	PageUrl            string             `json:"page_url"`
+	Snippet            *string            `json:"snippet"`
+	ImageUrl           *string            `json:"image_url"`
+	Metadata           json.RawMessage    `json:"metadata"`
+	CreatedAt          time.Time          `json:"created_at"`
+	CommonName         string             `json:"common_name"`
+	ScientificName     string             `json:"scientific_name"`
+}
+
+func (q *Queries) ListSightingsByCrawlAndSpecies(ctx context.Context, arg ListSightingsByCrawlAndSpeciesParams) ([]ListSightingsByCrawlAndSpeciesRow, error) {
+	rows, err := q.db.Query(ctx, listSightingsByCrawlAndSpecies,
+		arg.CrawlID,
+		arg.SpeciesPlateNumber,
+		arg.OffsetRows,
+		arg.LimitRows,
+	)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []ListSightingsByCrawlAndSpeciesRow{}
+	for rows.Next() {
+		var i ListSightingsByCrawlAndSpeciesRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.CrawlID,
+			&i.SpeciesPlateNumber,
+			&i.SourceType,
+			&i.Confidence,
+			&i.PageUrl,
+			&i.Snippet,
+			&i.ImageUrl,
+			&i.Metadata,
+			&i.CreatedAt,
+			&i.CommonName,
+			&i.ScientificName,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const listSightingsBySpecies = `-- name: ListSightingsBySpecies :many
 SELECT id, crawl_id, species_plate_number, source_type, confidence, page_url, snippet, image_url, metadata, created_at
 FROM sightings

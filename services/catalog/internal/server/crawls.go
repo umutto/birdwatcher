@@ -7,6 +7,7 @@ import (
 	"log/slog"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 	"time"
 
@@ -184,6 +185,12 @@ func (s *Server) handleListCrawlSightings(w http.ResponseWriter, r *http.Request
 		writeError(w, http.StatusBadRequest, "invalid crawl id")
 		return
 	}
+
+	if plateParam := r.URL.Query().Get("plate"); plateParam != "" {
+		s.listCrawlSightingsByPlate(w, r, crawlID, plateParam)
+		return
+	}
+
 	limit, offset := parsePagination(r)
 
 	sightings, err := s.repo.ListSightingsByCrawl(
@@ -199,6 +206,39 @@ func (s *Server) handleListCrawlSightings(w http.ResponseWriter, r *http.Request
 			r.Context(),
 			"list sightings by crawl",
 			slog.String("crawl_id", crawlID.String()),
+			slog.Any("error", err),
+		)
+		writeError(w, http.StatusInternalServerError, "internal server error")
+		return
+	}
+
+	writeJSON(w, http.StatusOK, sightings)
+}
+
+// listCrawlSightingsByPlate returns a paginated list of sightings for the given species plate during a crawl job.
+func (s *Server) listCrawlSightingsByPlate(w http.ResponseWriter, r *http.Request, crawlID uuid.UUID, plateParam string) {
+	plate, err := strconv.ParseInt(plateParam, 10, 32)
+	if err != nil || plate <= 0 {
+		writeError(w, http.StatusBadRequest, "invalid plate number")
+		return
+	}
+	limit, offset := parsePagination(r)
+
+	sightings, err := s.repo.ListSightingsByCrawlAndSpecies(
+		r.Context(),
+		repository.ListSightingsByCrawlAndSpeciesParams{
+			CrawlID:            crawlID,
+			SpeciesPlateNumber: int32(plate),
+			LimitRows:          limit,
+			OffsetRows:         offset,
+		},
+	)
+	if err != nil {
+		s.log.ErrorContext(
+			r.Context(),
+			"list sightings by crawl and species",
+			slog.String("crawl_id", crawlID.String()),
+			slog.Int64("plate_number", plate),
 			slog.Any("error", err),
 		)
 		writeError(w, http.StatusInternalServerError, "internal server error")

@@ -15,6 +15,20 @@ WHERE st.crawl_id = @crawl_id
 ORDER BY st.created_at DESC
 LIMIT @limit_rows OFFSET @offset_rows;
 
+-- name: ListSightingsByCrawlAndSpecies :many
+SELECT
+    st.*,
+    s.common_name,
+    s.scientific_name
+FROM sightings st
+INNER JOIN species s
+    ON st.species_plate_number = s.plate_number
+WHERE
+    st.crawl_id = @crawl_id
+    AND st.species_plate_number = @species_plate_number
+ORDER BY st.created_at DESC
+LIMIT @limit_rows OFFSET @offset_rows;
+
 -- name: ListSightingsBySpecies :many
 SELECT *
 FROM sightings

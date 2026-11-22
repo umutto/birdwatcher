@@ -31,11 +31,13 @@ var (
 
 type mockCrawlsRepo struct {
 	repository.Querier
-	crawls         []repository.Crawl
-	crawlSummaries []repository.ListCrawlsWithSummaryRow
-	catalog        []repository.GetCatalogForCrawlRow
-	sightings      []repository.ListSightingsByCrawlRow
-	err            error
+	crawls           []repository.Crawl
+	crawlSummaries   []repository.ListCrawlsWithSummaryRow
+	catalog          []repository.GetCatalogForCrawlRow
+	sightings        []repository.ListSightingsByCrawlRow
+	speciesSightings []repository.ListSightingsByCrawlAndSpeciesRow
+	gotPlate         int32
+	err              error
 }
 
 func (m *mockCrawlsRepo) CreateCrawl(_ context.Context, _ string) (repository.Crawl, error) {
@@ -76,6 +78,11 @@ func (m *mockCrawlsRepo) GetCatalogForCrawl(_ context.Context, _ uuid.UUID) ([]r
 
 func (m *mockCrawlsRepo) ListSightingsByCrawl(_ context.Context, _ repository.ListSightingsByCrawlParams) ([]repository.ListSightingsByCrawlRow, error) {
 	return m.sightings, m.err
+}
+
+func (m *mockCrawlsRepo) ListSightingsByCrawlAndSpecies(_ context.Context, arg repository.ListSightingsByCrawlAndSpeciesParams) ([]repository.ListSightingsByCrawlAndSpeciesRow, error) {
+	m.gotPlate = arg.SpeciesPlateNumber
+	return m.speciesSightings, m.err
 }
 
 type mockFrontierClient struct {
@@ -465,5 +472,62 @@ func TestServer_HandleListCrawlSightings(t *testing.T) {
 		s.ServeHTTP(rec, req)
 
 		assertErrorResponse(t, rec, http.StatusInternalServerError, "internal server error")
+	})
+
+	t.Run("returns 200 with sightings filtered by plate number", func(t *testing.T) {
+		t.Parallel()
+
+		want := []repository.ListSightingsByCrawlAndSpeciesRow{
+			{
+				ID:                 uuid.MustParse("0195c000-0000-7000-8000-000000000002"),
+				CrawlID:            crawlID,
+				SpeciesPlateNumber: 11,
+				SourceType:         repository.SightingSourceTypeText,
+				Confidence:         0.95,
+				PageUrl:            "https://example.com/birds",
+				Metadata:           json.RawMessage(`{}`),
+				CommonName:         "Bald Eagle",
+				ScientificName:     "Haliaeetus leucocephalus",
+			},
+		}
+		repo := &mockCrawlsRepo{speciesSightings: want}
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			nil,
+			repo,
+			nil,
+		)
+
+		req := httptest.NewRequest(http.MethodGet, "/api/v1/crawls/"+crawlID.String()+"/sightings?plate=11", nil)
+		rec := httptest.NewRecorder()
+
+		s.ServeHTTP(rec, req)
+
+		assertJSONResponse(t, rec, http.StatusOK, want)
+		if repo.gotPlate != 11 {
+			t.Errorf("SpeciesPlateNumber = %d, want 11", repo.gotPlate)
+		}
+	})
+
+	t.Run("returns 400 when plate query param is invalid", func(t *testing.T) {
+		t.Parallel()
+
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			nil,
+			&mockCrawlsRepo{},
+			nil,
+		)
+
+		for _, plate := range []string{"abc", "0", "-1"} {
+			req := httptest.NewRequest(http.MethodGet, "/api/v1/crawls/"+crawlID.String()+"/sightings?plate="+plate, nil)
+			rec := httptest.NewRecorder()
+
+			s.ServeHTTP(rec, req)
+
+			assertErrorResponse(t, rec, http.StatusBadRequest, "invalid plate number")
+		}
 	})
 }

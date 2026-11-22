@@ -20,6 +20,7 @@ type Querier interface {
 	ListAllSpecies(ctx context.Context) ([]Species, error)
 	ListCrawlsWithSummary(ctx context.Context, arg ListCrawlsWithSummaryParams) ([]ListCrawlsWithSummaryRow, error)
 	ListSightingsByCrawl(ctx context.Context, arg ListSightingsByCrawlParams) ([]ListSightingsByCrawlRow, error)
+	ListSightingsByCrawlAndSpecies(ctx context.Context, arg ListSightingsByCrawlAndSpeciesParams) ([]ListSightingsByCrawlAndSpeciesRow, error)
 	ListSightingsBySpecies(ctx context.Context, arg ListSightingsBySpeciesParams) ([]Sighting, error)
 	ListSpeciesDictionary(ctx context.Context) ([]ListSpeciesDictionaryRow, error)
 	UpdateCrawlState(ctx context.Context, arg UpdateCrawlStateParams) (Crawl, error)

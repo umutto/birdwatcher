@@ -27,7 +27,7 @@ The HTTP server listens on port `8080`:
 | `GET /api/v1/crawls` | List paginated crawl jobs with sighting summaries. |
 | `GET /api/v1/crawls/{id}` | Get details and progress counters for a crawl job. |
 | `GET /api/v1/crawls/{id}/catalog` | List all 435 species with sighting counts for a specific crawl. |
-| `GET /api/v1/crawls/{id}/sightings` | List paginated sightings discovered during a crawl. |
+| `GET /api/v1/crawls/{id}/sightings` | List paginated sightings discovered during a crawl (supports optional `?plate={plate}` filter). |
 
 ---
 

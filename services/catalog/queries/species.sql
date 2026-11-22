@@ -39,8 +39,7 @@ ORDER BY plate_number ASC;
 -- name: GetCatalogForCrawl :many
 SELECT
     s.*,
-    COUNT(st.id) AS sighting_count,
-    MAX(st.created_at)::TIMESTAMPTZ AS last_sighted_at
+    COUNT(st.id) AS sighting_count
 FROM species s
 LEFT JOIN sightings st
     ON

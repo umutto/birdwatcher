@@ -8,7 +8,6 @@ package repository
 import (
 	"context"
 	"encoding/json"
-	"time"
 
 	"github.com/google/uuid"
 )
@@ -16,8 +15,7 @@ import (
 const getCatalogForCrawl = `-- name: GetCatalogForCrawl :many
 SELECT
     s.plate_number, s.common_name, s.aliases, s.scientific_name, s.description, s.image_url, s.call_url, s.audubon_url, s.metadata,
-    COUNT(st.id) AS sighting_count,
-    MAX(st.created_at)::TIMESTAMPTZ AS last_sighted_at
+    COUNT(st.id) AS sighting_count
 FROM species s
 LEFT JOIN sightings st
     ON
@@ -38,7 +36,6 @@ type GetCatalogForCrawlRow struct {
 	AudubonUrl     *string         `json:"audubon_url"`
 	Metadata       json.RawMessage `json:"metadata"`
 	SightingCount  int64           `json:"sighting_count"`
-	LastSightedAt  time.Time       `json:"last_sighted_at"`
 }
 
 func (q *Queries) GetCatalogForCrawl(ctx context.Context, crawlID uuid.UUID) ([]GetCatalogForCrawlRow, error) {
@@ -61,7 +58,6 @@ func (q *Queries) GetCatalogForCrawl(ctx context.Context, crawlID uuid.UUID) ([]
 			&i.AudubonUrl,
 			&i.Metadata,
 			&i.SightingCount,
-			&i.LastSightedAt,
 		); err != nil {
 			return nil, err
 		}
