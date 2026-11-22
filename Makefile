@@ -68,12 +68,12 @@ setup-hooks:
 	chmod +x .githooks/pre-push
 
 tools:
-	go install github.com/bufbuild/buf/cmd/buf@latest
-	go install github.com/sqlc-dev/sqlc/cmd/sqlc@latest
+	go install github.com/bufbuild/buf/cmd/buf@v1.75.0
+	go install github.com/sqlc-dev/sqlc/cmd/sqlc@v1.31.1
 	go install github.com/pressly/goose/v3/cmd/goose@latest
-	go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@latest
+	go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.15.0
 	go install github.com/air-verse/air@latest
-	uv tool install sqruff
+	uv tool install sqruff==0.44.0
 
 up:
 	docker compose up -d

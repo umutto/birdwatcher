@@ -104,6 +104,7 @@ jobs:
       - name: Setup Buf
         uses: bufbuild/buf-setup-action@v1
         with:
+          version: '1.75.0'
           github_token: ${{ github.token }}
 
       - name: Lint Protobuf
@@ -169,7 +170,7 @@ jobs:
 
       - name: Install sqruff
         run: |
-          wget -q https://github.com/quarylabs/sqruff/releases/download/v0.40.0/sqruff-linux-x86_64-musl.tar.gz
+          wget -q https://github.com/quarylabs/sqruff/releases/download/v0.44.0/sqruff-linux-x86_64-musl.tar.gz
           tar -xzf sqruff-linux-x86_64-musl.tar.gz
           sudo mv sqruff /usr/local/bin/
 
@@ -179,7 +180,7 @@ jobs:
       - name: Lint (golangci-lint)
         uses: golangci/golangci-lint-action@v9
         with:
-          version: v2.14
+          version: v2.15.0
           args: --timeout=5m ${{ env.GO_MODULES }}
 
       - name: Run Unit Tests (go test)
@@ -209,13 +210,13 @@ jobs:
       - name: Lint & Format Check (Ruff)
         run: |
           cd services/vision
-          uv run --with ruff ruff check .
-          uv run --with ruff ruff format --check .
+          uv run --frozen ruff check .
+          uv run --frozen ruff format --check .
 
       - name: Run Unit Tests (Pytest)
         run: |
           cd services/vision
-          uv run --with pytest pytest || [ $? -eq 5 ]
+          uv run --frozen pytest || [ $? -eq 5 ]
 
   web:
     name: Web Lint, Type-Check & Build
