@@ -71,7 +71,7 @@ tools:
 	go install github.com/bufbuild/buf/cmd/buf@latest
 	go install github.com/sqlc-dev/sqlc/cmd/sqlc@latest
 	go install github.com/pressly/goose/v3/cmd/goose@latest
-	go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+	go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@latest
 	go install github.com/air-verse/air@latest
 	uv tool install sqruff
 
