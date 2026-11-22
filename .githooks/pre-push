@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
-base="$(git rev-parse --verify -q '@{u}' || git rev-parse --verify -q 'origin/main' || true)"
+base=""
+if [ "${1:-}" != "--all" ]; then
+    base="$(git rev-parse --verify -q '@{u}' || git rev-parse --verify -q 'origin/main' || true)"
+fi
+
 changed=""
 if [ -n "$base" ]; then
     changed="$( (git diff --name-only "$base...HEAD"; git diff --name-only; git diff --name-only --cached; git ls-files --others --exclude-standard) | sort -u )"
@@ -10,20 +14,35 @@ fi
 
 has_changed() { [ -z "$base" ] || grep -qE "$1" <<< "$changed"; }
 
+in_dir() { local d="$1"; shift; (cd "$d" && "$@"); }
+
+run_check() {
+    local label="$1"; shift
+    local out
+    if out="$("$@" 2>&1)"; then
+        echo "  ✓ $label"
+    else
+        echo "  ✗ $label"
+        [ -n "$out" ] && printf '%s\n' "$out"
+        exit 1
+    fi
+}
+
 # 1. Code generation & workspace drift
 if [ -d "services/catalog" ] && has_changed '^services/catalog/(queries|migrations)/|^services/catalog/sqlc\.ya?ml$'; then
-    (cd services/catalog && sqlc generate >/dev/null)
-    git diff --quiet services/catalog/internal/repository/ || { echo "❌ sqlc drift detected. Run 'make sqlc'."; exit 1; }
+    run_check "sqlc generate" in_dir services/catalog sqlc generate
+    git diff --quiet services/catalog/internal/repository/ || { echo "  ✗ sqlc drift detected. Run 'make sqlc'."; exit 1; }
 fi
 
 if [ -d "proto" ] && command -v buf >/dev/null 2>&1 && has_changed '^proto/'; then
-    (cd proto && buf lint && buf generate >/dev/null)
-    git diff --quiet gen/ || { echo "❌ Protobuf drift detected. Run 'make proto'."; exit 1; }
+    run_check "buf lint" in_dir proto buf lint
+    run_check "buf generate" in_dir proto buf generate
+    git diff --quiet gen/ || { echo "  ✗ Protobuf drift detected. Run 'make proto'."; exit 1; }
 fi
 
 if [ -f "go.work" ] && has_changed '(^|/)go\.(work|work\.sum|mod|sum)$'; then
-    go work sync >/dev/null
-    git diff --quiet go.work.sum || { echo "❌ go.work.sum drift detected. Run 'go work sync'."; exit 1; }
+    run_check "go work sync" go work sync
+    git diff --quiet go.work.sum || { echo "  ✗ go.work.sum drift detected. Run 'go work sync'."; exit 1; }
 fi
 
 # 2. Go lint & formatting (golangci-lint v2 checks gofumpt + gci + modernize)
@@ -40,16 +59,17 @@ if has_changed '\.go$|^go\.work|go\.(mod|sum)$|^\.golangci\.yml$|^proto/'; then
             fi
         done
     fi
-    if [ "${#targets[@]}" -gt 0 ]; then golangci-lint run "${targets[@]}"; fi
+    if [ "${#targets[@]}" -gt 0 ]; then run_check "go lint" golangci-lint run "${targets[@]}"; fi
 fi
 
 # 3. SQL & Python lint
 if [ -d "services/catalog" ] && command -v sqruff >/dev/null 2>&1 && has_changed '^services/catalog/.*\.sql$|^\.sqlfluff$'; then
-    sqruff lint services/catalog
+    run_check "sql lint" sqruff lint services/catalog
 fi
 
 if [ -d "services/vision" ] && command -v uv >/dev/null 2>&1 && has_changed '^services/vision/'; then
-    (cd services/vision && uv run ruff format --check . && uv run ruff check .)
+    run_check "python format" in_dir services/vision uv run ruff format --check .
+    run_check "python lint" in_dir services/vision uv run ruff check .
 fi
 
 echo "✅ Verification passed."
