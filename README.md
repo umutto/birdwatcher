@@ -121,11 +121,12 @@ for svc in catalog frontier scraper textparser vision; do
 done
 ```
 
-### 2. Start Local Infrastructure & Seed Data
+### 2. Download Media Assets, Start Infrastructure & Seed Data
 
-Start **NATS JetStream** (`localhost:4222`, monitoring at `http://localhost:8222`), **PostgreSQL 18** (`localhost:5432`), and **Valkey 9** (`localhost:6379`), apply schema migrations, and seed the Audubon catalog:
+Download the Audubon plate images and bird call audio into `./media/`, start **NATS JetStream** (`localhost:4222`, monitoring at `http://localhost:8222`), **PostgreSQL 18** (`localhost:5432`), **Valkey 9** (`localhost:6379`), and the local **Media** server (`http://localhost:8081`), apply schema migrations, and seed the Audubon catalog:
 
 ```bash
+make media
 make up
 make migrate
 make seed
@@ -186,6 +187,7 @@ cd web && pnpm install && pnpm dev
 - [x] `frontier` gRPC server, BFS URL queue, deduplication, and host rate limiting
 - [x] `scraper` HTML fetcher and link/text/image extractor
 - [x] `textparser` Aho-Corasick bird name matcher
+- [x] Audubon plate images & bird call audio collection (`media-v1` release) and local Nginx media server
 - [ ] `vision` Python image classification worker
 - [ ] `web` dashboard views for browsing the catalog and monitoring crawls
 

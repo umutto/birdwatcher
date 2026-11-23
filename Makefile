@@ -1,4 +1,9 @@
-.PHONY: proto sqlc migrate migrate-reset seed lint lint-proto lint-go lint-python lint-sql format format-go format-sql format-python test test-go test-python verify setup-hooks up down watch-catalog dev tools
+.PHONY: proto sqlc migrate migrate-reset seed lint lint-proto lint-go lint-python lint-sql format format-go format-sql format-python test test-go test-python verify setup-hooks media up down watch-catalog dev tools
+
+MEDIA_TAG := media-v1
+MEDIA_ARCHIVE := birdwatcher-$(MEDIA_TAG).tar.gz
+MEDIA_URL := https://github.com/umutto/birdwatcher/releases/download/$(MEDIA_TAG)/$(MEDIA_ARCHIVE)
+MEDIA_SHA256 := 45fb33bb7addd6322705897e3b43e0f84282cfbc73aa4eea87e0f6bafa46d7ac
 
 GO_MODULES := \
 	./services/catalog/... \
@@ -74,6 +79,28 @@ tools:
 	go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.15.0
 	go install github.com/air-verse/air@latest
 	uv tool install sqruff==0.44.0
+
+media:
+	@set -eu; \
+	if [ -d media/images ] && [ -d media/audio ] && [ "$(FORCE)" != "1" ]; then \
+		echo "Media assets already present in ./media (run 'make media FORCE=1' to re-download)"; \
+		exit 0; \
+	fi; \
+	tmp=$$(mktemp); \
+	trap 'rm -f "$$tmp"' EXIT INT TERM; \
+	echo "Downloading $(MEDIA_ARCHIVE) ($(MEDIA_TAG))..."; \
+	curl -fL --progress-bar -o "$$tmp" "$(MEDIA_URL)"; \
+	echo "Verifying SHA-256 checksum..."; \
+	if command -v sha256sum >/dev/null 2>&1; then \
+		printf '%s  %s\n' "$(MEDIA_SHA256)" "$$tmp" | sha256sum -c -; \
+	else \
+		printf '%s  %s\n' "$(MEDIA_SHA256)" "$$tmp" | shasum -a 256 -c -; \
+	fi; \
+	rm -rf media/images media/audio; \
+	mkdir -p media; \
+	echo "Extracting into ./media/..."; \
+	tar -xzf "$$tmp" -C media; \
+	echo "Media assets ready in ./media/"
 
 up:
 	docker compose up -d
