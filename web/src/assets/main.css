@@ -1,1 +1,75 @@
 @import "tailwindcss";
+
+@theme {
+  --font-serif: "Newsreader", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+
+  /* Palette */
+  --color-canvas: #f3f2ec;
+  --color-paper: #f9f6ee;
+  --color-filigree: #7a6852;
+  --color-forest: #3b6342;
+
+  /* Shadows */
+  --shadow-card: 0 2px 0 rgba(122, 104, 82, 0.18);
+  --shadow-modal: 0 22px 56px rgba(18, 18, 14, 0.26);
+
+  /* Animations */
+  --animate-note-breath: note-breath 1.2s ease-in-out infinite;
+  --animate-note-ripple: note-ripple 1.2s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+
+  @keyframes note-breath {
+    0%,
+    100% {
+      transform: translateY(0) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-1.2px) rotate(-5deg);
+    }
+  }
+
+  @keyframes note-ripple {
+    0% {
+      transform: scale(1);
+      opacity: 0.55;
+    }
+    100% {
+      transform: scale(1.38);
+      opacity: 0;
+    }
+  }
+}
+
+@layer base {
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-stone-900);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-forest);
+    outline-offset: 2px;
+  }
+}
+
+@utility bg-field-paper {
+  background-image: radial-gradient(rgba(44, 48, 38, 0.055) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+@utility bg-meadow {
+  background-image: url("/copperplate-meadow.webp");
+  background-repeat: repeat-x;
+  background-position: bottom center;
+  background-size: auto 10rem;
+}
+
+/* Keep scroll gestures trapped inside open native <dialog> modals without locking body overflow. */
+dialog:modal {
+  overscroll-behavior: contain;
+}
+
+dialog::backdrop {
+  overflow: hidden;
+  overscroll-behavior: contain;
+}

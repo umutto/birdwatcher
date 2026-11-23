@@ -2,7 +2,12 @@
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
   "semi": false,
   "singleQuote": true,
-  "sortTailwindcss": true,
+  "sortTailwindcss": {
+    "stylesheet": "./src/assets/main.css",
+    "attributes": [
+      ":class"
+    ]
+  },
   "overrides": [
     {
       "files": [

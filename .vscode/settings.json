@@ -146,6 +146,9 @@
     "vite.config.*": "jsconfig*, vitest.config.*, cypress.config.*, playwright.config.*",
     "package.json": "package-lock.json, pnpm*, .yarnrc*, yarn*, .eslint*, eslint*, .oxlint*, oxlint*, .oxfmt*, .prettier*, prettier*, .editorconfig, bun.lock, nub.lock"
   },
+  "oxc.path.oxfmt": "./web/node_modules/.bin/oxfmt",
+  "oxc.path.oxlint": "./web/node_modules/.bin/oxlint",
+  "oxc.fmt.configPath": "./web/.oxfmtrc.json",
   "typescript.tsdk": "web/node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "editor.codeActionsOnSave": {
