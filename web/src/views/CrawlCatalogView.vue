@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, useTemplateRef } from 'vue'
+import { computed, ref, useTemplateRef, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 
 import { ApiError, isCrawlActive, type CatalogSpecies } from '@/api/types'
@@ -10,6 +10,8 @@ import SpeciesDetailModal from '@/components/SpeciesDetailModal.vue'
 import { useInfiniteSlice } from '@/composables/useInfiniteSlice'
 import { useStoredBoolean } from '@/composables/useStoredBoolean'
 import { useCrawl, useCrawlCatalog } from '@/queries/crawls'
+import { formatPageTitle } from '@/router'
+import { getCrawlTitle } from '@/utils/crawl'
 
 const route = useRoute()
 const crawlId = computed(() => String(route.params.id ?? ''))
@@ -49,6 +51,18 @@ const errorMessage = computed(() => {
 const canRetry = computed(
   () => !(activeError.value instanceof ApiError && activeError.value.status < 500),
 )
+
+watchEffect(() => {
+  if (route.name !== 'crawl-catalog') return
+
+  if (crawl.value) {
+    document.title = formatPageTitle(getCrawlTitle(crawl.value))
+  } else if (isCrawlError.value) {
+    document.title = formatPageTitle(errorMessage.value)
+  } else {
+    document.title = formatPageTitle('Expedition')
+  }
+})
 
 const sightedSpeciesCount = computed(
   () => catalog.value?.filter((species) => species.sighting_count > 0).length ?? 0,

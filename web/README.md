@@ -44,6 +44,7 @@ cp .env.example .env.local
 | Variable | Default | Description |
 | :--- | :--- | :--- |
 | `VITE_MEDIA_BASE_URL` | `http://localhost:8081` | Base URL for Audubon plate images and bird call audio (served locally by the `media` Docker container). |
+| `VITE_SITE_URL` | `http://localhost:5173` | Canonical public origin (no trailing slash) used at build time for `robots.txt`, `sitemap.xml`, canonical links, JSON-LD, and absolute Open Graph/Twitter image URLs. |
 
 In development, Vite proxies `/api/*` requests directly to the local `catalog` service at `http://localhost:8080`.
 

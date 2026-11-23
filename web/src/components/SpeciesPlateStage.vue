@@ -62,6 +62,11 @@ watch(
 
 onBeforeUnmount(stopAudio)
 
+function toggleZoom() {
+  if (!isSighted.value) return
+  isZoomed.value = !isZoomed.value
+}
+
 function handleMouseMove(event: MouseEvent) {
   if (!isZoomed.value) return
   const target = event.currentTarget as HTMLElement
@@ -78,8 +83,11 @@ function handleMouseMove(event: MouseEvent) {
   >
     <div
       class="relative flex h-96 w-full items-center justify-center overflow-hidden rounded-lg lg:h-120"
-      :class="isZoomed ? 'cursor-zoom-out' : 'cursor-zoom-in'"
-      @click="isZoomed = !isZoomed"
+      :class="{
+        'cursor-zoom-in': isSighted && !isZoomed,
+        'cursor-zoom-out': isSighted && isZoomed,
+      }"
+      @click="toggleZoom"
       @mousemove="handleMouseMove"
     >
       <span
@@ -97,7 +105,7 @@ function handleMouseMove(event: MouseEvent) {
       />
 
       <button
-        v-if="callSrc"
+        v-if="callSrc && isSighted"
         type="button"
         :aria-label="isPlaying ? 'Stop bird call' : 'Play bird call'"
         :title="isPlaying ? 'Stop bird call' : 'Play bird call'"

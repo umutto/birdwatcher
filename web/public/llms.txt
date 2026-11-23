@@ -1,0 +1,32 @@
+# birdwatcher
+
+> Distributed, event-driven web crawler and bird recognition pipeline that matches web text and image sightings against the 435 plates of John James Audubon's *The Birds of America*.
+
+## Overview
+
+Given a starting URL, birdwatcher crawls pages (`frontier` + `scraper`), scans extracted text for bird common names, scientific names, and aliases (`textparser` via Aho-Corasick), classifies scraped images (`vision`), and indexes sightings in PostgreSQL (`catalog`). The web dashboard (`web`) lets users launch crawls and inspect progress across the complete 435-species Audubon plate catalog.
+
+## Audubon Catalog Context
+
+- **435 species** keyed by Audubon plate number (`1`–`435`) from *The Birds of America*.
+- Each species entry includes common name, scientific name, aliases, plate artwork, and bird call audio.
+- Every crawl job (`/crawls/{id}`) tracks species coverage, page progress, and individual text or image sightings.
+
+## API (`/api/v1`)
+
+- `GET /api/v1/species` — List all 435 bird species.
+- `GET /api/v1/species/dictionary` — Lightweight list of names, scientific names, and aliases for text matching.
+- `GET /api/v1/species/{plate}` — Get details for a single species by plate number (`1`–`435`).
+- `GET /api/v1/species/{plate}/sightings` — List paginated sightings for a species.
+- `POST /api/v1/crawls` — Start a new crawl job for a target URL.
+- `GET /api/v1/crawls` — List paginated crawl jobs with sighting summaries.
+- `GET /api/v1/crawls/{id}` — Get status and progress counters for a crawl job.
+- `DELETE /api/v1/crawls/{id}` — Delete a finished crawl job and its sightings (admin Bearer token required).
+- `GET /api/v1/crawls/{id}/catalog` — List all 435 species with sighting counts for a crawl.
+- `GET /api/v1/crawls/{id}/sightings` — List paginated sightings for a crawl (optional `?plate={plate}` filter).
+
+## Links
+
+- [GitHub Repository](https://github.com/umutto/birdwatcher)
+- [Project README](https://github.com/umutto/birdwatcher/blob/main/README.md)
+- [Catalog API Docs](https://github.com/umutto/birdwatcher/blob/main/services/catalog/README.md)
