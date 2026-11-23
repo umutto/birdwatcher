@@ -1,4 +1,4 @@
-.PHONY: proto sqlc migrate migrate-reset seed lint lint-proto lint-go lint-python lint-sql lint-web format format-go format-sql format-python format-web test test-go test-python verify setup-hooks media up down watch-catalog dev tools
+.PHONY: proto sqlc migrate migrate-reset seed lint lint-proto lint-go lint-python lint-sql lint-web format format-go format-sql format-python format-web test test-go test-python verify setup-hooks media up down dev-catalog dev-frontier dev-scraper dev-textparser dev-vision dev-web tools
 
 MEDIA_TAG := media-v1
 MEDIA_ARCHIVE := birdwatcher-$(MEDIA_TAG).tar.gz
@@ -114,7 +114,20 @@ up:
 down:
 	docker compose down
 
-watch-catalog:
+dev-catalog:
 	cd services/catalog && air
 
-dev: watch-catalog
+dev-frontier:
+	cd services/frontier && set -a && . ./.env && set +a && go run .
+
+dev-scraper:
+	cd services/scraper && set -a && . ./.env && set +a && go run .
+
+dev-textparser:
+	cd services/textparser && set -a && . ./.env && set +a && go run .
+
+dev-vision:
+	cd services/vision && uv run --env-file .env vision
+
+dev-web:
+	cd web && pnpm dev

@@ -32,10 +32,10 @@ cp .env.example .env
 
 ## Development
 
-Run the service directly:
+Run from the repository root:
 
 ```bash
-go run .
+make dev-textparser
 ```
 
 Run tests:

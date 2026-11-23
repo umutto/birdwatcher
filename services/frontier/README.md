@@ -39,10 +39,10 @@ cp .env.example .env
 
 ## Development
 
-Run the service directly:
+Run from the repository root:
 
 ```bash
-go run .
+make dev-frontier
 ```
 
 Run unit and integration tests:

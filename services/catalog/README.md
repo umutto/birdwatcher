@@ -61,13 +61,7 @@ cp .env.example .env
 Run with live reload from the repository root:
 
 ```bash
-make dev
-```
-
-Or run directly:
-
-```bash
-go run ./cmd/catalog
+make dev-catalog
 ```
 
 Run tests:

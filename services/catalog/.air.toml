@@ -5,8 +5,8 @@ env_files = [".env"]
 
 [build]
   cmd = "go build -o ./tmp/catalog ./cmd/catalog"
-  bin = "./tmp/catalog"
-  include_dir = [".", "../../shared"]
+  entrypoint = ["./tmp/catalog"]
+  include_dir = [".", "../../shared", "../../gen/go"]
   include_ext = ["go"]
   exclude_dir = ["tmp", "migrations", "queries"]
   exclude_regex = ["_test\\.go$"]

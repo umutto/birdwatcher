@@ -30,10 +30,10 @@ cp .env.example .env
 
 ## Development
 
-Run the service with `uv`:
+Run from the repository root:
 
 ```bash
-uv run vision
+make dev-vision
 ```
 
 Run test suite:
