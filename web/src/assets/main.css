@@ -11,6 +11,7 @@
 
   /* Shadows */
   --shadow-card: 0 2px 0 rgba(122, 104, 82, 0.18);
+  --shadow-tag: 0 2px 0 rgba(122, 104, 82, 0.24), 0 6px 16px rgba(28, 25, 23, 0.09);
   --shadow-modal: 0 22px 56px rgba(18, 18, 14, 0.26);
 
   /* Animations */
@@ -62,6 +63,11 @@
   background-repeat: repeat-x;
   background-position: bottom center;
   background-size: auto 10rem;
+}
+
+@utility content-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 18rem;
 }
 
 /* Keep scroll gestures trapped inside open native <dialog> modals without locking body overflow. */

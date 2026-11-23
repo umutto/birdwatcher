@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { computed, useSlots } from 'vue'
 import { RouterLink } from 'vue-router'
 
+import wordmarkUrl from '@/assets/wordmark.webp'
 import FiligreeCorner from '@/components/FiligreeCorner.vue'
 
-const slots = useSlots()
-const hasSlotContent = computed(() => Boolean(slots.default))
+const { hasContent = false } = defineProps<{
+  hasContent?: boolean
+}>()
 </script>
 
 <template>
@@ -17,19 +18,27 @@ const hasSlotContent = computed(() => Boolean(slots.default))
 
     <div
       class="flex items-center px-2.5 md:h-14 md:pr-6 md:pl-5"
-      :class="{ 'md:border-r md:border-filigree/25': hasSlotContent }"
+      :class="{ 'md:border-r md:border-filigree/25': hasContent }"
     >
       <RouterLink
         :to="{ name: 'crawls' }"
         title="Return to index"
-        class="py-1 font-serif text-xl font-bold tracking-tight transition-opacity hover:opacity-80"
+        class="inline-flex items-center py-1 transition-opacity hover:opacity-80"
       >
-        birdwatcher
+        <img
+          :src="wordmarkUrl"
+          alt="birdwatcher"
+          width="492"
+          height="128"
+          decoding="async"
+          fetchpriority="high"
+          class="h-10 w-auto select-none"
+        />
       </RouterLink>
     </div>
 
     <div
-      v-if="hasSlotContent"
+      v-if="hasContent"
       class="flex min-w-0 flex-col justify-between gap-2.5 px-2.5 md:flex-row md:items-center md:gap-6 md:pr-3 md:pl-0"
     >
       <slot />

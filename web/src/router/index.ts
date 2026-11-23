@@ -13,12 +13,16 @@ const router = createRouter({
     {
       path: '/crawls/:id',
       name: 'crawl-catalog',
-      component: () => import('@/views/CrawlCatalogView.vue'),
+      components: {
+        default: () => import('@/views/CrawlCatalogView.vue'),
+        navbar: () => import('@/components/CrawlNavbarSummary.vue'),
+      },
     },
     {
       path: '/:pathMatch(.*)*',
       name: 'not-found',
-      component: () => import('@/views/NotFoundView.vue'),
+      component: () => import('@/components/ErrorState.vue'),
+      props: { code: 404, message: 'Page not found' },
     },
   ],
 })

@@ -1,7 +1,7 @@
 <!-- markdownlint-disable-file MD041 -->
 
 <p align="center">
-  <img src="assets/logo.png" alt="birdwatcher logo" width="180" />
+  <img src="assets/logo.png" alt="birdwatcher logo" width="360" />
 </p>
 
 # birdwatcher
@@ -142,20 +142,22 @@ make setup-hooks
 
 ### 4. Run the Application
 
+Run each service you need in its own terminal from the repository root:
+
 ```bash
-# Run Catalog API with live reload (http://localhost:8080)
-make dev
+# Catalog API with live reload (http://localhost:8080)
+make dev-catalog
 
-# Run Go workers (in separate terminals)
-go run ./services/frontier
-go run ./services/scraper
-go run ./services/textparser
+# Go workers
+make dev-frontier     # gRPC server & BFS queue (localhost:9090)
+make dev-scraper      # HTML scraper worker
+make dev-textparser   # Aho-Corasick text matcher worker
 
-# Run Python vision worker
-cd services/vision && uv run vision
+# Python vision worker
+make dev-vision
 
-# Run Vue 3 frontend (http://localhost:5173)
-cd web && pnpm install && pnpm dev
+# Vue 3 frontend (http://localhost:5173 — run `cd web && pnpm install` once first)
+make dev-web
 ```
 
 ---
@@ -196,7 +198,7 @@ cd web && pnpm install && pnpm dev
 - [ ] **Observability**: OpenTelemetry distributed tracing (`shared/telemetry`) across services
 - [ ] **Cloud Hosting**: Terraform / OpenTofu zero-cost infrastructure (`deploy/`)
 - [ ] **Caching Layer**: Response caching for scraper and URL frontier
-- [ ] **CLI Client**: Terminal client for dispatching crawls and exploring sightings (`catalog/cmd/cli`)
+- [ ] **CLI Client**: Terminal client for dispatching, managing/deleting crawls, and exploring sightings (`catalog/cmd/cli`)
 
 ---
 

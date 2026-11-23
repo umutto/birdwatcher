@@ -1,0 +1,21 @@
+{
+  "name": "birdwatcher",
+  "short_name": "birdwatcher",
+  "description": "Crawl websites and collect bird sightings matched against Audubon's 435 plates of The Birds of America.",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#f3f2ec",
+  "background_color": "#f3f2ec",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
