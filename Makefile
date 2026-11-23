@@ -1,9 +1,9 @@
 .PHONY: proto sqlc migrate migrate-reset seed lint lint-proto lint-go lint-python lint-sql lint-web format format-go format-sql format-python format-web test test-go test-python verify setup-hooks media up down dev-catalog dev-frontier dev-scraper dev-textparser dev-vision dev-web tools
 
-MEDIA_TAG := media-v1
+MEDIA_TAG := media-v2
 MEDIA_ARCHIVE := birdwatcher-$(MEDIA_TAG).tar.gz
 MEDIA_URL := https://github.com/umutto/birdwatcher/releases/download/$(MEDIA_TAG)/$(MEDIA_ARCHIVE)
-MEDIA_SHA256 := 45fb33bb7addd6322705897e3b43e0f84282cfbc73aa4eea87e0f6bafa46d7ac
+MEDIA_SHA256 := c5ab5e21ffb6ae1dbca42bbc46692f4e15702a7c8b114e6a235015b67f7129b2
 
 GO_MODULES := \
 	./services/catalog/... \
@@ -88,8 +88,8 @@ tools:
 
 media:
 	@set -eu; \
-	if [ -d media/images ] && [ -d media/audio ] && [ "$(FORCE)" != "1" ]; then \
-		echo "Media assets already present in ./media (run 'make media FORCE=1' to re-download)"; \
+	if [ -d media/images ] && [ -d media/audio ] && [ -f media/.version ] && [ "$$(cat media/.version)" = "$(MEDIA_TAG)" ] && [ "$(FORCE)" != "1" ]; then \
+		echo "Media assets ($(MEDIA_TAG)) already present in ./media (run 'make media FORCE=1' to re-download)"; \
 		exit 0; \
 	fi; \
 	tmp=$$(mktemp); \
@@ -106,7 +106,8 @@ media:
 	mkdir -p media; \
 	echo "Extracting into ./media/..."; \
 	tar -xzf "$$tmp" -C media; \
-	echo "Media assets ready in ./media/"
+	printf '%s\n' "$(MEDIA_TAG)" > media/.version; \
+	echo "Media assets ($(MEDIA_TAG)) ready in ./media/"
 
 up:
 	docker compose up -d

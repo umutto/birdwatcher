@@ -189,9 +189,9 @@ make dev-web
 - [x] `frontier` gRPC server, BFS URL queue, deduplication, and host rate limiting
 - [x] `scraper` HTML fetcher and link/text/image extractor
 - [x] `textparser` Aho-Corasick bird name matcher
-- [x] Audubon plate images & bird call audio collection (`media-v1` release) and local Nginx media server
+- [x] Audubon plate images & bird call audio collection (`media-v2` release) and local Nginx media server
+- [x] `web` dashboard views for browsing the catalog and monitoring crawls
 - [ ] `vision` Python image classification worker
-- [ ] `web` dashboard views for browsing the catalog and monitoring crawls
 
 ### Stretch Goals & Extensions
 

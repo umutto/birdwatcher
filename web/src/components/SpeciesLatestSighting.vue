@@ -49,13 +49,13 @@ const snippetSegments = computed<SnippetSegment[]>(() => {
       <span class="text-xs font-semibold text-stone-600">Latest sighting</span>
       <span
         v-if="species.sighting_count > 0"
-        class="font-mono text-xs font-semibold tabular-nums text-stone-700"
+        class="font-mono text-xs font-semibold text-stone-700 tabular-nums"
       >
         &times;{{ species.sighting_count }} total
       </span>
     </div>
 
-    <p v-if="species.sighting_count === 0" class="text-xs italic text-stone-500">
+    <p v-if="species.sighting_count === 0" class="text-xs text-stone-500 italic">
       Not spotted in this expedition.
     </p>
 
@@ -67,7 +67,7 @@ const snippetSegments = computed<SnippetSegment[]>(() => {
 
     <div
       v-else-if="latestSighting"
-      class="rounded-lg border border-filigree/20 border-l-3 border-l-forest bg-filigree/5 px-3 py-2.5 text-xs"
+      class="rounded-lg border border-l-3 border-filigree/20 border-l-forest bg-filigree/5 px-3 py-2.5 text-xs"
     >
       <p v-if="snippetSegments.length > 0" class="leading-relaxed text-stone-800">
         <template v-for="(part, idx) in snippetSegments" :key="idx">
@@ -75,7 +75,7 @@ const snippetSegments = computed<SnippetSegment[]>(() => {
           <template v-else>{{ part.text }}</template>
         </template>
       </p>
-      <p v-else class="italic text-stone-600">
+      <p v-else class="text-stone-600 italic">
         Spotted via {{ latestSighting.source_type }} recognition.
       </p>
 

@@ -20,7 +20,7 @@ const fullSrc = computed(() => resolveMediaUrl(species.image_url))
 <template>
   <button
     type="button"
-    class="content-auto flex cursor-pointer flex-col overflow-hidden rounded-xl border border-filigree/25 bg-paper/85 text-left shadow-card transition-colors hover:border-filigree/55 hover:bg-paper"
+    class="flex cursor-pointer flex-col overflow-hidden rounded-xl border border-filigree/25 bg-paper/85 text-left shadow-card transition-colors content-auto hover:border-filigree/55 hover:bg-paper"
     @click="emit('select', species)"
   >
     <div
@@ -28,7 +28,7 @@ const fullSrc = computed(() => resolveMediaUrl(species.image_url))
       :class="isSighted ? 'bg-filigree/5' : 'bg-canvas'"
     >
       <span
-        class="absolute top-2.5 left-2.5 rounded bg-paper/75 px-1.5 py-0.5 font-mono text-xs font-medium tabular-nums text-stone-600"
+        class="absolute top-2.5 left-2.5 rounded bg-paper/75 px-1.5 py-0.5 font-mono text-xs font-medium text-stone-600 tabular-nums"
       >
         Plate {{ species.plate_number }}
       </span>
@@ -47,7 +47,7 @@ const fullSrc = computed(() => resolveMediaUrl(species.image_url))
 
       <span
         v-if="isSighted"
-        class="absolute right-2.5 bottom-2.5 rounded border border-filigree/25 bg-paper/90 px-1.5 py-0.5 font-mono text-xs font-semibold tabular-nums text-stone-700"
+        class="absolute right-2.5 bottom-2.5 rounded border border-filigree/25 bg-paper/90 px-1.5 py-0.5 font-mono text-xs font-semibold text-stone-700 tabular-nums"
       >
         &times;{{ species.sighting_count }}
       </span>
@@ -57,7 +57,7 @@ const fullSrc = computed(() => resolveMediaUrl(species.image_url))
       <h2 class="font-serif text-base leading-snug font-bold text-stone-900">
         {{ species.common_name }}
       </h2>
-      <p class="mt-0.5 text-xs italic text-stone-500">
+      <p class="mt-0.5 text-xs text-stone-500 italic">
         {{ species.scientific_name }}
       </p>
     </div>

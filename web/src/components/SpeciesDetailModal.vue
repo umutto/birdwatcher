@@ -31,7 +31,7 @@ const emit = defineEmits<{
           <h2 class="pr-8 font-serif text-3xl leading-tight font-bold text-stone-900">
             {{ species.common_name }}
           </h2>
-          <p class="mt-1 text-sm italic text-stone-500">
+          <p class="mt-1 text-sm text-stone-500 italic">
             {{ species.scientific_name }}
           </p>
 

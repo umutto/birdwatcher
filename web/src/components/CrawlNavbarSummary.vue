@@ -46,8 +46,8 @@ const progressPercent = computed(() => getSpeciesProgressPercent(sightedSpeciesC
 
     <div class="w-full shrink-0 md:w-52 md:text-right">
       <div class="mb-1 flex items-baseline justify-between text-xs">
-        <span class="font-serif italic text-stone-600">Identified</span>
-        <strong class="font-mono text-sm font-semibold tabular-nums text-stone-900">
+        <span class="font-serif text-stone-600 italic">Identified</span>
+        <strong class="font-mono text-sm font-semibold text-stone-900 tabular-nums">
           {{ sightedSpeciesCount }} / {{ TOTAL_SPECIES }}
         </strong>
       </div>
@@ -60,7 +60,7 @@ const progressPercent = computed(() => getSpeciesProgressPercent(sightedSpeciesC
         />
       </div>
 
-      <p class="mt-1 text-xs tabular-nums text-stone-500">
+      <p class="mt-1 text-xs text-stone-500 tabular-nums">
         {{ totalSightings }} sightings &middot; {{ crawl.pages_crawled_count }} pages
       </p>
     </div>

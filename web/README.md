@@ -6,7 +6,7 @@ The **Web Dashboard** (`web`) is a Vue 3.5+ single-page application for launchin
 
 - **Framework & Routing**: Vue 3.5 (`<script setup lang="ts">`) + Vue Router 5
 - **Server State**: TanStack Vue Query v5 (`@tanstack/vue-query`)
-- **Styling**: Tailwind CSS v4 (`@tailwindcss/vite`)
+- **Styling & Icons**: Tailwind CSS v4 (`@tailwindcss/vite`) + Lucide (`lucide-vue-next`)
 - **Tooling**: Vite 8, `vue-tsc` powered by `typescript-go` (`typescript-native-bridge`), Oxlint, ESLint, and Oxfmt
 
 ---
@@ -57,7 +57,7 @@ Install dependencies:
 pnpm install
 ```
 
-Start the dev server (`http://localhost:5173`):
+Start the dev server (`http://localhost:5173`, or run `make dev-web` from the repo root):
 
 ```bash
 pnpm dev
