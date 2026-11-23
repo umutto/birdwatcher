@@ -106,7 +106,8 @@ func TestLoad(t *testing.T) {
 func validConfig() *config.Config {
 	return &config.Config{
 		Server: config.ServerConfig{
-			Port: 8080,
+			Port:        8080,
+			AdminAPIKey: "SECRET_KEY",
 			Frontier: config.FrontierConfig{
 				Addr:     "localhost:9090",
 				MaxDepth: 4,

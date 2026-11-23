@@ -121,6 +121,12 @@ for svc in catalog frontier scraper textparser vision; do
 done
 ```
 
+If you plan to call admin endpoints (such as `DELETE /api/v1/crawls/{id}`), generate a secret and set `ADMIN_API_KEY` in `services/catalog/.env`:
+
+```bash
+openssl rand -hex 32
+```
+
 ### 2. Download Media Assets, Start Infrastructure & Seed Data
 
 Download the Audubon plate images and bird call audio into `./media/`, start **NATS JetStream** (`localhost:4222`, monitoring at `http://localhost:8222`), **PostgreSQL 18** (`localhost:5432`), **Valkey 9** (`localhost:6379`), and the local **Media** server (`http://localhost:8081`), apply schema migrations, and seed the Audubon catalog:

@@ -1,9 +1,12 @@
 package server
 
 import (
+	"crypto/sha256"
+	"crypto/subtle"
 	"log/slog"
 	"net/http"
 	"slices"
+	"strings"
 	"time"
 )
 
@@ -62,6 +65,28 @@ func requestLogger(log *slog.Logger) Middleware {
 				slog.Duration("duration", time.Since(start)),
 				slog.Int("bytes", rw.bytes),
 			)
+		})
+	}
+}
+
+// requireAdminKey returns a Middleware that authorizes requests using a static Bearer token.
+func requireAdminKey(key string) Middleware {
+	key = strings.TrimSpace(key)
+	expected := sha256.Sum256([]byte(key))
+
+	return func(next http.Handler) http.Handler {
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			token, found := strings.CutPrefix(r.Header.Get("Authorization"), "Bearer ")
+			if key != "" && found && token != "" {
+				actual := sha256.Sum256([]byte(token))
+				if subtle.ConstantTimeCompare(actual[:], expected[:]) == 1 {
+					next.ServeHTTP(w, r)
+					return
+				}
+			}
+
+			w.Header().Set("WWW-Authenticate", "Bearer")
+			writeError(w, http.StatusUnauthorized, "unauthorized")
 		})
 	}
 }

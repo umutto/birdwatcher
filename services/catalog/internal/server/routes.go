@@ -5,6 +5,7 @@ import "net/http"
 // routes registers application routes and returns the root http.Handler.
 func (s *Server) routes() http.Handler {
 	mux := http.NewServeMux()
+	adminOnly := requireAdminKey(s.cfg.AdminAPIKey)
 
 	// probe handlers
 	mux.HandleFunc("GET /livez", s.handleLivez)
@@ -21,7 +22,7 @@ func (s *Server) routes() http.Handler {
 	mux.HandleFunc("POST /api/v1/crawls", s.handleCreateCrawl)
 	mux.HandleFunc("GET /api/v1/crawls", s.handleListCrawls)
 	mux.HandleFunc("GET /api/v1/crawls/{id}", s.handleGetCrawl)
-	mux.HandleFunc("DELETE /api/v1/crawls/{id}", s.handleDeleteCrawl)
+	mux.Handle("DELETE /api/v1/crawls/{id}", adminOnly(http.HandlerFunc(s.handleDeleteCrawl)))
 	mux.HandleFunc("GET /api/v1/crawls/{id}/catalog", s.handleGetCrawlCatalog)
 	mux.HandleFunc("GET /api/v1/crawls/{id}/sightings", s.handleListCrawlSightings)
 

@@ -344,6 +344,9 @@ func TestServer_HandleGetCrawl(t *testing.T) {
 func TestServer_HandleDeleteCrawl(t *testing.T) {
 	t.Parallel()
 
+	const testAdminKey = "test-admin-key"
+	cfg := config.ServerConfig{Port: 8080, AdminAPIKey: testAdminKey}
+
 	t.Run("returns 204 when deleting a finished crawl", func(t *testing.T) {
 		t.Parallel()
 
@@ -356,13 +359,14 @@ func TestServer_HandleDeleteCrawl(t *testing.T) {
 			crawl.State = state
 			s := server.New(
 				slog.New(slog.DiscardHandler),
-				config.ServerConfig{Port: 8080},
+				cfg,
 				nil,
 				&mockCrawlsRepo{crawls: []repository.Crawl{crawl}},
 				nil,
 			)
 
 			req := httptest.NewRequest(http.MethodDelete, "/api/v1/crawls/"+crawlID.String(), nil)
+			req.Header.Set("Authorization", "Bearer "+testAdminKey)
 			rec := httptest.NewRecorder()
 
 			s.ServeHTTP(rec, req)
@@ -376,18 +380,56 @@ func TestServer_HandleDeleteCrawl(t *testing.T) {
 		}
 	})
 
+	t.Run("returns 401 when unauthorized", func(t *testing.T) {
+		t.Parallel()
+
+		cases := []struct {
+			name       string
+			serverKey  string
+			authHeader string
+		}{
+			{name: "missing header", serverKey: testAdminKey, authHeader: ""},
+			{name: "wrong token", serverKey: testAdminKey, authHeader: "Bearer wrong-key"},
+			{name: "unset server key", serverKey: "", authHeader: "Bearer " + testAdminKey},
+		}
+
+		for _, tc := range cases {
+			s := server.New(
+				slog.New(slog.DiscardHandler),
+				config.ServerConfig{Port: 8080, AdminAPIKey: tc.serverKey},
+				nil,
+				&mockCrawlsRepo{},
+				nil,
+			)
+
+			req := httptest.NewRequest(http.MethodDelete, "/api/v1/crawls/"+crawlID.String(), nil)
+			if tc.authHeader != "" {
+				req.Header.Set("Authorization", tc.authHeader)
+			}
+			rec := httptest.NewRecorder()
+
+			s.ServeHTTP(rec, req)
+
+			assertErrorResponse(t, rec, http.StatusUnauthorized, "unauthorized")
+			if got := rec.Header().Get("WWW-Authenticate"); got != "Bearer" {
+				t.Errorf("%s: got WWW-Authenticate %q, want %q", tc.name, got, "Bearer")
+			}
+		}
+	})
+
 	t.Run("returns 400 when crawl id is invalid", func(t *testing.T) {
 		t.Parallel()
 
 		s := server.New(
 			slog.New(slog.DiscardHandler),
-			config.ServerConfig{Port: 8080},
+			cfg,
 			nil,
 			&mockCrawlsRepo{},
 			nil,
 		)
 
 		req := httptest.NewRequest(http.MethodDelete, "/api/v1/crawls/INVALID", nil)
+		req.Header.Set("Authorization", "Bearer "+testAdminKey)
 		rec := httptest.NewRecorder()
 
 		s.ServeHTTP(rec, req)
@@ -400,13 +442,14 @@ func TestServer_HandleDeleteCrawl(t *testing.T) {
 
 		s := server.New(
 			slog.New(slog.DiscardHandler),
-			config.ServerConfig{Port: 8080},
+			cfg,
 			nil,
 			&mockCrawlsRepo{},
 			nil,
 		)
 
 		req := httptest.NewRequest(http.MethodDelete, "/api/v1/crawls/"+crawlID.String(), nil)
+		req.Header.Set("Authorization", "Bearer "+testAdminKey)
 		rec := httptest.NewRecorder()
 
 		s.ServeHTTP(rec, req)
@@ -425,13 +468,14 @@ func TestServer_HandleDeleteCrawl(t *testing.T) {
 			crawl.State = state
 			s := server.New(
 				slog.New(slog.DiscardHandler),
-				config.ServerConfig{Port: 8080},
+				cfg,
 				nil,
 				&mockCrawlsRepo{crawls: []repository.Crawl{crawl}},
 				nil,
 			)
 
 			req := httptest.NewRequest(http.MethodDelete, "/api/v1/crawls/"+crawlID.String(), nil)
+			req.Header.Set("Authorization", "Bearer "+testAdminKey)
 			rec := httptest.NewRecorder()
 
 			s.ServeHTTP(rec, req)
@@ -445,13 +489,14 @@ func TestServer_HandleDeleteCrawl(t *testing.T) {
 
 		s := server.New(
 			slog.New(slog.DiscardHandler),
-			config.ServerConfig{Port: 8080},
+			cfg,
 			nil,
 			&mockCrawlsRepo{err: errors.New("db error")},
 			nil,
 		)
 
 		req := httptest.NewRequest(http.MethodDelete, "/api/v1/crawls/"+crawlID.String(), nil)
+		req.Header.Set("Authorization", "Bearer "+testAdminKey)
 		rec := httptest.NewRecorder()
 
 		s.ServeHTTP(rec, req)

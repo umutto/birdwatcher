@@ -11,8 +11,9 @@ import (
 
 // ServerConfig holds HTTP server configuration options.
 type ServerConfig struct {
-	Port     int32
-	Frontier FrontierConfig
+	Port        int32
+	AdminAPIKey string
+	Frontier    FrontierConfig
 }
 
 // FrontierConfig holds connection settings and default crawl limits for the Frontier service.
@@ -52,6 +53,8 @@ func Load() (*Config, error) {
 	port, err := env.Int32("PORT", 8080)
 	errs = append(errs, err)
 
+	adminAPIKey := env.String("ADMIN_API_KEY", "")
+
 	frontierAddr := env.String("FRONTIER_GRPC_ADDR", "localhost:9090")
 
 	frontierMaxDepth, err := env.Int32("FRONTIER_MAX_DEPTH", 4)
@@ -87,7 +90,8 @@ func Load() (*Config, error) {
 	cfg := &Config{
 		Env: env.Current(),
 		Server: ServerConfig{
-			Port: port,
+			Port:        port,
+			AdminAPIKey: adminAPIKey,
 			Frontier: FrontierConfig{
 				Addr:     frontierAddr,
 				MaxDepth: frontierMaxDepth,
