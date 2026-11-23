@@ -155,6 +155,54 @@ func (s *Server) handleGetCrawl(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, crawl)
 }
 
+// handleDeleteCrawl deletes a finished crawl job and its cascading sightings by UUID.
+func (s *Server) handleDeleteCrawl(w http.ResponseWriter, r *http.Request) {
+	crawlID, err := uuid.Parse(r.PathValue("id"))
+	if err != nil {
+		writeError(w, http.StatusBadRequest, "invalid crawl id")
+		return
+	}
+
+	crawl, err := s.repo.GetCrawlByID(r.Context(), crawlID)
+	if errors.Is(err, pgx.ErrNoRows) {
+		writeError(w, http.StatusNotFound, "crawl not found")
+		return
+	}
+	if err != nil {
+		s.log.ErrorContext(
+			r.Context(),
+			"get crawl by id",
+			slog.String("crawl_id", crawlID.String()),
+			slog.Any("error", err),
+		)
+		writeError(w, http.StatusInternalServerError, "internal server error")
+		return
+	}
+
+	if !isTerminalCrawlState(crawl.State) {
+		writeError(w, http.StatusConflict, "cannot delete an active crawl")
+		return
+	}
+
+	rows, err := s.repo.DeleteCrawl(r.Context(), crawlID)
+	if err != nil {
+		s.log.ErrorContext(
+			r.Context(),
+			"delete crawl",
+			slog.String("crawl_id", crawlID.String()),
+			slog.Any("error", err),
+		)
+		writeError(w, http.StatusInternalServerError, "internal server error")
+		return
+	}
+	if rows == 0 {
+		writeError(w, http.StatusNotFound, "crawl not found")
+		return
+	}
+
+	w.WriteHeader(http.StatusNoContent)
+}
+
 // handleGetCrawlCatalog returns all 435 Audubon species annotated with sighting counts for a given crawl UUID.
 func (s *Server) handleGetCrawlCatalog(w http.ResponseWriter, r *http.Request) {
 	crawlID, err := uuid.Parse(r.PathValue("id"))
@@ -246,4 +294,16 @@ func (s *Server) listCrawlSightingsByPlate(w http.ResponseWriter, r *http.Reques
 	}
 
 	writeJSON(w, http.StatusOK, sightings)
+}
+
+// isTerminalCrawlState reports whether a crawl has reached a final state.
+func isTerminalCrawlState(state repository.CrawlState) bool {
+	switch state {
+	case repository.CrawlStateCompleted,
+		repository.CrawlStateFailed,
+		repository.CrawlStateCancelled:
+		return true
+	default:
+		return false
+	}
 }

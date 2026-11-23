@@ -13,6 +13,7 @@ import (
 type Querier interface {
 	CreateCrawl(ctx context.Context, targetUrl string) (Crawl, error)
 	CreateSighting(ctx context.Context, arg CreateSightingParams) (Sighting, error)
+	DeleteCrawl(ctx context.Context, id uuid.UUID) (int64, error)
 	GetCatalogForCrawl(ctx context.Context, crawlID uuid.UUID) ([]GetCatalogForCrawlRow, error)
 	GetCrawlByID(ctx context.Context, id uuid.UUID) (Crawl, error)
 	GetSpeciesByPlateNumber(ctx context.Context, plateNumber int32) (Species, error)

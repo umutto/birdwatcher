@@ -36,6 +36,22 @@ func (q *Queries) CreateCrawl(ctx context.Context, targetUrl string) (Crawl, err
 	return i, err
 }
 
+const deleteCrawl = `-- name: DeleteCrawl :execrows
+DELETE
+FROM crawls
+WHERE
+    id = $1
+    AND state IN ('completed', 'failed', 'cancelled')
+`
+
+func (q *Queries) DeleteCrawl(ctx context.Context, id uuid.UUID) (int64, error) {
+	result, err := q.db.Exec(ctx, deleteCrawl, id)
+	if err != nil {
+		return 0, err
+	}
+	return result.RowsAffected(), nil
+}
+
 const getCrawlByID = `-- name: GetCrawlByID :one
 SELECT id, target_url, title, state, pages_crawled_count, images_scanned_count, created_at, updated_at, started_at, completed_at
 FROM crawls

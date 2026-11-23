@@ -21,6 +21,7 @@ func (s *Server) routes() http.Handler {
 	mux.HandleFunc("POST /api/v1/crawls", s.handleCreateCrawl)
 	mux.HandleFunc("GET /api/v1/crawls", s.handleListCrawls)
 	mux.HandleFunc("GET /api/v1/crawls/{id}", s.handleGetCrawl)
+	mux.HandleFunc("DELETE /api/v1/crawls/{id}", s.handleDeleteCrawl)
 	mux.HandleFunc("GET /api/v1/crawls/{id}/catalog", s.handleGetCrawlCatalog)
 	mux.HandleFunc("GET /api/v1/crawls/{id}/sightings", s.handleListCrawlSightings)
 

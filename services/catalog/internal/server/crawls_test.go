@@ -72,6 +72,18 @@ func (m *mockCrawlsRepo) GetCrawlByID(_ context.Context, id uuid.UUID) (reposito
 	return repository.Crawl{}, pgx.ErrNoRows
 }
 
+func (m *mockCrawlsRepo) DeleteCrawl(_ context.Context, id uuid.UUID) (int64, error) {
+	if m.err != nil {
+		return 0, m.err
+	}
+	for _, c := range m.crawls {
+		if c.ID == id {
+			return 1, nil
+		}
+	}
+	return 0, nil
+}
+
 func (m *mockCrawlsRepo) GetCatalogForCrawl(_ context.Context, _ uuid.UUID) ([]repository.GetCatalogForCrawlRow, error) {
 	return m.catalog, m.err
 }
@@ -321,6 +333,125 @@ func TestServer_HandleGetCrawl(t *testing.T) {
 		)
 
 		req := httptest.NewRequest(http.MethodGet, "/api/v1/crawls/"+crawlID.String(), nil)
+		rec := httptest.NewRecorder()
+
+		s.ServeHTTP(rec, req)
+
+		assertErrorResponse(t, rec, http.StatusInternalServerError, "internal server error")
+	})
+}
+
+func TestServer_HandleDeleteCrawl(t *testing.T) {
+	t.Parallel()
+
+	t.Run("returns 204 when deleting a finished crawl", func(t *testing.T) {
+		t.Parallel()
+
+		for _, state := range []repository.CrawlState{
+			repository.CrawlStateCompleted,
+			repository.CrawlStateFailed,
+			repository.CrawlStateCancelled,
+		} {
+			crawl := mockCrawl
+			crawl.State = state
+			s := server.New(
+				slog.New(slog.DiscardHandler),
+				config.ServerConfig{Port: 8080},
+				nil,
+				&mockCrawlsRepo{crawls: []repository.Crawl{crawl}},
+				nil,
+			)
+
+			req := httptest.NewRequest(http.MethodDelete, "/api/v1/crawls/"+crawlID.String(), nil)
+			rec := httptest.NewRecorder()
+
+			s.ServeHTTP(rec, req)
+
+			if rec.Code != http.StatusNoContent {
+				t.Fatalf("state %q: got status %d, want %d", state, rec.Code, http.StatusNoContent)
+			}
+			if rec.Body.Len() != 0 {
+				t.Errorf("state %q: got body %q, want empty", state, rec.Body.String())
+			}
+		}
+	})
+
+	t.Run("returns 400 when crawl id is invalid", func(t *testing.T) {
+		t.Parallel()
+
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			nil,
+			&mockCrawlsRepo{},
+			nil,
+		)
+
+		req := httptest.NewRequest(http.MethodDelete, "/api/v1/crawls/INVALID", nil)
+		rec := httptest.NewRecorder()
+
+		s.ServeHTTP(rec, req)
+
+		assertErrorResponse(t, rec, http.StatusBadRequest, "invalid crawl id")
+	})
+
+	t.Run("returns 404 when crawl not found", func(t *testing.T) {
+		t.Parallel()
+
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			nil,
+			&mockCrawlsRepo{},
+			nil,
+		)
+
+		req := httptest.NewRequest(http.MethodDelete, "/api/v1/crawls/"+crawlID.String(), nil)
+		rec := httptest.NewRecorder()
+
+		s.ServeHTTP(rec, req)
+
+		assertErrorResponse(t, rec, http.StatusNotFound, "crawl not found")
+	})
+
+	t.Run("returns 409 when crawl is active", func(t *testing.T) {
+		t.Parallel()
+
+		for _, state := range []repository.CrawlState{
+			repository.CrawlStatePending,
+			repository.CrawlStateRunning,
+		} {
+			crawl := mockCrawl
+			crawl.State = state
+			s := server.New(
+				slog.New(slog.DiscardHandler),
+				config.ServerConfig{Port: 8080},
+				nil,
+				&mockCrawlsRepo{crawls: []repository.Crawl{crawl}},
+				nil,
+			)
+
+			req := httptest.NewRequest(http.MethodDelete, "/api/v1/crawls/"+crawlID.String(), nil)
+			rec := httptest.NewRecorder()
+
+			s.ServeHTTP(rec, req)
+
+			assertErrorResponse(t, rec, http.StatusConflict, "cannot delete an active crawl")
+		}
+	})
+
+	t.Run("returns 500 when repository fails", func(t *testing.T) {
+		t.Parallel()
+
+		s := server.New(
+			slog.New(slog.DiscardHandler),
+			config.ServerConfig{Port: 8080},
+			nil,
+			&mockCrawlsRepo{err: errors.New("db error")},
+			nil,
+		)
+
+		req := httptest.NewRequest(http.MethodDelete, "/api/v1/crawls/"+crawlID.String(), nil)
 		rec := httptest.NewRecorder()
 
 		s.ServeHTTP(rec, req)

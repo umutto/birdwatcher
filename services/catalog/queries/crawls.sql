@@ -48,3 +48,10 @@ LEFT JOIN sightings AS s
 GROUP BY c.id
 ORDER BY c.created_at DESC
 LIMIT @limit_rows OFFSET @offset_rows;
+
+-- name: DeleteCrawl :execrows
+DELETE
+FROM crawls
+WHERE
+    id = @id
+    AND state IN ('completed', 'failed', 'cancelled');

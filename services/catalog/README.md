@@ -26,6 +26,7 @@ The HTTP server listens on port `8080`:
 | `POST /api/v1/crawls` | Create a new crawl job and dispatch it to `frontier`. |
 | `GET /api/v1/crawls` | List paginated crawl jobs with sighting summaries. |
 | `GET /api/v1/crawls/{id}` | Get details and progress counters for a crawl job. |
+| `DELETE /api/v1/crawls/{id}` | Delete a finished crawl job and its sightings (`409` if still active). |
 | `GET /api/v1/crawls/{id}/catalog` | List all 435 species with sighting counts for a specific crawl. |
 | `GET /api/v1/crawls/{id}/sightings` | List paginated sightings discovered during a crawl (supports optional `?plate={plate}` filter). |
 
