@@ -1,4 +1,4 @@
-.PHONY: proto sqlc migrate migrate-reset seed lint lint-proto lint-go lint-python lint-sql format format-go format-sql format-python test test-go test-python verify setup-hooks media up down watch-catalog dev tools
+.PHONY: proto sqlc migrate migrate-reset seed lint lint-proto lint-go lint-python lint-sql lint-web format format-go format-sql format-python format-web test test-go test-python verify setup-hooks media up down watch-catalog dev tools
 
 MEDIA_TAG := media-v1
 MEDIA_ARCHIVE := birdwatcher-$(MEDIA_TAG).tar.gz
@@ -31,7 +31,7 @@ migrate-reset:
 seed:
 	cd services/catalog && set -a && . ./.env && set +a && go run ./cmd/seed
 
-lint: lint-proto lint-go lint-python lint-sql
+lint: lint-proto lint-go lint-python lint-sql lint-web
 
 lint-proto:
 	cd proto && buf lint
@@ -46,7 +46,10 @@ lint-sql:
 	cd services/catalog && sqlc compile
 	sqruff lint services/catalog
 
-format: format-go format-python format-sql
+lint-web:
+	cd web && pnpm lint
+
+format: format-go format-python format-sql format-web
 
 format-go:
 	gofmt -w services shared
@@ -56,6 +59,9 @@ format-sql:
 
 format-python:
 	cd services/vision && uv run ruff format .
+
+format-web:
+	cd web && pnpm format
 
 test: test-go test-python
 

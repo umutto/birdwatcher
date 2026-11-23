@@ -1,50 +1,73 @@
-# .
+# Web Dashboard
 
-This template should help get you started developing with Vue 3 in Vite.
+The **Web Dashboard** (`web`) is a Vue 3.5+ single-page application for launching website crawls, browsing the 435 Audubon species catalog, and inspecting bird sightings served by `services/catalog`.
 
-## Recommended IDE Setup
+## Stack
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- **Framework & Routing**: Vue 3.5 (`<script setup lang="ts">`) + Vue Router 5
+- **Server State**: TanStack Vue Query v5 (`@tanstack/vue-query`)
+- **Styling**: Tailwind CSS v4 (`@tailwindcss/vite`)
+- **Tooling**: Vite 8, `vue-tsc` powered by `typescript-go` (`typescript-native-bridge`), Oxlint, ESLint, and Oxfmt
 
-This project replaces its workspace TypeScript package with [typescript-native-bridge](https://github.com/johnsoncodehk/typescript-native-bridge). Command-line tools use the bridge automatically. To use it in VS Code after installing dependencies, accept the prompt to use the workspace TypeScript version. If the prompt does not appear, run **TypeScript: Select TypeScript Version** and choose **Use Workspace Version**.
+---
 
-## Recommended Browser Setup
+## Prerequisites & IDE Setup
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+- **Node.js** `26+` (LTS, pinned in `.node-version`)
+- **pnpm** `10+` — Node 26 no longer bundles Corepack, so install `pnpm` first:
 
-## Type Support for `.vue` Imports in TS
+```bash
+npm install -g pnpm
+# or standalone installer:
+# curl -fsSL https://get.pnpm.io/install.sh | sh -
+```
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+Install the recommended VS Code extensions (listed in `.vscode/extensions.json`):
 
-## Customize configuration
+- **Vue (Official)** (`Vue.volar`) — disables/replaces legacy Vetur; required for `.vue` TypeScript support
+- **Tailwind CSS IntelliSense** (`bradlc.vscode-tailwindcss`) — Tailwind v4 class completion and `@theme` support
+- **Oxc** (`oxc.oxc-vscode`) — Oxlint diagnostics and Oxfmt formatting on save
+- **ESLint** (`dbaeumer.vscode-eslint`) — Vue SFC template lint rules
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+After running `pnpm install`, accept the VS Code prompt to use the workspace TypeScript version (or run **TypeScript: Select TypeScript Version** -> **Use Workspace Version**) so editor checking uses `typescript-native-bridge` (`tsgo`).
 
-## Project Setup
+---
 
-```sh
+## Configuration
+
+Development defaults are committed in `.env.development`. To override locally (e.g. pointing to a remote media CDN), copy `.env.example` to `.env.local`:
+
+```bash
+cp .env.example .env.local
+```
+
+| Variable | Default | Description |
+| :--- | :--- | :--- |
+| `VITE_MEDIA_BASE_URL` | `http://localhost:8081` | Base URL for Audubon plate images and bird call audio (served locally by the `media` Docker container). |
+
+In development, Vite proxies `/api/*` requests directly to the local `catalog` service at `http://localhost:8080`.
+
+---
+
+## Development
+
+Install dependencies:
+
+```bash
 pnpm install
 ```
 
-### Compile and Hot-Reload for Development
+Start the dev server (`http://localhost:5173`):
 
-```sh
+```bash
 pnpm dev
 ```
 
-### Type-Check, Compile and Minify for Production
+Type-check, lint, format, and build (or run `make lint-web` / `make format-web` from the repo root):
 
-```sh
-pnpm build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
+```bash
+pnpm type-check
 pnpm lint
+pnpm format
+pnpm build
 ```

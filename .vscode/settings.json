@@ -5,14 +5,17 @@
     "ahocorasick",
     "appendonly",
     "atratus",
+    "audubon",
     "birdwatcherv",
     "bufbuild",
     "bwnats",
+    "closedby",
     "Coragyps",
     "Corasick",
     "dambovaliev",
     "DBTX",
     "dedup",
+    "dvh",
     "errgroup",
     "flocci",
     "Gavia",
@@ -34,6 +37,7 @@
     "Melanitta",
     "naks",
     "Noscript",
+    "overscroll",
     "oxfmt",
     "oxlint",
     "perspicillata",
@@ -60,6 +64,7 @@
     "textparser",
     "timestamppb",
     "timestamptz",
+    "tsgo",
     "uuidv",
     "valkey",
     "volar",
@@ -116,6 +121,14 @@
   "[javascript]": {
     "editor.defaultFormatter": "oxc.oxc-vscode",
     "editor.formatOnSave": true
+  },
+  "[css]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode",
+    "editor.formatOnSave": true
+  },
+  "css.lint.unknownAtRules": "ignore",
+  "editor.quickSuggestions": {
+    "strings": "on"
   },
   "python.defaultInterpreterPath": "${workspaceFolder}/services/vision/.venv/bin/python",
   "python.useEnvironmentsExtension": false,

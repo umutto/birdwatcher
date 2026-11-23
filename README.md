@@ -97,7 +97,7 @@ Make sure the following runtimes are installed on your system (Linux / macOS / W
 
 - **Go** `1.27+`
 - **Python** `3.14+` with [**uv**](https://docs.astral.sh/uv/)
-- **Node.js** `24+` with [**pnpm**](https://pnpm.io/)
+- **Node.js** `26+` with [**pnpm**](https://pnpm.io/)
 - **Docker** & **Docker Compose**
 
 Install the project development tools (`buf`, `sqlc`, `goose`, `golangci-lint`, `air`, `sqruff`):

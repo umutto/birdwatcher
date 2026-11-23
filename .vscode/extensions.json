@@ -5,6 +5,7 @@
     "charliermarsh.ruff",
     "ms-python.debugpy",
     "Vue.volar",
+    "bradlc.vscode-tailwindcss",
     "dbaeumer.vscode-eslint",
     "EditorConfig.EditorConfig",
     "oxc.oxc-vscode",
