@@ -2,6 +2,50 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "Dev: Stack",
+      "dependsOrder": "sequence",
+      "dependsOn": ["Infra: Up", "Dev: Services"],
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Dev: Services",
+      "dependsOrder": "parallel",
+      "dependsOn": [
+        "Dev: Catalog",
+        "Dev: Frontier",
+        "Dev: Scraper",
+        "Dev: Textparser",
+        "Dev: Web"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Infra: Up",
+      "type": "shell",
+      "command": "make",
+      "args": ["up"],
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "silent",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Infra: Down",
+      "type": "shell",
+      "command": "make",
+      "args": ["down"],
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "silent",
+        "panel": "shared"
+      }
+    },
+    {
       "label": "Dev: Catalog",
       "type": "shell",
       "command": "make",
@@ -11,8 +55,7 @@
       "presentation": {
         "reveal": "always",
         "panel": "dedicated"
-      },
-      "group": "build"
+      }
     },
     {
       "label": "Dev: Frontier",
@@ -24,8 +67,7 @@
       "presentation": {
         "reveal": "always",
         "panel": "dedicated"
-      },
-      "group": "build"
+      }
     },
     {
       "label": "Dev: Scraper",
@@ -37,8 +79,7 @@
       "presentation": {
         "reveal": "always",
         "panel": "dedicated"
-      },
-      "group": "build"
+      }
     },
     {
       "label": "Dev: Textparser",
@@ -50,8 +91,7 @@
       "presentation": {
         "reveal": "always",
         "panel": "dedicated"
-      },
-      "group": "build"
+      }
     },
     {
       "label": "Dev: Vision",
@@ -63,8 +103,7 @@
       "presentation": {
         "reveal": "always",
         "panel": "dedicated"
-      },
-      "group": "build"
+      }
     },
     {
       "label": "Dev: Web",
@@ -76,8 +115,7 @@
       "presentation": {
         "reveal": "always",
         "panel": "dedicated"
-      },
-      "group": "build"
+      }
     }
   ]
 }

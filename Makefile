@@ -1,4 +1,4 @@
-.PHONY: proto sqlc migrate migrate-reset seed lint lint-proto lint-go lint-python lint-sql lint-web format format-go format-sql format-python format-web test test-go test-python verify setup-hooks media up down dev-catalog dev-frontier dev-scraper dev-textparser dev-vision dev-web tools
+.PHONY: env proto sqlc migrate migrate-reset seed lint lint-proto lint-go lint-python lint-sql lint-web format format-go format-sql format-python format-web test test-go test-python verify setup-hooks media up down dev-catalog dev-frontier dev-scraper dev-textparser dev-vision dev-web tools
 
 MEDIA_TAG := media-v2
 MEDIA_ARCHIVE := birdwatcher-$(MEDIA_TAG).tar.gz
@@ -15,6 +15,17 @@ GO_MODULES := \
 	./shared/nats/... \
 	./shared/telemetry/... \
 	./gen/go/...
+
+env:
+	@for src in .env.example services/*/.env.example; do \
+		dst="$${src%.example}"; \
+		if [ -f "$$dst" ]; then \
+			echo "exists:  $$dst"; \
+		else \
+			cp "$$src" "$$dst"; \
+			echo "created: $$dst"; \
+		fi; \
+	done
 
 proto:
 	cd proto && buf generate
@@ -52,7 +63,7 @@ lint-web:
 format: format-go format-python format-sql format-web
 
 format-go:
-	gofmt -w services shared
+	golangci-lint fmt services shared
 
 format-sql:
 	sqruff fix services/catalog
@@ -66,7 +77,7 @@ format-web:
 test: test-go test-python
 
 test-go:
-	go test $(GO_MODULES)
+	go test -race $(GO_MODULES)
 
 test-python:
 	cd services/vision && uv run pytest
@@ -110,7 +121,7 @@ media:
 	echo "Media assets ($(MEDIA_TAG)) ready in ./media/"
 
 up:
-	docker compose up -d
+	docker compose up -d --wait
 
 down:
 	docker compose down

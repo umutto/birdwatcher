@@ -1,6 +1,6 @@
 services:
   nats:
-    image: nats:latest
+    image: nats:2-alpine
     command: ["-js", "-sd", "/data", "-m", "8222"]
     ports:
       - "${NATS_PORT:-4222}:4222"
@@ -12,6 +12,7 @@ services:
       interval: 5s
       timeout: 3s
       retries: 3
+      start_period: 3s
 
   postgres:
     image: postgres:18-alpine
@@ -49,6 +50,11 @@ services:
       - "${MEDIA_PORT:-8081}:80"
     volumes:
       - ./media:/usr/share/nginx/html:ro
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z 127.0.0.1 80"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
 
 volumes:
   nats_data:

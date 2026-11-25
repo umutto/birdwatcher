@@ -28,7 +28,7 @@
       "name": "Catalog Service",
       "type": "go",
       "request": "launch",
-      "mode": "auto",
+      "mode": "debug",
       "program": "${workspaceFolder}/services/catalog/cmd/catalog",
       "cwd": "${workspaceFolder}/services/catalog",
       "envFile": "${workspaceFolder}/services/catalog/.env"
@@ -37,7 +37,7 @@
       "name": "Frontier Service",
       "type": "go",
       "request": "launch",
-      "mode": "auto",
+      "mode": "debug",
       "program": "${workspaceFolder}/services/frontier",
       "cwd": "${workspaceFolder}/services/frontier",
       "envFile": "${workspaceFolder}/services/frontier/.env"
@@ -46,7 +46,7 @@
       "name": "Scraper Service",
       "type": "go",
       "request": "launch",
-      "mode": "auto",
+      "mode": "debug",
       "program": "${workspaceFolder}/services/scraper",
       "cwd": "${workspaceFolder}/services/scraper",
       "envFile": "${workspaceFolder}/services/scraper/.env"
@@ -55,7 +55,7 @@
       "name": "Textparser Service",
       "type": "go",
       "request": "launch",
-      "mode": "auto",
+      "mode": "debug",
       "program": "${workspaceFolder}/services/textparser",
       "cwd": "${workspaceFolder}/services/textparser",
       "envFile": "${workspaceFolder}/services/textparser/.env"
@@ -64,7 +64,7 @@
       "name": "Vision Service",
       "type": "debugpy",
       "request": "launch",
-      "program": "${workspaceFolder}/services/vision/src/vision/main.py",
+      "module": "vision",
       "cwd": "${workspaceFolder}/services/vision",
       "envFile": "${workspaceFolder}/services/vision/.env",
       "console": "integratedTerminal"
