@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useTemplateRef, watch } from 'vue'
+import { X } from 'lucide-vue-next'
 
 import FiligreeCorner from '@/components/FiligreeCorner.vue'
 
@@ -71,8 +72,18 @@ function handleBackdropClick(event: MouseEvent) {
     <div class="relative">
       <slot />
 
-      <FiligreeCorner class="absolute top-1 right-1 size-14" />
+      <FiligreeCorner class="absolute top-1 right-1 size-16" />
       <FiligreeCorner class="absolute right-1 bottom-1 size-12 -scale-y-100 opacity-65" />
+
+      <button
+        type="button"
+        aria-label="Close"
+        title="Close"
+        class="absolute top-4 right-4 z-20 flex size-7 cursor-pointer items-center justify-center rounded-full bg-paper/40 text-filigree/80 transition-colors hover:bg-filigree/12 hover:text-stone-900"
+        @click="emit('close')"
+      >
+        <X aria-hidden="true" class="size-3.5" :stroke-width="2.2" />
+      </button>
     </div>
   </dialog>
 </template>
