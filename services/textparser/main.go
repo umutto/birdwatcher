@@ -8,6 +8,7 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 
 	"github.com/umutto/birdwatcher/services/textparser/internal/catalog"
 	"github.com/umutto/birdwatcher/services/textparser/internal/config"
@@ -17,6 +18,11 @@ import (
 	"github.com/umutto/birdwatcher/shared/env"
 	"github.com/umutto/birdwatcher/shared/logger"
 	"github.com/umutto/birdwatcher/shared/nats"
+)
+
+const (
+	dictionaryFetchAttempts = 5
+	dictionaryRetryDelay    = 2 * time.Second
 )
 
 // main initializes the logger, runs the service, and exits with a non-zero code on error.
@@ -51,7 +57,7 @@ func run(ctx context.Context, log *slog.Logger) error {
 		slog.String("catalog_url", cfg.Catalog.URL),
 	)
 
-	species, err := catalog.New(cfg.Catalog).FetchDictionary(ctx)
+	species, err := fetchDictionary(ctx, log, catalog.New(cfg.Catalog))
 	if err != nil {
 		return fmt.Errorf("fetch species dictionary: %w", err)
 	}
@@ -84,4 +90,37 @@ func run(ctx context.Context, log *slog.Logger) error {
 	}
 
 	return nil
+}
+
+// fetchDictionary loads the species dictionary from catalog, retrying briefly on startup races.
+func fetchDictionary(
+	ctx context.Context,
+	log *slog.Logger,
+	client *catalog.Client,
+) ([]catalog.Species, error) {
+	var err error
+	for attempt := range dictionaryFetchAttempts {
+		var species []catalog.Species
+		if species, err = client.FetchDictionary(ctx); err == nil {
+			return species, nil
+		}
+		if ctx.Err() != nil || attempt == dictionaryFetchAttempts-1 {
+			break
+		}
+
+		log.WarnContext(
+			ctx,
+			"waiting for catalog service",
+			slog.Int("attempt", attempt+1),
+			slog.Any("error", err),
+		)
+
+		select {
+		case <-ctx.Done():
+			return nil, ctx.Err()
+		case <-time.After(dictionaryRetryDelay):
+		}
+	}
+
+	return nil, err
 }
