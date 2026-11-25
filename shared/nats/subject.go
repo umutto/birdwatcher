@@ -3,6 +3,7 @@ package nats
 // Pipeline subject definitions for Birdwatcher v1 domain events.
 const (
 	SubjectPageFetchRequested = "birdwatcher.v1.page.fetch"
+	SubjectPageFetchFailed    = "birdwatcher.v1.page.failed"
 	SubjectUrlDiscovered      = "birdwatcher.v1.url.discovered"
 	SubjectPageScraped        = "birdwatcher.v1.page.scraped"
 	SubjectSightingText       = "birdwatcher.v1.sighting.text"

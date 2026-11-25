@@ -38,6 +38,16 @@ message PageFetchRequested {
   int32 depth = 3;
 }
 
+// PageFetchFailed is published by scraper when giving up on a fetch due to an error.
+// Subject: birdwatcher.v1.page.failed
+message PageFetchFailed {
+  EventMetadata meta = 1;
+  string url = 2;
+  int32 depth = 3;
+  int32 status_code = 4;
+  string reason = 5;
+}
+
 // UrlDiscovered is published by scraper when new anchor links are found on a page.
 // Subject: birdwatcher.v1.url.discovered
 message UrlDiscovered {
