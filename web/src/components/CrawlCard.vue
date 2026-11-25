@@ -40,8 +40,8 @@ const stateStyle = computed(() => getCrawlStateStyle(crawl.state))
     <CrawlProgress
       :state="crawl.state"
       :unique-species-count="crawl.unique_species_count"
-      :image-sighting-count="crawl.image_sighting_count ?? 0"
-      :text-sighting-count="crawl.text_sighting_count ?? 0"
+      :image-sighting-count="crawl.image_sighting_count"
+      :text-sighting-count="crawl.text_sighting_count"
       :pages-crawled-count="crawl.pages_crawled_count"
       class="mt-3.5 w-full border-t border-filigree/15 pt-2.5"
     />

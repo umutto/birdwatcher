@@ -166,6 +166,7 @@ func TestConsumer_HandleSightingText(t *testing.T) {
 			SpeciesPlateNumber: 11,
 			Confidence:         0.92,
 			Snippet:            "We saw a bald eagle flying near the river.",
+			MatchedText:        "bald eagle",
 		}
 		data, err := proto.Marshal(evt)
 		if err != nil {
@@ -192,6 +193,9 @@ func TestConsumer_HandleSightingText(t *testing.T) {
 		}
 		if repo.createdSightingParams.Confidence != 0.92 {
 			t.Errorf("expected confidence 0.92, got %f", repo.createdSightingParams.Confidence)
+		}
+		if got := string(repo.createdSightingParams.Metadata); got != `{"matched_text":"bald eagle"}` {
+			t.Errorf("metadata = %s, want %s", got, `{"matched_text":"bald eagle"}`)
 		}
 	})
 

@@ -14,8 +14,12 @@ import (
 )
 
 const createSighting = `-- name: CreateSighting :one
-INSERT INTO sightings (crawl_id, species_plate_number, source_type, confidence, page_url, snippet, image_url)
-VALUES ($1, $2, $3, $4, $5, $6, $7)
+INSERT INTO sightings (
+    crawl_id, species_plate_number, source_type, confidence, page_url, snippet, image_url, metadata
+)
+VALUES (
+    $1, $2, $3, $4, $5, $6, $7, $8
+)
 RETURNING id, crawl_id, species_plate_number, source_type, confidence, page_url, snippet, image_url, metadata, created_at
 `
 
@@ -27,6 +31,7 @@ type CreateSightingParams struct {
 	PageUrl            string             `json:"page_url"`
 	Snippet            *string            `json:"snippet"`
 	ImageUrl           *string            `json:"image_url"`
+	Metadata           json.RawMessage    `json:"metadata"`
 }
 
 func (q *Queries) CreateSighting(ctx context.Context, arg CreateSightingParams) (Sighting, error) {
@@ -38,6 +43,7 @@ func (q *Queries) CreateSighting(ctx context.Context, arg CreateSightingParams) 
 		arg.PageUrl,
 		arg.Snippet,
 		arg.ImageUrl,
+		arg.Metadata,
 	)
 	var i Sighting
 	err := row.Scan(

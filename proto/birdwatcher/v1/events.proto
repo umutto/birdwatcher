@@ -65,6 +65,7 @@ message SightingText {
   int32 species_plate_number = 3; // Audubon plate number (1-435)
   float confidence = 4; // Confidence score between 0.0 and 1.0
   string snippet = 5; // Context snippet containing the bird name
+  string matched_text = 6; // Exact normalized species text matched within the snippet
 }
 
 // SightingImage is published by vision for each bird classified in an image.

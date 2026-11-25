@@ -28,14 +28,17 @@ const snippetSegments = computed<SnippetSegment[]>(() => {
   const snippet = latestSighting.value?.snippet
   if (!snippet) return []
 
-  const terms = [species.common_name, species.scientific_name, ...(species.aliases ?? [])]
-    .map((term) => term.trim())
-    .filter((term) => term.length >= 3)
-    .sort((a, b) => b.length - a.length)
+  const matchedText = latestSighting.value?.metadata?.matched_text?.trim()
+  const terms = matchedText
+    ? [matchedText]
+    : [species.common_name, species.scientific_name, ...(species.aliases ?? [])]
+        .map((term) => term.trim())
+        .filter((term) => term.length >= 3)
+        .sort((a, b) => b.length - a.length)
 
   if (terms.length === 0) return [{ text: snippet, bold: false }]
 
-  const pattern = new RegExp(`(${terms.map(escapeRegex).join('|')})`, 'gi')
+  const pattern = new RegExp(`(?<![\\p{L}\\p{N}_])(${terms.map(escapeRegex).join('|')})(?![\\p{L}\\p{N}_])`, 'giu')
   return snippet
     .split(pattern)
     .map((part, index) => ({ text: part, bold: index % 2 === 1 }))

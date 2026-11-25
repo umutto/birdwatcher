@@ -41,7 +41,7 @@ func (m *mockPublisher) PublishSightingText(
 	jobID, pageURL string,
 	speciesPlateNumber int32,
 	confidence float32,
-	snippet string,
+	snippet, matchedText string,
 ) error {
 	if m.err != nil {
 		return m.err
@@ -52,6 +52,7 @@ func (m *mockPublisher) PublishSightingText(
 		SpeciesPlateNumber: speciesPlateNumber,
 		Confidence:         confidence,
 		Snippet:            snippet,
+		MatchedText:        matchedText,
 	})
 	return nil
 }
@@ -92,8 +93,8 @@ func TestConsumer_HandleMessage(t *testing.T) {
 	}
 
 	sightings := []matcher.Sighting{
-		{SpeciesPlateNumber: 11, Confidence: 1.0, Snippet: "bald eagle guide"},
-		{SpeciesPlateNumber: 306, Confidence: 1.0, Snippet: "common loon live near lakes."},
+		{SpeciesPlateNumber: 11, Confidence: 1.0, Snippet: "bald eagle guide", MatchedText: "bald eagle"},
+		{SpeciesPlateNumber: 306, Confidence: 1.0, Snippet: "common loon live near lakes.", MatchedText: "common loon"},
 	}
 
 	tests := []struct {

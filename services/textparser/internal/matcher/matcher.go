@@ -22,11 +22,19 @@ const (
 	snippetPadding = 60
 )
 
+// apostropheReplacer folds common typographic apostrophes to ASCII.
+var apostropheReplacer = strings.NewReplacer(
+	"\u2019", "'",
+	"\u2018", "'",
+	"\u02bc", "'",
+)
+
 // Sighting represents a species match detected within a scanned page.
 type Sighting struct {
 	SpeciesPlateNumber int32
 	Confidence         float32
 	Snippet            string
+	MatchedText        string
 }
 
 // Matcher scans page text against a compiled Aho-Corasick species automaton.
@@ -87,7 +95,8 @@ func (m *Matcher) scan(raw string, seen map[int32]Sighting) {
 	}
 
 	for _, match := range m.ac.FindAll(normalized) {
-		plates := m.targets[normalized[match.Start():match.End()]]
+		matchedText := normalized[match.Start():match.End()]
+		plates := m.targets[matchedText]
 		snippet := extractSnippet(normalized, match.Start(), match.End())
 
 		for _, plate := range plates {
@@ -99,6 +108,7 @@ func (m *Matcher) scan(raw string, seen map[int32]Sighting) {
 				SpeciesPlateNumber: plate,
 				Confidence:         exactMatchConfidence,
 				Snippet:            snippet,
+				MatchedText:        matchedText,
 			}
 		}
 	}
@@ -119,16 +129,53 @@ func extractSnippet(text string, start, end int) string {
 	return strings.TrimSpace(text[left:right])
 }
 
-// addTarget normalizes raw and registers plate under that pattern if non-empty and not already present.
+// addTarget normalizes raw and registers plate under each generated pattern variant if non-empty.
 func addTarget(targets map[string][]int32, plate int32, raw string) {
 	pattern := normalize(raw)
-	if pattern == "" || slices.Contains(targets[pattern], plate) {
+	if pattern == "" {
 		return
 	}
-	targets[pattern] = append(targets[pattern], plate)
+
+	for _, variant := range patternVariants(pattern) {
+		if slices.Contains(targets[variant], plate) {
+			continue
+		}
+		targets[variant] = append(targets[variant], plate)
+	}
 }
 
-// normalize lowercases s and collapses runs of whitespace into single spaces.
+// normalize lowercases s, folds typographic apostrophes to ASCII, and collapses whitespace into single spaces.
 func normalize(s string) string {
-	return strings.Join(strings.Fields(strings.ToLower(s)), " ")
+	s = apostropheReplacer.Replace(strings.ToLower(s))
+	return strings.Join(strings.Fields(s), " ")
+}
+
+// patternVariants returns pattern along with natural possessive spelling variants.
+func patternVariants(pattern string) []string {
+	tokens := strings.Fields(pattern)
+	variants := []string{pattern}
+
+	for i, token := range tokens {
+		for _, alt := range possessiveAlternatives(token) {
+			variantTokens := slices.Clone(tokens)
+			variantTokens[i] = alt
+			variants = append(variants, strings.Join(variantTokens, " "))
+		}
+	}
+
+	return variants
+}
+
+// possessiveAlternatives returns alternate possessive spellings for a single normalized token.
+func possessiveAlternatives(token string) []string {
+	if stem, ok := strings.CutSuffix(token, "'s"); ok && stem != "" {
+		if strings.HasSuffix(stem, "s") {
+			return []string{stem + "'", stem}
+		}
+		return []string{stem, stem + "s"}
+	}
+	if stem, ok := strings.CutSuffix(token, "'"); ok && stem != "" {
+		return []string{stem + "'s", stem}
+	}
+	return nil
 }

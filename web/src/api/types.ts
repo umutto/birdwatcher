@@ -37,6 +37,11 @@ export interface CatalogSpecies {
   image_sighting_count: number
 }
 
+export interface SightingMetadata {
+  matched_text?: string
+  [key: string]: unknown
+}
+
 export interface CrawlSighting {
   id: string
   crawl_id: string
@@ -46,7 +51,7 @@ export interface CrawlSighting {
   page_url: string
   snippet: string | null
   image_url: string | null
-  metadata: Record<string, unknown> | null
+  metadata: SightingMetadata | null
   created_at: string
   common_name: string
   scientific_name: string

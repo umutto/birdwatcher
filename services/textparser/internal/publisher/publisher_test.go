@@ -31,10 +31,11 @@ func TestPublisher_PublishSightingText(t *testing.T) {
 	t.Parallel()
 
 	const (
-		testPageURL    = "https://audubon.org/birds/bald-eagle"
-		testPlate      = int32(11)
-		testConfidence = float32(1.0)
-		testSnippet    = "spotted a bald eagle near the river"
+		testPageURL     = "https://audubon.org/birds/bald-eagle"
+		testPlate       = int32(11)
+		testConfidence  = float32(1.0)
+		testSnippet     = "spotted a bald eagle near the river"
+		testMatchedText = "bald eagle"
 	)
 	testJobID := uuid.New().String()
 
@@ -44,7 +45,7 @@ func TestPublisher_PublishSightingText(t *testing.T) {
 		client := &mockJetStreamPublisher{}
 		pub := publisher.New(client)
 
-		err := pub.PublishSightingText(context.Background(), testJobID, testPageURL, testPlate, testConfidence, testSnippet)
+		err := pub.PublishSightingText(context.Background(), testJobID, testPageURL, testPlate, testConfidence, testSnippet, testMatchedText)
 		if err != nil {
 			t.Fatalf("unexpected error: %v", err)
 		}
@@ -70,6 +71,9 @@ func TestPublisher_PublishSightingText(t *testing.T) {
 		if evt.GetSnippet() != testSnippet {
 			t.Errorf("snippet = %q, want %q", evt.GetSnippet(), testSnippet)
 		}
+		if evt.GetMatchedText() != testMatchedText {
+			t.Errorf("matched_text = %q, want %q", evt.GetMatchedText(), testMatchedText)
+		}
 		if evt.GetMeta().GetJobId() != testJobID {
 			t.Errorf("job_id = %q, want %q", evt.GetMeta().GetJobId(), testJobID)
 		}
@@ -87,12 +91,12 @@ func TestPublisher_PublishSightingText(t *testing.T) {
 		client := &mockJetStreamPublisher{}
 		pub := publisher.New(client)
 
-		if err := pub.PublishSightingText(context.Background(), testJobID, testPageURL, 11, testConfidence, testSnippet); err != nil {
+		if err := pub.PublishSightingText(context.Background(), testJobID, testPageURL, 11, testConfidence, testSnippet, testMatchedText); err != nil {
 			t.Fatalf("unexpected error: %v", err)
 		}
 		firstID := client.msg.(*birdwatcherv1.SightingText).GetMeta().GetEventId()
 
-		if err := pub.PublishSightingText(context.Background(), testJobID, testPageURL, 31, testConfidence, testSnippet); err != nil {
+		if err := pub.PublishSightingText(context.Background(), testJobID, testPageURL, 31, testConfidence, testSnippet, testMatchedText); err != nil {
 			t.Fatalf("unexpected error: %v", err)
 		}
 		otherPlateID := client.msg.(*birdwatcherv1.SightingText).GetMeta().GetEventId()
@@ -101,7 +105,7 @@ func TestPublisher_PublishSightingText(t *testing.T) {
 			t.Errorf("expected distinct event_ids for different species on the same page, both were %q", firstID)
 		}
 
-		if err := pub.PublishSightingText(context.Background(), testJobID, testPageURL, 11, testConfidence, testSnippet); err != nil {
+		if err := pub.PublishSightingText(context.Background(), testJobID, testPageURL, 11, testConfidence, testSnippet, testMatchedText); err != nil {
 			t.Fatalf("unexpected error: %v", err)
 		}
 		retryID := client.msg.(*birdwatcherv1.SightingText).GetMeta().GetEventId()
@@ -118,7 +122,7 @@ func TestPublisher_PublishSightingText(t *testing.T) {
 		client := &mockJetStreamPublisher{err: wantErr}
 		pub := publisher.New(client)
 
-		err := pub.PublishSightingText(context.Background(), testJobID, testPageURL, testPlate, testConfidence, testSnippet)
+		err := pub.PublishSightingText(context.Background(), testJobID, testPageURL, testPlate, testConfidence, testSnippet, testMatchedText)
 		if !errors.Is(err, wantErr) {
 			t.Fatalf("expected error wrapping %v, got %v", wantErr, err)
 		}

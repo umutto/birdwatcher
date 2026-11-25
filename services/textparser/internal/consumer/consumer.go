@@ -35,7 +35,7 @@ type EventPublisher interface {
 		jobID, pageURL string,
 		speciesPlateNumber int32,
 		confidence float32,
-		snippet string,
+		snippet, matchedText string,
 	) error
 }
 
@@ -121,6 +121,7 @@ func (c *Consumer) handlePageScraped(ctx context.Context, msg jetstream.Msg) err
 			sighting.SpeciesPlateNumber,
 			sighting.Confidence,
 			sighting.Snippet,
+			sighting.MatchedText,
 		); err != nil {
 			_ = msg.Nak()
 			return fmt.Errorf("publish: %w", err)

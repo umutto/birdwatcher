@@ -19,10 +19,10 @@ const sightedSpeciesCount = computed(
   () => catalog.value?.filter((species) => species.sighting_count > 0).length ?? 0,
 )
 const imageSightings = computed(
-  () => catalog.value?.reduce((sum, species) => sum + (species.image_sighting_count ?? 0), 0) ?? 0,
+  () => catalog.value?.reduce((sum, species) => sum + species.image_sighting_count, 0) ?? 0,
 )
 const textSightings = computed(
-  () => catalog.value?.reduce((sum, species) => sum + (species.text_sighting_count ?? 0), 0) ?? 0,
+  () => catalog.value?.reduce((sum, species) => sum + species.text_sighting_count, 0) ?? 0,
 )
 </script>
 

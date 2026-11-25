@@ -36,8 +36,8 @@ const hiddenCount = computed(() => aliases.value.length - visibleAliases.value.l
       <button
         v-if="hiddenCount > 0"
         type="button"
+        :aria-label="`Show ${hiddenCount} more names`"
         class="ml-1 cursor-pointer font-semibold text-forest hover:underline"
-        :aria-expanded="expanded"
         @click="expanded = true"
       >
         +{{ hiddenCount }}

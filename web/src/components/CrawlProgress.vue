@@ -33,10 +33,7 @@ const progressPercent = computed(() => getSpeciesProgressPercent(uniqueSpeciesCo
       class="flex items-baseline justify-between text-xs"
       :class="variant === 'navbar' ? 'mb-1' : 'mb-1.5'"
     >
-      <span
-        class="text-stone-600"
-        :class="{ 'font-serif italic': variant === 'navbar' }"
-      >
+      <span class="text-stone-600" :class="{ 'font-serif italic': variant === 'navbar' }">
         Identified
       </span>
       <strong

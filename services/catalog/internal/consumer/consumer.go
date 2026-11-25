@@ -3,6 +3,7 @@ package consumer
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"log/slog"
@@ -25,6 +26,11 @@ var filterSubjects = []string{
 	nats.SubjectSightingText,
 	nats.SubjectSightingImage,
 	nats.SubjectJobCompleted,
+}
+
+// textSightingMetadata stores match details alongside text-based sightings.
+type textSightingMetadata struct {
+	MatchedText string `json:"matched_text,omitzero"`
 }
 
 // Consumer processes pipeline events from NATS JetStream and updates the database.
@@ -149,6 +155,12 @@ func (c *Consumer) handleSightingText(ctx context.Context, msg jetstream.Msg) er
 		return err
 	}
 
+	metadata, err := json.Marshal(textSightingMetadata{MatchedText: evt.MatchedText})
+	if err != nil {
+		_ = msg.Term()
+		return fmt.Errorf("marshal metadata: %w", err)
+	}
+
 	if _, err = c.repo.CreateSighting(ctx, repository.CreateSightingParams{
 		CrawlID:            crawlID,
 		SpeciesPlateNumber: evt.SpeciesPlateNumber,
@@ -157,6 +169,7 @@ func (c *Consumer) handleSightingText(ctx context.Context, msg jetstream.Msg) er
 		PageUrl:            evt.PageUrl,
 		Snippet:            &evt.Snippet,
 		ImageUrl:           nil,
+		Metadata:           metadata,
 	}); err != nil {
 		_ = msg.Nak()
 		return fmt.Errorf("create sighting: %w", err)
@@ -190,6 +203,7 @@ func (c *Consumer) handleSightingImage(ctx context.Context, msg jetstream.Msg) e
 		PageUrl:            evt.PageUrl,
 		Snippet:            nil,
 		ImageUrl:           &evt.ImageUrl,
+		Metadata:           json.RawMessage(`{}`),
 	}); err != nil {
 		_ = msg.Nak()
 		return fmt.Errorf("create sighting: %w", err)

@@ -1,6 +1,10 @@
 -- name: CreateSighting :one
-INSERT INTO sightings (crawl_id, species_plate_number, source_type, confidence, page_url, snippet, image_url)
-VALUES (@crawl_id, @species_plate_number, @source_type, @confidence, @page_url, @snippet, @image_url)
+INSERT INTO sightings (
+    crawl_id, species_plate_number, source_type, confidence, page_url, snippet, image_url, metadata
+)
+VALUES (
+    @crawl_id, @species_plate_number, @source_type, @confidence, @page_url, @snippet, @image_url, @metadata
+)
 RETURNING *;
 
 -- name: ListSightingsByCrawl :many

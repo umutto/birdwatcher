@@ -65,11 +65,13 @@ func TestMatcher_Match(t *testing.T) {
 					SpeciesPlateNumber: 11,
 					Confidence:         1.0,
 					Snippet:            "spotted a bald eagle. near the river",
+					MatchedText:        "bald eagle",
 				},
 				{
 					SpeciesPlateNumber: 31,
 					Confidence:         1.0,
 					Snippet:            "spotted a bald eagle. near the river",
+					MatchedText:        "bald eagle",
 				},
 			},
 		},
@@ -88,6 +90,7 @@ func TestMatcher_Match(t *testing.T) {
 					SpeciesPlateNumber: 106,
 					Confidence:         1.0,
 					Snippet:            "the black vulture soared overhead",
+					MatchedText:        "black vulture",
 				},
 			},
 		},
@@ -100,16 +103,82 @@ func TestMatcher_Match(t *testing.T) {
 					SpeciesPlateNumber: 11,
 					Confidence:         1.0,
 					Snippet:            "bald eagle guide",
+					MatchedText:        "bald eagle",
 				},
 				{
 					SpeciesPlateNumber: 31,
 					Confidence:         1.0,
 					Snippet:            "bald eagle guide",
+					MatchedText:        "bald eagle",
 				},
 				{
 					SpeciesPlateNumber: 306,
 					Confidence:         1.0,
 					Snippet:            "the haliaeetus leucocephalus and common loon live near lakes. another bald eagle flew by.",
+					MatchedText:        "common loon",
+				},
+			},
+		},
+		{
+			name:  "folds curly apostrophes",
+			title: "",
+			body:  "It\u2019s a Cooper\u2019s Hawk perched near a Chuck-will\u2019s-widow.",
+			want: []matcher.Sighting{
+				{
+					SpeciesPlateNumber: 36,
+					Confidence:         1.0,
+					Snippet:            "it's a cooper's hawk perched near a chuck-will's-widow.",
+					MatchedText:        "cooper's hawk",
+				},
+				{
+					SpeciesPlateNumber: 52,
+					Confidence:         1.0,
+					Snippet:            "it's a cooper's hawk perched near a chuck-will's-widow.",
+					MatchedText:        "chuck-will's-widow",
+				},
+			},
+		},
+		{
+			name:  "matches dropped apostrophe and possessive",
+			title: "Coopers Hawk sighting",
+			body:  "We also saw a Harris' Hawk and a Lewis Woodpecker.",
+			want: []matcher.Sighting{
+				{
+					SpeciesPlateNumber: 36,
+					Confidence:         1.0,
+					Snippet:            "coopers hawk sighting",
+					MatchedText:        "coopers hawk",
+				},
+				{
+					SpeciesPlateNumber: 392,
+					Confidence:         1.0,
+					Snippet:            "we also saw a harris' hawk and a lewis woodpecker.",
+					MatchedText:        "harris' hawk",
+				},
+				{
+					SpeciesPlateNumber: 416,
+					Confidence:         1.0,
+					Snippet:            "we also saw a harris' hawk and a lewis woodpecker.",
+					MatchedText:        "lewis woodpecker",
+				},
+			},
+		},
+		{
+			name:  "matches possessive spelling variants",
+			title: "",
+			body:  "Spotted a Cooper Hawk alongside a Lewis's Woodpecker.",
+			want: []matcher.Sighting{
+				{
+					SpeciesPlateNumber: 36,
+					Confidence:         1.0,
+					Snippet:            "spotted a cooper hawk alongside a lewis's woodpecker.",
+					MatchedText:        "cooper hawk",
+				},
+				{
+					SpeciesPlateNumber: 416,
+					Confidence:         1.0,
+					Snippet:            "spotted a cooper hawk alongside a lewis's woodpecker.",
+					MatchedText:        "lewis's woodpecker",
 				},
 			},
 		},
@@ -162,6 +231,16 @@ func testSpecies() []catalog.Species {
 			ScientificName: "Haliaeetus leucocephalus",
 		},
 		{
+			PlateNumber:    36,
+			CommonName:     "Cooper's Hawk",
+			ScientificName: "Astur cooperii",
+		},
+		{
+			PlateNumber:    52,
+			CommonName:     "Chuck-will's-widow",
+			ScientificName: "Antrostomus carolinensis",
+		},
+		{
 			PlateNumber:    106,
 			CommonName:     "Black Vulture",
 			ScientificName: "Coragyps atratus",
@@ -177,6 +256,17 @@ func testSpecies() []catalog.Species {
 			CommonName:     "Surf Scoter",
 			ScientificName: "Melanitta perspicillata",
 			Aliases:        []string{"black"},
+		},
+		{
+			PlateNumber:    392,
+			CommonName:     "Harris's Hawk",
+			ScientificName: "Parabuteo unicinctus",
+		},
+		{
+			PlateNumber:    416,
+			CommonName:     "Hairy Woodpecker",
+			ScientificName: "Leuconotopicus villosus",
+			Aliases:        []string{"Lewis' Woodpecker"},
 		},
 	}
 }

@@ -36,7 +36,7 @@ func (p *Publisher) PublishSightingText(
 	jobID, pageURL string,
 	speciesPlateNumber int32,
 	confidence float32,
-	snippet string,
+	snippet, matchedText string,
 ) error {
 	plate := strconv.Itoa(int(speciesPlateNumber))
 	msg := &birdwatcherv1.SightingText{
@@ -45,6 +45,7 @@ func (p *Publisher) PublishSightingText(
 		SpeciesPlateNumber: speciesPlateNumber,
 		Confidence:         confidence,
 		Snippet:            snippet,
+		MatchedText:        matchedText,
 	}
 
 	if _, err := p.client.PublishProto(ctx, nats.SubjectSightingText, msg); err != nil {
