@@ -1,9 +1,7 @@
 [
   {
     "plate_number": 1,
-    "aliases": [
-      "wild turkey"
-    ],
+    "aliases": [],
     "image_url": "images/plate-1.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/wild-turkey",
     "common_name": "Wild Turkey",
@@ -28,9 +26,7 @@
   },
   {
     "plate_number": 2,
-    "aliases": [
-      "yellow-billed cuckoo"
-    ],
+    "aliases": [],
     "image_url": "images/plate-2.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/yellow-billed-cuckoo",
     "common_name": "Yellow-billed Cuckoo",
@@ -55,9 +51,7 @@
   },
   {
     "plate_number": 3,
-    "aliases": [
-      "prothonotary warbler"
-    ],
+    "aliases": [],
     "image_url": "images/plate-3.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/prothonotary-warbler",
     "common_name": "Prothonotary Warbler",
@@ -82,9 +76,7 @@
   },
   {
     "plate_number": 4,
-    "aliases": [
-      "purple finch"
-    ],
+    "aliases": [],
     "image_url": "images/plate-4.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/purple-finch",
     "common_name": "Purple Finch",
@@ -110,8 +102,7 @@
   {
     "plate_number": 5,
     "aliases": [
-      "bonaparte's flycatcher",
-      "canada warbler"
+      "Bonaparte's Flycatcher"
     ],
     "image_url": "images/plate-5.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/bonapartes-flycatcher",
@@ -138,8 +129,7 @@
   {
     "plate_number": 6,
     "aliases": [
-      "great american hen & young",
-      "wild turkey"
+      "Great American Hen & Young"
     ],
     "image_url": "images/plate-6.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/great-american-hen-young",
@@ -157,9 +147,8 @@
   {
     "plate_number": 7,
     "aliases": [
-      "purple grakle",
-      "common crow blackbird",
-      "common grackle"
+      "Purple Grakle",
+      "Common Crow Blackbird"
     ],
     "image_url": "images/plate-7.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/purple-grakle-or-common-crow-blackbird",
@@ -186,8 +175,7 @@
   {
     "plate_number": 8,
     "aliases": [
-      "white throated sparrow",
-      "white-throated sparrow"
+      "White Throated Sparrow"
     ],
     "image_url": "images/plate-8.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/white-throated-sparrow",
@@ -214,8 +202,7 @@
   {
     "plate_number": 9,
     "aliases": [
-      "selby's fly catcher",
-      "hooded warbler"
+      "Selby's Fly Catcher"
     ],
     "image_url": "images/plate-9.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/selbys-fly-catcher",
@@ -242,8 +229,7 @@
   {
     "plate_number": 10,
     "aliases": [
-      "brown lark",
-      "american pipit"
+      "Brown Lark"
     ],
     "image_url": "images/plate-10.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/brown-lark",
@@ -270,8 +256,7 @@
   {
     "plate_number": 11,
     "aliases": [
-      "bird of washington",
-      "bald eagle"
+      "Bird of Washington"
     ],
     "image_url": "images/plate-11.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/bird-of-washington",
@@ -297,9 +282,7 @@
   },
   {
     "plate_number": 12,
-    "aliases": [
-      "baltimore oriole"
-    ],
+    "aliases": [],
     "image_url": "images/plate-12.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/baltimore-oriole",
     "common_name": "Baltimore Oriole",
@@ -325,8 +308,7 @@
   {
     "plate_number": 13,
     "aliases": [
-      "snow bird",
-      "dark-eyed junco"
+      "Snow Bird"
     ],
     "image_url": "images/plate-13.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/snow-bird",
@@ -352,9 +334,7 @@
   },
   {
     "plate_number": 14,
-    "aliases": [
-      "prairie warbler"
-    ],
+    "aliases": [],
     "image_url": "images/plate-14.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/prairie-warbler",
     "common_name": "Prairie Warbler",
@@ -380,8 +360,7 @@
   {
     "plate_number": 15,
     "aliases": [
-      "blue yellow back warbler",
-      "northern parula"
+      "Blue Yellow Back Warbler"
     ],
     "image_url": "images/plate-15.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/blue-yellow-back-warbler",
@@ -408,8 +387,7 @@
   {
     "plate_number": 16,
     "aliases": [
-      "great-footed hawk",
-      "peregrine falcon"
+      "Great-footed Hawk"
     ],
     "image_url": "images/plate-16.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/great-footed-hawk",
@@ -436,8 +414,7 @@
   {
     "plate_number": 17,
     "aliases": [
-      "carolina pigeon",
-      "mourning dove"
+      "Carolina Pigeon"
     ],
     "image_url": "images/plate-17.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/carolina-pigeon",
@@ -463,9 +440,7 @@
   },
   {
     "plate_number": 18,
-    "aliases": [
-      "bewick's wren"
-    ],
+    "aliases": [],
     "image_url": "images/plate-18.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/bewicks-wren",
     "common_name": "Bewick's Wren",
@@ -491,8 +466,7 @@
   {
     "plate_number": 19,
     "aliases": [
-      "louisiana water thrush",
-      "louisiana waterthrush"
+      "Louisiana Water Thrush"
     ],
     "image_url": "images/plate-19.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/louisiana-water-thrush",
@@ -519,8 +493,7 @@
   {
     "plate_number": 20,
     "aliases": [
-      "blue-winged yellow warbler",
-      "blue-winged warbler"
+      "Blue-winged Yellow Warbler"
     ],
     "image_url": "images/plate-20.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/blue-winged-yellow-warbler",
@@ -547,8 +520,7 @@
   {
     "plate_number": 21,
     "aliases": [
-      "mocking bird",
-      "northern mockingbird"
+      "Mocking Bird"
     ],
     "image_url": "images/plate-21.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/mocking-bird",
@@ -574,9 +546,7 @@
   },
   {
     "plate_number": 22,
-    "aliases": [
-      "purple martin"
-    ],
+    "aliases": [],
     "image_url": "images/plate-22.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/purple-martin",
     "common_name": "Purple Martin",
@@ -602,8 +572,7 @@
   {
     "plate_number": 23,
     "aliases": [
-      "yellow-breasted warbler",
-      "common yellowthroat"
+      "Yellow-breasted Warbler"
     ],
     "image_url": "images/plate-23.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/yellow-breasted-warbler",
@@ -630,8 +599,7 @@
   {
     "plate_number": 24,
     "aliases": [
-      "roscoe's yellow-throat",
-      "common yellowthroat"
+      "Roscoe's Yellow-throat"
     ],
     "image_url": "images/plate-24.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/roscoes-yellow-throat",
@@ -648,9 +616,7 @@
   },
   {
     "plate_number": 25,
-    "aliases": [
-      "song sparrow"
-    ],
+    "aliases": [],
     "image_url": "images/plate-25.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/song-sparrow",
     "common_name": "Song Sparrow",
@@ -676,8 +642,7 @@
   {
     "plate_number": 26,
     "aliases": [
-      "carolina parrot",
-      "carolina parakeet"
+      "Carolina Parrot"
     ],
     "image_url": "images/plate-26.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/carolina-parrot",
@@ -695,8 +660,7 @@
   {
     "plate_number": 27,
     "aliases": [
-      "red headed woodpecker",
-      "red-headed woodpecker"
+      "Red Headed Woodpecker"
     ],
     "image_url": "images/plate-27.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/red-headed-woodpecker",
@@ -722,10 +686,7 @@
   },
   {
     "plate_number": 28,
-    "aliases": [
-      "vireo solitarius",
-      "blue-headed vireo"
-    ],
+    "aliases": [],
     "image_url": "images/plate-28.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/vireo-solitarius",
     "common_name": "Blue-headed Vireo",
@@ -751,8 +712,7 @@
   {
     "plate_number": 29,
     "aliases": [
-      "towee bunting",
-      "eastern towhee"
+      "Towee Bunting"
     ],
     "image_url": "images/plate-29.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/towee-bunting",
@@ -779,8 +739,7 @@
   {
     "plate_number": 30,
     "aliases": [
-      "vigors vireo",
-      "pine warbler"
+      "Vigors Vireo"
     ],
     "image_url": "images/plate-30.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/vigors-vireo",
@@ -807,8 +766,7 @@
   {
     "plate_number": 31,
     "aliases": [
-      "white-headed eagle",
-      "bald eagle"
+      "White-headed Eagle"
     ],
     "image_url": "images/plate-31.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/white-headed-eagle",
@@ -825,9 +783,7 @@
   },
   {
     "plate_number": 32,
-    "aliases": [
-      "black-billed cuckoo"
-    ],
+    "aliases": [],
     "image_url": "images/plate-32.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/black-billed-cuckoo",
     "common_name": "Black-billed Cuckoo",
@@ -852,9 +808,7 @@
   },
   {
     "plate_number": 33,
-    "aliases": [
-      "american goldfinch"
-    ],
+    "aliases": [],
     "image_url": "images/plate-33.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/american-goldfinch",
     "common_name": "American Goldfinch",
@@ -880,8 +834,7 @@
   {
     "plate_number": 34,
     "aliases": [
-      "worm eating warbler",
-      "worm-eating warbler"
+      "Worm Eating Warbler"
     ],
     "image_url": "images/plate-34.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/worm-eating-warbler",
@@ -908,8 +861,7 @@
   {
     "plate_number": 35,
     "aliases": [
-      "children's warbler",
-      "yellow warbler"
+      "Children's Warbler"
     ],
     "image_url": "images/plate-35.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/childrens-warbler",
@@ -936,8 +888,7 @@
   {
     "plate_number": 36,
     "aliases": [
-      "stanley hawk",
-      "cooper's hawk"
+      "Stanley Hawk"
     ],
     "image_url": "images/plate-36.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/stanley-hawk",
@@ -955,8 +906,7 @@
   {
     "plate_number": 37,
     "aliases": [
-      "golden-winged woodpecker",
-      "northern flicker"
+      "Golden-winged Woodpecker"
     ],
     "image_url": "images/plate-37.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/golden-winged-woodpecker",
@@ -982,9 +932,7 @@
   },
   {
     "plate_number": 38,
-    "aliases": [
-      "kentucky warbler"
-    ],
+    "aliases": [],
     "image_url": "images/plate-38.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/kentucky-warbler",
     "common_name": "Kentucky Warbler",
@@ -1010,8 +958,7 @@
   {
     "plate_number": 39,
     "aliases": [
-      "crested titmouse",
-      "tufted titmouse"
+      "Crested Titmouse"
     ],
     "image_url": "images/plate-39.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/crested-titmouse",
@@ -1037,9 +984,7 @@
   },
   {
     "plate_number": 40,
-    "aliases": [
-      "american redstart"
-    ],
+    "aliases": [],
     "image_url": "images/plate-40.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/american-redstart",
     "common_name": "American Redstart",
@@ -1064,9 +1009,7 @@
   },
   {
     "plate_number": 41,
-    "aliases": [
-      "ruffed grouse"
-    ],
+    "aliases": [],
     "image_url": "images/plate-41.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/ruffed-grouse",
     "common_name": "Ruffed Grouse",
@@ -1091,9 +1034,7 @@
   },
   {
     "plate_number": 42,
-    "aliases": [
-      "orchard oriole"
-    ],
+    "aliases": [],
     "image_url": "images/plate-42.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/orchard-oriole",
     "common_name": "Orchard Oriole",
@@ -1119,8 +1060,7 @@
   {
     "plate_number": 43,
     "aliases": [
-      "cedar bird",
-      "cedar waxwing"
+      "Cedar Bird"
     ],
     "image_url": "images/plate-43.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/cedar-bird",
@@ -1147,8 +1087,7 @@
   {
     "plate_number": 44,
     "aliases": [
-      "summer red bird",
-      "summer tanager"
+      "Summer Red Bird"
     ],
     "image_url": "images/plate-44.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/summer-red-bird",
@@ -1175,8 +1114,7 @@
   {
     "plate_number": 45,
     "aliases": [
-      "traill's flycatcher",
-      "willow flycatcher"
+      "Traill's Flycatcher"
     ],
     "image_url": "images/plate-45.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/traills-flycatcher",
@@ -1202,9 +1140,7 @@
   },
   {
     "plate_number": 46,
-    "aliases": [
-      "barred owl"
-    ],
+    "aliases": [],
     "image_url": "images/plate-46.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/barred-owl",
     "common_name": "Barred Owl",
@@ -1230,8 +1166,7 @@
   {
     "plate_number": 47,
     "aliases": [
-      "ruby-throated humming bird",
-      "ruby-throated hummingbird"
+      "Ruby-throated Humming Bird"
     ],
     "image_url": "images/plate-47.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/ruby-throated-humming-bird",
@@ -1258,8 +1193,7 @@
   {
     "plate_number": 48,
     "aliases": [
-      "azure warbler",
-      "cerulean warbler"
+      "Azure Warbler"
     ],
     "image_url": "images/plate-48.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/azure-warbler",
@@ -1286,8 +1220,7 @@
   {
     "plate_number": 49,
     "aliases": [
-      "blue-green warbler",
-      "cerulean warbler"
+      "Blue-green Warbler"
     ],
     "image_url": "images/plate-49.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/blue-green-warbler",
@@ -1305,9 +1238,7 @@
   {
     "plate_number": 50,
     "aliases": [
-      "black warbler",
-      "yellow warbler",
-      "magnolia warbler"
+      "Black and Yellow Warbler"
     ],
     "image_url": "images/plate-50.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/black-yellow-warbler",
@@ -1333,9 +1264,7 @@
   },
   {
     "plate_number": 51,
-    "aliases": [
-      "red-tailed hawk"
-    ],
+    "aliases": [],
     "image_url": "images/plate-51.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/red-tailed-hawk",
     "common_name": "Red-tailed Hawk",
@@ -1361,8 +1290,7 @@
   {
     "plate_number": 52,
     "aliases": [
-      "chuck-will's widow",
-      "chuck-will's-widow"
+      "Chuck-will's Widow"
     ],
     "image_url": "images/plate-52.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/chuck-wills-widow",
@@ -1389,8 +1317,7 @@
   {
     "plate_number": 53,
     "aliases": [
-      "painted finch",
-      "painted bunting"
+      "Painted Finch"
     ],
     "image_url": "images/plate-53.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/painted-finch",
@@ -1417,8 +1344,7 @@
   {
     "plate_number": 54,
     "aliases": [
-      "rice bird",
-      "bobolink"
+      "Rice Bird"
     ],
     "image_url": "images/plate-54.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/rice-bird",
@@ -1444,9 +1370,7 @@
   },
   {
     "plate_number": 55,
-    "aliases": [
-      "cuvier's kinglet"
-    ],
+    "aliases": [],
     "image_url": "images/plate-55.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/cuviers-kinglet",
     "common_name": "Cuvier's Kinglet",
@@ -1462,9 +1386,7 @@
   },
   {
     "plate_number": 56,
-    "aliases": [
-      "red-shouldered hawk"
-    ],
+    "aliases": [],
     "image_url": "images/plate-56.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/red-shouldered-hawk",
     "common_name": "Red-shouldered Hawk",
@@ -1489,9 +1411,7 @@
   },
   {
     "plate_number": 57,
-    "aliases": [
-      "loggerhead shrike"
-    ],
+    "aliases": [],
     "image_url": "images/plate-57.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/loggerhead-shrike",
     "common_name": "Loggerhead Shrike",
@@ -1516,9 +1436,7 @@
   },
   {
     "plate_number": 58,
-    "aliases": [
-      "hermit thrush"
-    ],
+    "aliases": [],
     "image_url": "images/plate-58.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/hermit-thrush",
     "common_name": "Hermit Thrush",
@@ -1543,9 +1461,7 @@
   },
   {
     "plate_number": 59,
-    "aliases": [
-      "chestnut-sided warbler"
-    ],
+    "aliases": [],
     "image_url": "images/plate-59.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/chestnut-sided-warbler",
     "common_name": "Chestnut-sided Warbler",
@@ -1570,9 +1486,7 @@
   },
   {
     "plate_number": 60,
-    "aliases": [
-      "carbonated warbler"
-    ],
+    "aliases": [],
     "image_url": "images/plate-60.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/carbonated-warbler",
     "common_name": "Carbonated Warbler",
@@ -1588,9 +1502,7 @@
   },
   {
     "plate_number": 61,
-    "aliases": [
-      "great horned owl"
-    ],
+    "aliases": [],
     "image_url": "images/plate-61.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/great-horned-owl",
     "common_name": "Great Horned Owl",
@@ -1615,9 +1527,7 @@
   },
   {
     "plate_number": 62,
-    "aliases": [
-      "passenger pigeon"
-    ],
+    "aliases": [],
     "image_url": "images/plate-62.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/passenger-pigeon",
     "common_name": "Passenger Pigeon",
@@ -1634,9 +1544,8 @@
   {
     "plate_number": 63,
     "aliases": [
-      "white-eyed flycatcher",
-      "vireo",
-      "white-eyed vireo"
+      "White-eyed Flycatcher",
+      "Vireo"
     ],
     "image_url": "images/plate-63.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/white-eyed-flycatcher-or-vireo",
@@ -1662,9 +1571,7 @@
   },
   {
     "plate_number": 64,
-    "aliases": [
-      "swamp sparrow"
-    ],
+    "aliases": [],
     "image_url": "images/plate-64.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/swamp-sparrow",
     "common_name": "Swamp Sparrow",
@@ -1690,8 +1597,7 @@
   {
     "plate_number": 65,
     "aliases": [
-      "rathbone warbler",
-      "yellow warbler"
+      "Rathbone Warbler"
     ],
     "image_url": "images/plate-65.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/rathbone-warbler",
@@ -1708,9 +1614,7 @@
   },
   {
     "plate_number": 66,
-    "aliases": [
-      "ivory-billed woodpecker"
-    ],
+    "aliases": [],
     "image_url": "images/plate-66.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/ivory-billed-woodpecker",
     "common_name": "Ivory-billed Woodpecker",
@@ -1727,9 +1631,8 @@
   {
     "plate_number": 67,
     "aliases": [
-      "red winged starling",
-      "marsh blackbird",
-      "red-winged blackbird"
+      "Red Winged Starling",
+      "Marsh Blackbird"
     ],
     "image_url": "images/plate-67.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/red-winged-starling-or-marsh-blackbird",
@@ -1756,8 +1659,7 @@
   {
     "plate_number": 68,
     "aliases": [
-      "republican",
-      "cliff swallow"
+      "Republican Swallow"
     ],
     "image_url": "images/plate-68.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/republican-or-cliff-swallow",
@@ -1783,9 +1685,7 @@
   },
   {
     "plate_number": 69,
-    "aliases": [
-      "bay-breasted warbler"
-    ],
+    "aliases": [],
     "image_url": "images/plate-69.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/bay-breasted-warbler",
     "common_name": "Bay-breasted Warbler",
@@ -1811,8 +1711,7 @@
   {
     "plate_number": 70,
     "aliases": [
-      "henslow's bunting",
-      "henslow's sparrow"
+      "Henslow's Bunting"
     ],
     "image_url": "images/plate-70.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/henslows-bunting",
@@ -1839,8 +1738,7 @@
   {
     "plate_number": 71,
     "aliases": [
-      "winter hawk",
-      "red-shouldered hawk"
+      "Winter Hawk"
     ],
     "image_url": "images/plate-71.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/winter-hawk",
@@ -1858,8 +1756,7 @@
   {
     "plate_number": 72,
     "aliases": [
-      "swallow-tailed hawk",
-      "swallow-tailed kite"
+      "Swallow-tailed Hawk"
     ],
     "image_url": "images/plate-72.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/swallow-tailed-hawk",
@@ -1885,9 +1782,7 @@
   },
   {
     "plate_number": 73,
-    "aliases": [
-      "wood thrush"
-    ],
+    "aliases": [],
     "image_url": "images/plate-73.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/wood-thrush",
     "common_name": "Wood Thrush",
@@ -1913,8 +1808,7 @@
   {
     "plate_number": 74,
     "aliases": [
-      "indigo bird",
-      "indigo bunting"
+      "Indigo Bird"
     ],
     "image_url": "images/plate-74.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/indigo-bird",
@@ -1941,8 +1835,7 @@
   {
     "plate_number": 75,
     "aliases": [
-      "le petit caporal",
-      "merlin"
+      "Le Petit Caporal"
     ],
     "image_url": "images/plate-75.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/le-petit-caporal",
@@ -1969,8 +1862,7 @@
   {
     "plate_number": 76,
     "aliases": [
-      "virginian partridge",
-      "northern bobwhite"
+      "Virginian Partridge"
     ],
     "image_url": "images/plate-76.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/virginian-partridge",
@@ -1996,9 +1888,7 @@
   },
   {
     "plate_number": 77,
-    "aliases": [
-      "belted kingfisher"
-    ],
+    "aliases": [],
     "image_url": "images/plate-77.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/belted-kingfisher",
     "common_name": "Belted Kingfisher",
@@ -2024,8 +1914,7 @@
   {
     "plate_number": 78,
     "aliases": [
-      "great carolina wren",
-      "carolina wren"
+      "Great Carolina Wren"
     ],
     "image_url": "images/plate-78.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/great-carolina-wren",
@@ -2052,8 +1941,7 @@
   {
     "plate_number": 79,
     "aliases": [
-      "tyrant fly-catcher",
-      "eastern kingbird"
+      "Tyrant Fly-catcher"
     ],
     "image_url": "images/plate-79.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/tyrant-fly-catcher",
@@ -2080,8 +1968,7 @@
   {
     "plate_number": 80,
     "aliases": [
-      "prairie titlark",
-      "american pipit"
+      "Prairie Titlark"
     ],
     "image_url": "images/plate-80.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/prairie-titlark",
@@ -2099,8 +1986,7 @@
   {
     "plate_number": 81,
     "aliases": [
-      "fish hawk",
-      "osprey"
+      "Fish Hawk"
     ],
     "image_url": "images/plate-81.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/fish-hawk-or-osprey",
@@ -2127,8 +2013,7 @@
   {
     "plate_number": 82,
     "aliases": [
-      "whip-poor-will",
-      "eastern whip-poor-will"
+      "Whip-poor-will"
     ],
     "image_url": "images/plate-82.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/whip-poor-will",
@@ -2154,9 +2039,7 @@
   },
   {
     "plate_number": 83,
-    "aliases": [
-      "house wren"
-    ],
+    "aliases": [],
     "image_url": "images/plate-83.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/house-wren",
     "common_name": "House Wren",
@@ -2182,8 +2065,7 @@
   {
     "plate_number": 84,
     "aliases": [
-      "blue-grey fly-catcher",
-      "blue-gray gnatcatcher"
+      "Blue-grey Fly-catcher"
     ],
     "image_url": "images/plate-84.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/blue-grey-fly-catcher",
@@ -2210,8 +2092,7 @@
   {
     "plate_number": 85,
     "aliases": [
-      "yellow throated warbler",
-      "yellow-throated warbler"
+      "Yellow Throated Warbler"
     ],
     "image_url": "images/plate-85.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/yellow-throated-warbler",
@@ -2238,8 +2119,7 @@
   {
     "plate_number": 86,
     "aliases": [
-      "black warrior",
-      "red-tailed hawk"
+      "Black Warrior"
     ],
     "image_url": "images/plate-86.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/black-warrior",
@@ -2257,8 +2137,7 @@
   {
     "plate_number": 87,
     "aliases": [
-      "florida jay",
-      "florida scrub-jay"
+      "Florida Jay"
     ],
     "image_url": "images/plate-87.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/florida-jay",
@@ -2285,8 +2164,7 @@
   {
     "plate_number": 88,
     "aliases": [
-      "autumnal warbler",
-      "bay-breasted warbler"
+      "Autumnal Warbler"
     ],
     "image_url": "images/plate-88.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/autumnal-warbler",
@@ -2303,9 +2181,7 @@
   },
   {
     "plate_number": 89,
-    "aliases": [
-      "nashville warbler"
-    ],
+    "aliases": [],
     "image_url": "images/plate-89.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/nashville-warbler",
     "common_name": "Nashville Warbler",
@@ -2331,9 +2207,7 @@
   {
     "plate_number": 90,
     "aliases": [
-      "black creeper",
-      "white creeper",
-      "black-and-white warbler"
+      "Black and White Creeper"
     ],
     "image_url": "images/plate-90.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/black-white-creeper",
@@ -2359,9 +2233,7 @@
   },
   {
     "plate_number": 91,
-    "aliases": [
-      "broad-winged hawk"
-    ],
+    "aliases": [],
     "image_url": "images/plate-91.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/broad-winged-hawk",
     "common_name": "Broad-winged Hawk",
@@ -2387,8 +2259,7 @@
   {
     "plate_number": 92,
     "aliases": [
-      "pigeon hawk",
-      "merlin"
+      "Pigeon Hawk"
     ],
     "image_url": "images/plate-92.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/pigeon-hawk",
@@ -2406,8 +2277,7 @@
   {
     "plate_number": 93,
     "aliases": [
-      "seaside finch",
-      "seaside sparrow"
+      "Seaside Finch"
     ],
     "image_url": "images/plate-93.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/seaside-finch",
@@ -2434,9 +2304,8 @@
   {
     "plate_number": 94,
     "aliases": [
-      "grass finch",
-      "bay-winged bunting",
-      "vesper sparrow"
+      "Grass Finch",
+      "Bay-winged Bunting"
     ],
     "image_url": "images/plate-94.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/grass-finch-or-bay-winged-bunting",
@@ -2463,8 +2332,7 @@
   {
     "plate_number": 95,
     "aliases": [
-      "blue-eyed yellow warbler",
-      "yellow warbler"
+      "Blue-eyed Yellow Warbler"
     ],
     "image_url": "images/plate-95.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/blue-eyed-yellow-warbler",
@@ -2482,8 +2350,7 @@
   {
     "plate_number": 96,
     "aliases": [
-      "columbia jay",
-      "black-throated magpie-jay"
+      "Columbia Jay"
     ],
     "image_url": "images/plate-96.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/columbia-jay",
@@ -2510,8 +2377,7 @@
   {
     "plate_number": 97,
     "aliases": [
-      "little screech owl",
-      "eastern screech-owl"
+      "Little Screech Owl"
     ],
     "image_url": "images/plate-97.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/little-screech-owl",
@@ -2538,8 +2404,7 @@
   {
     "plate_number": 98,
     "aliases": [
-      "white-bellied swallow",
-      "tree swallow"
+      "White-bellied Swallow"
     ],
     "image_url": "images/plate-98.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/white-bellied-swallow",
@@ -2566,8 +2431,7 @@
   {
     "plate_number": 99,
     "aliases": [
-      "cow-pen bird",
-      "brown-headed cowbird"
+      "Cow-pen Bird"
     ],
     "image_url": "images/plate-99.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/cow-pen-bird",
@@ -2593,9 +2457,7 @@
   },
   {
     "plate_number": 100,
-    "aliases": [
-      "marsh wren"
-    ],
+    "aliases": [],
     "image_url": "images/plate-100.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/marsh-wren",
     "common_name": "Marsh Wren",
@@ -2621,8 +2483,7 @@
   {
     "plate_number": 101,
     "aliases": [
-      "raven",
-      "common raven"
+      "Raven"
     ],
     "image_url": "images/plate-101.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/raven",
@@ -2648,9 +2509,7 @@
   },
   {
     "plate_number": 102,
-    "aliases": [
-      "blue jay"
-    ],
+    "aliases": [],
     "image_url": "images/plate-102.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/blue-jay",
     "common_name": "Blue Jay",
@@ -2675,9 +2534,7 @@
   },
   {
     "plate_number": 103,
-    "aliases": [
-      "canada warbler"
-    ],
+    "aliases": [],
     "image_url": "images/plate-103.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/canada-warbler",
     "common_name": "Canada Warbler",
@@ -2693,9 +2550,7 @@
   },
   {
     "plate_number": 104,
-    "aliases": [
-      "chipping sparrow"
-    ],
+    "aliases": [],
     "image_url": "images/plate-104.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/chipping-sparrow",
     "common_name": "Chipping Sparrow",
@@ -2720,9 +2575,7 @@
   },
   {
     "plate_number": 105,
-    "aliases": [
-      "red-breasted nuthatch"
-    ],
+    "aliases": [],
     "image_url": "images/plate-105.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/red-breasted-nuthatch",
     "common_name": "Red-breasted Nuthatch",
@@ -2748,8 +2601,7 @@
   {
     "plate_number": 106,
     "aliases": [
-      "black vulture",
-      "carrion crow"
+      "Carrion Crow"
     ],
     "image_url": "images/plate-106.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/black-vulture-or-carrion-crow",
@@ -2775,9 +2627,7 @@
   },
   {
     "plate_number": 107,
-    "aliases": [
-      "canada jay"
-    ],
+    "aliases": [],
     "image_url": "images/plate-107.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/canada-jay",
     "common_name": "Canada Jay",
@@ -2803,8 +2653,7 @@
   {
     "plate_number": 108,
     "aliases": [
-      "fox-coloured sparrow",
-      "fox sparrow"
+      "Fox-coloured Sparrow"
     ],
     "image_url": "images/plate-108.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/fox-coloured-sparrow",
@@ -2831,8 +2680,7 @@
   {
     "plate_number": 109,
     "aliases": [
-      "savannah finch",
-      "savannah sparrow"
+      "Savannah Finch"
     ],
     "image_url": "images/plate-109.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/savannah-finch",
@@ -2858,9 +2706,7 @@
   },
   {
     "plate_number": 110,
-    "aliases": [
-      "hooded warbler"
-    ],
+    "aliases": [],
     "image_url": "images/plate-110.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/hooded-warbler",
     "common_name": "Hooded Warbler",
@@ -2876,9 +2722,7 @@
   },
   {
     "plate_number": 111,
-    "aliases": [
-      "pileated woodpecker"
-    ],
+    "aliases": [],
     "image_url": "images/plate-111.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/pileated-woodpecker",
     "common_name": "Pileated Woodpecker",
@@ -2903,9 +2747,7 @@
   },
   {
     "plate_number": 112,
-    "aliases": [
-      "downy woodpecker"
-    ],
+    "aliases": [],
     "image_url": "images/plate-112.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/downy-woodpecker",
     "common_name": "Downy Woodpecker",
@@ -2931,8 +2773,7 @@
   {
     "plate_number": 113,
     "aliases": [
-      "blue-bird",
-      "eastern bluebird"
+      "Blue-bird"
     ],
     "image_url": "images/plate-113.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/blue-bird",
@@ -2958,9 +2799,7 @@
   },
   {
     "plate_number": 114,
-    "aliases": [
-      "white-crowned sparrow"
-    ],
+    "aliases": [],
     "image_url": "images/plate-114.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/white-crowned-sparrow",
     "common_name": "White-crowned Sparrow",
@@ -2986,8 +2825,7 @@
   {
     "plate_number": 115,
     "aliases": [
-      "wood pewee",
-      "eastern wood-pewee"
+      "Wood Pewee"
     ],
     "image_url": "images/plate-115.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/wood-pewee",
@@ -3014,8 +2852,7 @@
   {
     "plate_number": 116,
     "aliases": [
-      "ferruginous thrush",
-      "brown thrasher"
+      "Ferruginous Thrush"
     ],
     "image_url": "images/plate-116.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/ferruginous-thrush",
@@ -3041,9 +2878,7 @@
   },
   {
     "plate_number": 117,
-    "aliases": [
-      "mississippi kite"
-    ],
+    "aliases": [],
     "image_url": "images/plate-117.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/mississippi-kite",
     "common_name": "Mississippi Kite",
@@ -3069,8 +2904,7 @@
   {
     "plate_number": 118,
     "aliases": [
-      "warbling flycatcher",
-      "warbling vireo"
+      "Warbling Flycatcher"
     ],
     "image_url": "images/plate-118.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/warbling-flycatcher",
@@ -3096,9 +2930,7 @@
   },
   {
     "plate_number": 119,
-    "aliases": [
-      "yellow-throated vireo"
-    ],
+    "aliases": [],
     "image_url": "images/plate-119.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/yellow-throated-vireo",
     "common_name": "Yellow-throated Vireo",
@@ -3124,8 +2956,7 @@
   {
     "plate_number": 120,
     "aliases": [
-      "pewit flycatcher",
-      "eastern phoebe"
+      "Pewit Flycatcher"
     ],
     "image_url": "images/plate-120.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/pewit-flycatcher",
@@ -3151,9 +2982,7 @@
   },
   {
     "plate_number": 121,
-    "aliases": [
-      "snowy owl"
-    ],
+    "aliases": [],
     "image_url": "images/plate-121.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/snowy-owl",
     "common_name": "Snowy Owl",
@@ -3178,9 +3007,7 @@
   },
   {
     "plate_number": 122,
-    "aliases": [
-      "blue grosbeak"
-    ],
+    "aliases": [],
     "image_url": "images/plate-122.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/blue-grosbeak",
     "common_name": "Blue Grosbeak",
@@ -3206,9 +3033,7 @@
   {
     "plate_number": 123,
     "aliases": [
-      "black warblers",
-      "yellow warblers",
-      "magnolia warbler"
+      "Black and Yellow Warbler"
     ],
     "image_url": "images/plate-123.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/black-yellow-warblers",
@@ -3226,8 +3051,7 @@
   {
     "plate_number": 124,
     "aliases": [
-      "green black-capt flycatcher",
-      "wilson's warbler"
+      "Green Black-capt Flycatcher"
     ],
     "image_url": "images/plate-124.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/green-black-capt-flycatcher",
@@ -3253,9 +3077,7 @@
   },
   {
     "plate_number": 125,
-    "aliases": [
-      "brown-headed nuthatch"
-    ],
+    "aliases": [],
     "image_url": "images/plate-125.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/brown-headed-nuthatch",
     "common_name": "Brown-headed Nuthatch",
@@ -3281,8 +3103,7 @@
   {
     "plate_number": 126,
     "aliases": [
-      "white-headed eagle",
-      "bald eagle"
+      "White-headed Eagle"
     ],
     "image_url": "images/plate-126.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/white-headed-eagle-0",
@@ -3299,9 +3120,7 @@
   },
   {
     "plate_number": 127,
-    "aliases": [
-      "rose-breasted grosbeak"
-    ],
+    "aliases": [],
     "image_url": "images/plate-127.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/rose-breasted-grosbeak",
     "common_name": "Rose-breasted Grosbeak",
@@ -3327,8 +3146,7 @@
   {
     "plate_number": 128,
     "aliases": [
-      "cat bird",
-      "gray catbird"
+      "Cat Bird"
     ],
     "image_url": "images/plate-128.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/cat-bird",
@@ -3354,9 +3172,7 @@
   },
   {
     "plate_number": 129,
-    "aliases": [
-      "great crested flycatcher"
-    ],
+    "aliases": [],
     "image_url": "images/plate-129.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/great-crested-flycatcher",
     "common_name": "Great Crested Flycatcher",
@@ -3382,8 +3198,7 @@
   {
     "plate_number": 130,
     "aliases": [
-      "yellow-winged sparrow",
-      "grasshopper sparrow"
+      "Yellow-winged Sparrow"
     ],
     "image_url": "images/plate-130.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/yellow-winged-sparrow",
@@ -3409,9 +3224,7 @@
   },
   {
     "plate_number": 131,
-    "aliases": [
-      "american robin"
-    ],
+    "aliases": [],
     "image_url": "images/plate-131.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/american-robin",
     "common_name": "American Robin",
@@ -3437,8 +3250,7 @@
   {
     "plate_number": 132,
     "aliases": [
-      "three-toed woodpecker",
-      "black-backed woodpecker"
+      "Three-toed Woodpecker"
     ],
     "image_url": "images/plate-132.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/three-toed-woodpecker",
@@ -3465,8 +3277,7 @@
   {
     "plate_number": 133,
     "aliases": [
-      "black-poll warbler",
-      "blackpoll warbler"
+      "Black-poll Warbler"
     ],
     "image_url": "images/plate-133.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/black-poll-warbler",
@@ -3493,8 +3304,7 @@
   {
     "plate_number": 134,
     "aliases": [
-      "hemlock warbler",
-      "blackburnian warbler"
+      "Hemlock Warbler"
     ],
     "image_url": "images/plate-134.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/hemlock-warbler",
@@ -3520,9 +3330,7 @@
   },
   {
     "plate_number": 135,
-    "aliases": [
-      "blackburnian warbler"
-    ],
+    "aliases": [],
     "image_url": "images/plate-135.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/blackburnian-warbler",
     "common_name": "Blackburnian Warbler",
@@ -3539,8 +3347,7 @@
   {
     "plate_number": 136,
     "aliases": [
-      "meadow lark",
-      "eastern meadowlark"
+      "Meadow Lark"
     ],
     "image_url": "images/plate-136.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/meadow-lark",
@@ -3566,9 +3373,7 @@
   },
   {
     "plate_number": 137,
-    "aliases": [
-      "yellow-breasted chat"
-    ],
+    "aliases": [],
     "image_url": "images/plate-137.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/yellow-breasted-chat",
     "common_name": "Yellow-breasted Chat",
@@ -3593,9 +3398,7 @@
   },
   {
     "plate_number": 138,
-    "aliases": [
-      "connecticut warbler"
-    ],
+    "aliases": [],
     "image_url": "images/plate-138.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/connecticut-warbler",
     "common_name": "Connecticut Warbler",
@@ -3620,9 +3423,7 @@
   },
   {
     "plate_number": 139,
-    "aliases": [
-      "field sparrow"
-    ],
+    "aliases": [],
     "image_url": "images/plate-139.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/field-sparrow",
     "common_name": "Field Sparrow",
@@ -3648,8 +3449,7 @@
   {
     "plate_number": 140,
     "aliases": [
-      "pine creeping warbler",
-      "pine warbler"
+      "Pine Creeping Warbler"
     ],
     "image_url": "images/plate-140.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/pine-creeping-warbler",
@@ -3667,9 +3467,8 @@
   {
     "plate_number": 141,
     "aliases": [
-      "goshawk",
-      "stanley hawk",
-      "american goshawk"
+      "Goshawk",
+      "Stanley Hawk"
     ],
     "image_url": "images/plate-141.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/goshawk-and-stanley-hawk",
@@ -3687,8 +3486,7 @@
   {
     "plate_number": 142,
     "aliases": [
-      "american sparrow hawk",
-      "american kestrel"
+      "American Sparrow Hawk"
     ],
     "image_url": "images/plate-142.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/american-sparrow-hawk",
@@ -3715,8 +3513,7 @@
   {
     "plate_number": 143,
     "aliases": [
-      "golden-crowned thrush",
-      "ovenbird"
+      "Golden-crowned Thrush"
     ],
     "image_url": "images/plate-143.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/golden-crowned-thrush",
@@ -3743,8 +3540,7 @@
   {
     "plate_number": 144,
     "aliases": [
-      "small green crested flycatcher",
-      "acadian flycatcher"
+      "Small Green Crested Flycatcher"
     ],
     "image_url": "images/plate-144.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/small-green-crested-flycatcher",
@@ -3771,8 +3567,7 @@
   {
     "plate_number": 145,
     "aliases": [
-      "yellow red-poll warbler",
-      "palm warbler"
+      "Yellow Red-poll Warbler"
     ],
     "image_url": "images/plate-145.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/yellow-red-poll-warbler",
@@ -3798,9 +3593,7 @@
   },
   {
     "plate_number": 146,
-    "aliases": [
-      "fish crow"
-    ],
+    "aliases": [],
     "image_url": "images/plate-146.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/fish-crow",
     "common_name": "Fish Crow",
@@ -3826,8 +3619,7 @@
   {
     "plate_number": 147,
     "aliases": [
-      "night hawk",
-      "common nighthawk"
+      "Night Hawk"
     ],
     "image_url": "images/plate-147.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/night-hawk",
@@ -3854,8 +3646,7 @@
   {
     "plate_number": 148,
     "aliases": [
-      "pine swamp warbler",
-      "black-throated blue warbler"
+      "Pine Swamp Warbler"
     ],
     "image_url": "images/plate-148.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/pine-swamp-warbler",
@@ -3882,8 +3673,7 @@
   {
     "plate_number": 149,
     "aliases": [
-      "sharp-tailed finch",
-      "saltmarsh sparrow"
+      "Sharp-tailed Finch"
     ],
     "image_url": "images/plate-149.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/sharp-tailed-finch",
@@ -3900,9 +3690,7 @@
   },
   {
     "plate_number": 150,
-    "aliases": [
-      "red-eyed vireo"
-    ],
+    "aliases": [],
     "image_url": "images/plate-150.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/red-eyed-vireo",
     "common_name": "Red-eyed Vireo",
@@ -3928,8 +3716,7 @@
   {
     "plate_number": 151,
     "aliases": [
-      "turkey buzzard",
-      "turkey vulture"
+      "Turkey Buzzard"
     ],
     "image_url": "images/plate-151.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/turkey-buzzard",
@@ -3947,8 +3734,7 @@
   {
     "plate_number": 152,
     "aliases": [
-      "white-breasted black-capped nuthatch",
-      "white-breasted nuthatch"
+      "White-breasted Black-capped Nuthatch"
     ],
     "image_url": "images/plate-152.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/white-breasted-black-capped-nuthatch",
@@ -3975,8 +3761,7 @@
   {
     "plate_number": 153,
     "aliases": [
-      "yellow-crown warbler",
-      "yellow-rumped warbler"
+      "Yellow-crown Warbler"
     ],
     "image_url": "images/plate-153.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/yellow-crown-warbler",
@@ -4002,9 +3787,7 @@
   },
   {
     "plate_number": 154,
-    "aliases": [
-      "tennessee warbler"
-    ],
+    "aliases": [],
     "image_url": "images/plate-154.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/tennessee-warbler",
     "common_name": "Tennessee Warbler",
@@ -4029,9 +3812,7 @@
   },
   {
     "plate_number": 155,
-    "aliases": [
-      "black-throated blue warbler"
-    ],
+    "aliases": [],
     "image_url": "images/plate-155.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/black-throated-blue-warbler",
     "common_name": "Black-throated Blue Warbler",
@@ -4047,9 +3828,7 @@
   },
   {
     "plate_number": 156,
-    "aliases": [
-      "american crow"
-    ],
+    "aliases": [],
     "image_url": "images/plate-156.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/american-crow",
     "common_name": "American Crow",
@@ -4075,8 +3854,7 @@
   {
     "plate_number": 157,
     "aliases": [
-      "rusty grakle",
-      "rusty blackbird"
+      "Rusty Grakle"
     ],
     "image_url": "images/plate-157.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/rusty-grakle",
@@ -4103,8 +3881,7 @@
   {
     "plate_number": 158,
     "aliases": [
-      "american swift",
-      "chimney swift"
+      "American Swift"
     ],
     "image_url": "images/plate-158.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/american-swift",
@@ -4131,8 +3908,7 @@
   {
     "plate_number": 159,
     "aliases": [
-      "cardinal grosbeak",
-      "northern cardinal"
+      "Cardinal Grosbeak"
     ],
     "image_url": "images/plate-159.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/cardinal-grosbeak",
@@ -4159,8 +3935,7 @@
   {
     "plate_number": 160,
     "aliases": [
-      "carolina titmouse",
-      "carolina chickadee"
+      "Carolina Titmouse"
     ],
     "image_url": "images/plate-160.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/carolina-titmouse",
@@ -4187,8 +3962,7 @@
   {
     "plate_number": 161,
     "aliases": [
-      "brasilian caracara eagle",
-      "crested caracara"
+      "Brasilian Caracara Eagle"
     ],
     "image_url": "images/plate-161.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/brasilian-caracara-eagle",
@@ -4214,9 +3988,7 @@
   },
   {
     "plate_number": 162,
-    "aliases": [
-      "zenaida dove"
-    ],
+    "aliases": [],
     "image_url": "images/plate-162.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/zenaida-dove",
     "common_name": "Zenaida Dove",
@@ -4232,9 +4004,7 @@
   },
   {
     "plate_number": 163,
-    "aliases": [
-      "palm warbler"
-    ],
+    "aliases": [],
     "image_url": "images/plate-163.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/palm-warbler",
     "common_name": "Palm Warbler",
@@ -4251,8 +4021,7 @@
   {
     "plate_number": 164,
     "aliases": [
-      "tawny thrush",
-      "veery"
+      "Tawny Thrush"
     ],
     "image_url": "images/plate-164.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/tawny-thrush",
@@ -4279,8 +4048,7 @@
   {
     "plate_number": 165,
     "aliases": [
-      "bachman's finch",
-      "bachman's sparrow"
+      "Bachman's Finch"
     ],
     "image_url": "images/plate-165.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/bachmans-finch",
@@ -4307,8 +4075,7 @@
   {
     "plate_number": 166,
     "aliases": [
-      "rough-legged falcon",
-      "rough-legged hawk"
+      "Rough-legged Falcon"
     ],
     "image_url": "images/plate-166.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/rough-legged-falcon-0",
@@ -4335,8 +4102,7 @@
   {
     "plate_number": 167,
     "aliases": [
-      "key-west dove",
-      "key west quail-dove"
+      "Key-west Dove"
     ],
     "image_url": "images/plate-167.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/key-west-dove",
@@ -4353,9 +4119,7 @@
   },
   {
     "plate_number": 168,
-    "aliases": [
-      "fork-tailed flycatcher"
-    ],
+    "aliases": [],
     "image_url": "images/plate-168.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/fork-tailed-flycatcher",
     "common_name": "Fork-tailed Flycatcher",
@@ -4380,9 +4144,7 @@
   },
   {
     "plate_number": 169,
-    "aliases": [
-      "mangrove cuckoo"
-    ],
+    "aliases": [],
     "image_url": "images/plate-169.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/mangrove-cuckoo",
     "common_name": "Mangrove Cuckoo",
@@ -4408,8 +4170,7 @@
   {
     "plate_number": 170,
     "aliases": [
-      "piping flycatcher",
-      "gray kingbird"
+      "Piping Flycatcher"
     ],
     "image_url": "images/plate-170.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/piping-flycatcher",
@@ -4436,8 +4197,7 @@
   {
     "plate_number": 171,
     "aliases": [
-      "barn owl",
-      "american barn owl"
+      "Barn Owl"
     ],
     "image_url": "images/plate-171.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/barn-owl",
@@ -4464,8 +4224,7 @@
   {
     "plate_number": 172,
     "aliases": [
-      "blue-headed pigeon",
-      "blue-headed quail-dove"
+      "Blue-headed Pigeon"
     ],
     "image_url": "images/plate-172.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/blue-headed-pigeon",
@@ -4482,9 +4241,7 @@
   },
   {
     "plate_number": 173,
-    "aliases": [
-      "barn swallow"
-    ],
+    "aliases": [],
     "image_url": "images/plate-173.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/barn-swallow",
     "common_name": "Barn Swallow",
@@ -4510,8 +4267,7 @@
   {
     "plate_number": 174,
     "aliases": [
-      "olive sided flycatcher",
-      "olive-sided flycatcher"
+      "Olive Sided Flycatcher"
     ],
     "image_url": "images/plate-174.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/olive-sided-flycatcher",
@@ -4538,8 +4294,7 @@
   {
     "plate_number": 175,
     "aliases": [
-      "nuttall's lesser-marsh wren",
-      "sedge wren"
+      "Nuttall's Lesser-marsh Wren"
     ],
     "image_url": "images/plate-175.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/nuttalls-lesser-marsh-wren",
@@ -4566,8 +4321,7 @@
   {
     "plate_number": 176,
     "aliases": [
-      "spotted grouse",
-      "spruce grouse"
+      "Spotted Grouse"
     ],
     "image_url": "images/plate-176.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/spotted-grouse",
@@ -4593,9 +4347,7 @@
   },
   {
     "plate_number": 177,
-    "aliases": [
-      "white-crowned pigeon"
-    ],
+    "aliases": [],
     "image_url": "images/plate-177.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/white-crowned-pigeon",
     "common_name": "White-crowned Pigeon",
@@ -4620,9 +4372,7 @@
   },
   {
     "plate_number": 178,
-    "aliases": [
-      "orange-crowned warbler"
-    ],
+    "aliases": [],
     "image_url": "images/plate-178.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/orange-crowned-warbler",
     "common_name": "Orange-crowned Warbler",
@@ -4648,8 +4398,7 @@
   {
     "plate_number": 179,
     "aliases": [
-      "wood wren",
-      "gray-breasted wood-wren"
+      "Wood Wren"
     ],
     "image_url": "images/plate-179.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/wood-wren",
@@ -4676,8 +4425,7 @@
   {
     "plate_number": 180,
     "aliases": [
-      "pine finch",
-      "pine siskin"
+      "Pine Finch"
     ],
     "image_url": "images/plate-180.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/pine-finch",
@@ -4703,9 +4451,7 @@
   },
   {
     "plate_number": 181,
-    "aliases": [
-      "golden eagle"
-    ],
+    "aliases": [],
     "image_url": "images/plate-181.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/golden-eagle",
     "common_name": "Golden Eagle",
@@ -4731,8 +4477,7 @@
   {
     "plate_number": 182,
     "aliases": [
-      "ground dove",
-      "common ground dove"
+      "Ground Dove"
     ],
     "image_url": "images/plate-182.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/ground-dove",
@@ -4759,8 +4504,7 @@
   {
     "plate_number": 183,
     "aliases": [
-      "american golden crested-wren",
-      "golden-crowned kinglet"
+      "American Golden Crested-wren"
     ],
     "image_url": "images/plate-183.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/american-golden-crested-wren",
@@ -4787,8 +4531,7 @@
   {
     "plate_number": 184,
     "aliases": [
-      "mango hummingbird",
-      "green-throated mango"
+      "Mango Hummingbird"
     ],
     "image_url": "images/plate-184.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/mango-hummingbird",
@@ -4814,9 +4557,7 @@
   },
   {
     "plate_number": 185,
-    "aliases": [
-      "bachman's warbler"
-    ],
+    "aliases": [],
     "image_url": "images/plate-185.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/bachmans-warbler",
     "common_name": "Bachman's Warbler",
@@ -4833,8 +4574,7 @@
   {
     "plate_number": 186,
     "aliases": [
-      "pinnated grouse",
-      "greater prairie-chicken"
+      "Pinnated Grouse"
     ],
     "image_url": "images/plate-186.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/pinnated-grouse",
@@ -4851,9 +4591,7 @@
   },
   {
     "plate_number": 187,
-    "aliases": [
-      "boat-tailed grackle"
-    ],
+    "aliases": [],
     "image_url": "images/plate-187.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/boat-tailed-grackle",
     "common_name": "Boat-tailed Grackle",
@@ -4879,8 +4617,7 @@
   {
     "plate_number": 188,
     "aliases": [
-      "tree sparrow",
-      "american tree sparrow"
+      "Tree Sparrow"
     ],
     "image_url": "images/plate-188.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/tree-sparrow",
@@ -4906,9 +4643,7 @@
   },
   {
     "plate_number": 189,
-    "aliases": [
-      "snow bunting"
-    ],
+    "aliases": [],
     "image_url": "images/plate-189.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/snow-bunting",
     "common_name": "Snow Bunting",
@@ -4934,8 +4669,7 @@
   {
     "plate_number": 190,
     "aliases": [
-      "yellow bellied woodpecker",
-      "yellow-bellied sapsucker"
+      "Yellow Bellied Woodpecker"
     ],
     "image_url": "images/plate-190.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/yellow-bellied-woodpecker",
@@ -4962,9 +4696,8 @@
   {
     "plate_number": 191,
     "aliases": [
-      "willow grouse",
-      "large ptarmigan",
-      "willow ptarmigan"
+      "Willow Grouse",
+      "Large Ptarmigan"
     ],
     "image_url": "images/plate-191.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/willow-grouse-or-large-ptarmigan",
@@ -4991,9 +4724,8 @@
   {
     "plate_number": 192,
     "aliases": [
-      "great cinereous shrike",
-      "butcher bird",
-      "northern shrike"
+      "Great Cinereous Shrike",
+      "Butcher Bird"
     ],
     "image_url": "images/plate-192.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/great-cinereous-shrike-or-butcher-bird",
@@ -5020,8 +4752,7 @@
   {
     "plate_number": 193,
     "aliases": [
-      "lincoln finch",
-      "lincoln's sparrow"
+      "Lincoln Finch"
     ],
     "image_url": "images/plate-193.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/lincoln-finch",
@@ -5048,8 +4779,7 @@
   {
     "plate_number": 194,
     "aliases": [
-      "canadian titmouse",
-      "boreal chickadee"
+      "Canadian Titmouse"
     ],
     "image_url": "images/plate-194.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/canadian-titmouse",
@@ -5076,8 +4806,7 @@
   {
     "plate_number": 195,
     "aliases": [
-      "ruby crowned wren",
-      "ruby-crowned kinglet"
+      "Ruby Crowned Wren"
     ],
     "image_url": "images/plate-195.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/ruby-crowned-wren",
@@ -5104,8 +4833,7 @@
   {
     "plate_number": 196,
     "aliases": [
-      "labrador falcon",
-      "gyrfalcon"
+      "Labrador Falcon"
     ],
     "image_url": "images/plate-196.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/labrador-falcon",
@@ -5132,8 +4860,7 @@
   {
     "plate_number": 197,
     "aliases": [
-      "american crossbill",
-      "red crossbill"
+      "American Crossbill"
     ],
     "image_url": "images/plate-197.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/american-crossbill",
@@ -5160,8 +4887,7 @@
   {
     "plate_number": 198,
     "aliases": [
-      "brown headed worm eating warbler",
-      "swainson's warbler"
+      "Brown Headed Worm Eating Warbler"
     ],
     "image_url": "images/plate-198.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/brown-headed-worm-eating-warbler",
@@ -5188,8 +4914,7 @@
   {
     "plate_number": 199,
     "aliases": [
-      "little owl",
-      "northern saw-whet owl"
+      "Little Owl"
     ],
     "image_url": "images/plate-199.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/little-owl",
@@ -5216,8 +4941,7 @@
   {
     "plate_number": 200,
     "aliases": [
-      "shore lark",
-      "horned lark"
+      "Shore Lark"
     ],
     "image_url": "images/plate-200.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/shore-lark",
@@ -5243,9 +4967,7 @@
   },
   {
     "plate_number": 201,
-    "aliases": [
-      "canada goose"
-    ],
+    "aliases": [],
     "image_url": "images/plate-201.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/canada-goose",
     "common_name": "Canada Goose",
@@ -5271,8 +4993,7 @@
   {
     "plate_number": 202,
     "aliases": [
-      "red-throated diver",
-      "red-throated loon"
+      "Red-throated Diver"
     ],
     "image_url": "images/plate-202.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/red-throated-diver",
@@ -5299,8 +5020,7 @@
   {
     "plate_number": 203,
     "aliases": [
-      "fresh water marsh hen",
-      "king rail"
+      "Fresh Water Marsh Hen"
     ],
     "image_url": "images/plate-203.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/fresh-water-marsh-hen",
@@ -5327,8 +5047,7 @@
   {
     "plate_number": 204,
     "aliases": [
-      "salt water marsh hen",
-      "clapper rail"
+      "Salt Water Marsh Hen"
     ],
     "image_url": "images/plate-204.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/salt-water-marsh-hen",
@@ -5354,9 +5073,7 @@
   },
   {
     "plate_number": 205,
-    "aliases": [
-      "virginia rail"
-    ],
+    "aliases": [],
     "image_url": "images/plate-205.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/virginia-rail",
     "common_name": "Virginia Rail",
@@ -5382,8 +5099,7 @@
   {
     "plate_number": 206,
     "aliases": [
-      "summer",
-      "wood duck"
+      "Summer Duck"
     ],
     "image_url": "images/plate-206.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/summer-or-wood-duck",
@@ -5410,8 +5126,7 @@
   {
     "plate_number": 207,
     "aliases": [
-      "booby gannet",
-      "brown booby"
+      "Booby Gannet"
     ],
     "image_url": "images/plate-207.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/booby-gannet",
@@ -5438,8 +5153,7 @@
   {
     "plate_number": 208,
     "aliases": [
-      "esquimaux curlew",
-      "eskimo curlew"
+      "Esquimaux Curlew"
     ],
     "image_url": "images/plate-208.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/esquimaux-curlew",
@@ -5456,9 +5170,7 @@
   },
   {
     "plate_number": 209,
-    "aliases": [
-      "wilson's plover"
-    ],
+    "aliases": [],
     "image_url": "images/plate-209.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/wilsons-plover",
     "common_name": "Wilson's Plover",
@@ -5474,9 +5186,7 @@
   },
   {
     "plate_number": 210,
-    "aliases": [
-      "least bittern"
-    ],
+    "aliases": [],
     "image_url": "images/plate-210.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/least-bittern",
     "common_name": "Least Bittern",
@@ -5492,9 +5202,7 @@
   },
   {
     "plate_number": 211,
-    "aliases": [
-      "great blue heron"
-    ],
+    "aliases": [],
     "image_url": "images/plate-211.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/great-blue-heron",
     "common_name": "Great Blue Heron",
@@ -5520,8 +5228,7 @@
   {
     "plate_number": 212,
     "aliases": [
-      "common american gull",
-      "ring-billed gull"
+      "Common American Gull"
     ],
     "image_url": "images/plate-212.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/common-american-gull",
@@ -5548,8 +5255,7 @@
   {
     "plate_number": 213,
     "aliases": [
-      "puffin",
-      "atlantic puffin"
+      "Puffin"
     ],
     "image_url": "images/plate-213.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/puffin",
@@ -5576,8 +5282,7 @@
   {
     "plate_number": 214,
     "aliases": [
-      "razor bill",
-      "razorbill"
+      "Razor Bill"
     ],
     "image_url": "images/plate-214.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/razor-bill",
@@ -5604,8 +5309,7 @@
   {
     "plate_number": 215,
     "aliases": [
-      "hyperborean phalarope",
-      "red-necked phalarope"
+      "Hyperborean Phalarope"
     ],
     "image_url": "images/plate-215.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/hyperborean-phalarope",
@@ -5632,8 +5336,7 @@
   {
     "plate_number": 216,
     "aliases": [
-      "wood ibiss",
-      "wood stork"
+      "Wood Ibiss"
     ],
     "image_url": "images/plate-216.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/wood-ibiss",
@@ -5660,8 +5363,7 @@
   {
     "plate_number": 217,
     "aliases": [
-      "louisiana heron",
-      "tricolored heron"
+      "Louisiana Heron"
     ],
     "image_url": "images/plate-217.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/louisiana-heron",
@@ -5688,8 +5390,7 @@
   {
     "plate_number": 218,
     "aliases": [
-      "foolish guillemot",
-      "common murre"
+      "Foolish Guillemot"
     ],
     "image_url": "images/plate-218.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/foolish-guillemot",
@@ -5715,9 +5416,7 @@
   },
   {
     "plate_number": 219,
-    "aliases": [
-      "black guillemot"
-    ],
+    "aliases": [],
     "image_url": "images/plate-219.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/black-guillemot",
     "common_name": "Black Guillemot",
@@ -5742,9 +5441,7 @@
   },
   {
     "plate_number": 220,
-    "aliases": [
-      "piping plover"
-    ],
+    "aliases": [],
     "image_url": "images/plate-220.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/piping-plover",
     "common_name": "Piping Plover",
@@ -5770,8 +5467,7 @@
   {
     "plate_number": 221,
     "aliases": [
-      "mallard duck",
-      "mallard"
+      "Mallard Duck"
     ],
     "image_url": "images/plate-221.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/mallard-duck",
@@ -5797,9 +5493,7 @@
   },
   {
     "plate_number": 222,
-    "aliases": [
-      "white ibis"
-    ],
+    "aliases": [],
     "image_url": "images/plate-222.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/white-ibis",
     "common_name": "White Ibis",
@@ -5825,8 +5519,7 @@
   {
     "plate_number": 223,
     "aliases": [
-      "pied oyster-catcher",
-      "american oystercatcher"
+      "Pied Oyster-catcher"
     ],
     "image_url": "images/plate-223.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/pied-oyster-catcher",
@@ -5853,8 +5546,7 @@
   {
     "plate_number": 224,
     "aliases": [
-      "kittiwake gull",
-      "black-legged kittiwake"
+      "Kittiwake Gull"
     ],
     "image_url": "images/plate-224.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/kittiwake-gull",
@@ -5881,8 +5573,7 @@
   {
     "plate_number": 225,
     "aliases": [
-      "kildeer plover",
-      "killdeer"
+      "Kildeer Plover"
     ],
     "image_url": "images/plate-225.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/kildeer-plover",
@@ -5909,8 +5600,7 @@
   {
     "plate_number": 226,
     "aliases": [
-      "hooping crane",
-      "whooping crane"
+      "Hooping Crane"
     ],
     "image_url": "images/plate-226.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/hooping-crane",
@@ -5928,8 +5618,7 @@
   {
     "plate_number": 227,
     "aliases": [
-      "pin-tailed duck",
-      "northern pintail"
+      "Pin-tailed Duck"
     ],
     "image_url": "images/plate-227.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/pin-tailed-duck",
@@ -5956,8 +5645,7 @@
   {
     "plate_number": 228,
     "aliases": [
-      "green winged teal",
-      "green-winged teal"
+      "Green Winged Teal"
     ],
     "image_url": "images/plate-228.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/green-winged-teal",
@@ -5984,8 +5672,7 @@
   {
     "plate_number": 229,
     "aliases": [
-      "scaup duck",
-      "lesser scaup"
+      "Scaup Duck"
     ],
     "image_url": "images/plate-229.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/scaup-duck",
@@ -6002,9 +5689,7 @@
   },
   {
     "plate_number": 230,
-    "aliases": [
-      "sanderling"
-    ],
+    "aliases": [],
     "image_url": "images/plate-230.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/sanderling",
     "common_name": "Sanderling",
@@ -6029,9 +5714,7 @@
   },
   {
     "plate_number": 231,
-    "aliases": [
-      "long-billed curlew"
-    ],
+    "aliases": [],
     "image_url": "images/plate-231.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/long-billed-curlew",
     "common_name": "Long-billed Curlew",
@@ -6056,9 +5739,7 @@
   },
   {
     "plate_number": 232,
-    "aliases": [
-      "hooded merganser"
-    ],
+    "aliases": [],
     "image_url": "images/plate-232.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/hooded-merganser",
     "common_name": "Hooded Merganser",
@@ -6075,8 +5756,7 @@
   {
     "plate_number": 233,
     "aliases": [
-      "sora",
-      "rail"
+      "Sora Rail"
     ],
     "image_url": "images/plate-233.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/sora-or-rail",
@@ -6102,9 +5782,7 @@
   },
   {
     "plate_number": 234,
-    "aliases": [
-      "ring-necked duck"
-    ],
+    "aliases": [],
     "image_url": "images/plate-234.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/ring-necked-duck",
     "common_name": "Ring-necked Duck",
@@ -6129,9 +5807,7 @@
   },
   {
     "plate_number": 235,
-    "aliases": [
-      "sooty tern"
-    ],
+    "aliases": [],
     "image_url": "images/plate-235.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/sooty-tern",
     "common_name": "Sooty Tern",
@@ -6157,9 +5833,8 @@
   {
     "plate_number": 236,
     "aliases": [
-      "night heron",
-      "qua bird",
-      "black-crowned night heron"
+      "Night Heron",
+      "Qua Bird"
     ],
     "image_url": "images/plate-236.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/night-heron-or-qua-bird",
@@ -6186,8 +5861,7 @@
   {
     "plate_number": 237,
     "aliases": [
-      "hudsonian curlew",
-      "whimbrel"
+      "Hudsonian Curlew"
     ],
     "image_url": "images/plate-237.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/hudsonian-curlew",
@@ -6214,8 +5888,7 @@
   {
     "plate_number": 238,
     "aliases": [
-      "great marbled godwit",
-      "marbled godwit"
+      "Great Marbled Godwit"
     ],
     "image_url": "images/plate-238.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/great-marbled-godwit",
@@ -6241,9 +5914,7 @@
   },
   {
     "plate_number": 239,
-    "aliases": [
-      "american coot"
-    ],
+    "aliases": [],
     "image_url": "images/plate-239.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/american-coot",
     "common_name": "American Coot",
@@ -6268,9 +5939,7 @@
   },
   {
     "plate_number": 240,
-    "aliases": [
-      "roseate tern"
-    ],
+    "aliases": [],
     "image_url": "images/plate-240.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/roseate-tern",
     "common_name": "Roseate Tern",
@@ -6296,8 +5965,7 @@
   {
     "plate_number": 241,
     "aliases": [
-      "black backed gull",
-      "great black-backed gull"
+      "Black Backed Gull"
     ],
     "image_url": "images/plate-241.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/black-backed-gull",
@@ -6324,9 +5992,8 @@
   {
     "plate_number": 242,
     "aliases": [
-      "snowy heron",
-      "white egret",
-      "snowy egret"
+      "Snowy Heron",
+      "White Egret"
     ],
     "image_url": "images/plate-242.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/snowy-heron-or-white-egret",
@@ -6353,8 +6020,7 @@
   {
     "plate_number": 243,
     "aliases": [
-      "american snipe",
-      "wilson's snipe"
+      "American Snipe"
     ],
     "image_url": "images/plate-243.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/american-snipe",
@@ -6380,9 +6046,7 @@
   },
   {
     "plate_number": 244,
-    "aliases": [
-      "common gallinule"
-    ],
+    "aliases": [],
     "image_url": "images/plate-244.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/common-gallinule",
     "common_name": "Common Gallinule",
@@ -6408,8 +6072,7 @@
   {
     "plate_number": 245,
     "aliases": [
-      "uria brunnichi",
-      "thick-billed murre"
+      "Uria Brunnichi"
     ],
     "image_url": "images/plate-245.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/uria-brunnichi",
@@ -6436,8 +6099,7 @@
   {
     "plate_number": 246,
     "aliases": [
-      "eider duck",
-      "common eider"
+      "Eider Duck"
     ],
     "image_url": "images/plate-246.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/eider-duck",
@@ -6455,8 +6117,7 @@
   {
     "plate_number": 247,
     "aliases": [
-      "velvet duck",
-      "white-winged scoter"
+      "Velvet Duck"
     ],
     "image_url": "images/plate-247.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/velvet-duck",
@@ -6474,8 +6135,7 @@
   {
     "plate_number": 248,
     "aliases": [
-      "american pied-billed",
-      "pied-billed grebe"
+      "American Pied-billed Dobchick"
     ],
     "image_url": "images/plate-248.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/american-pied-billed",
@@ -6502,8 +6162,7 @@
   {
     "plate_number": 249,
     "aliases": [
-      "tufted auk",
-      "tufted puffin"
+      "Tufted Auk"
     ],
     "image_url": "images/plate-249.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/tufted-auk",
@@ -6520,9 +6179,7 @@
   },
   {
     "plate_number": 250,
-    "aliases": [
-      "arctic tern"
-    ],
+    "aliases": [],
     "image_url": "images/plate-250.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/arctic-tern",
     "common_name": "Arctic Tern",
@@ -6547,9 +6204,7 @@
   },
   {
     "plate_number": 251,
-    "aliases": [
-      "brown pelican"
-    ],
+    "aliases": [],
     "image_url": "images/plate-251.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/brown-pelican-0",
     "common_name": "Brown Pelican",
@@ -6575,8 +6230,7 @@
   {
     "plate_number": 252,
     "aliases": [
-      "florida cormorant",
-      "double-crested cormorant"
+      "Florida Cormorant"
     ],
     "image_url": "images/plate-252.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/florida-cormorant",
@@ -6603,8 +6257,7 @@
   {
     "plate_number": 253,
     "aliases": [
-      "jager",
-      "pomarine jaeger"
+      "Jager"
     ],
     "image_url": "images/plate-253.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/jager",
@@ -6630,9 +6283,7 @@
   },
   {
     "plate_number": 254,
-    "aliases": [
-      "wilson's phalarope"
-    ],
+    "aliases": [],
     "image_url": "images/plate-254.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/wilsons-phalarope",
     "common_name": "Wilson's Phalarope",
@@ -6657,9 +6308,7 @@
   },
   {
     "plate_number": 255,
-    "aliases": [
-      "red phalarope"
-    ],
+    "aliases": [],
     "image_url": "images/plate-255.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/red-phalarope",
     "common_name": "Red Phalarope",
@@ -6685,8 +6334,7 @@
   {
     "plate_number": 256,
     "aliases": [
-      "purple heron",
-      "reddish egret"
+      "Purple Heron"
     ],
     "image_url": "images/plate-256.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/purple-heron",
@@ -6712,9 +6360,7 @@
   },
   {
     "plate_number": 257,
-    "aliases": [
-      "double-crested cormorant"
-    ],
+    "aliases": [],
     "image_url": "images/plate-257.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/double-crested-cormorant",
     "common_name": "Double-crested Cormorant",
@@ -6730,9 +6376,7 @@
   },
   {
     "plate_number": 258,
-    "aliases": [
-      "hudsonian godwit"
-    ],
+    "aliases": [],
     "image_url": "images/plate-258.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/hudsonian-godwit",
     "common_name": "Hudsonian Godwit",
@@ -6757,9 +6401,7 @@
   },
   {
     "plate_number": 259,
-    "aliases": [
-      "horned grebe"
-    ],
+    "aliases": [],
     "image_url": "images/plate-259.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/horned-grebe",
     "common_name": "Horned Grebe",
@@ -6785,8 +6427,7 @@
   {
     "plate_number": 260,
     "aliases": [
-      "fork-tail petrel",
-      "leach's storm-petrel"
+      "Fork-tail Petrel"
     ],
     "image_url": "images/plate-260.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/fork-tail-petrel",
@@ -6813,8 +6454,7 @@
   {
     "plate_number": 261,
     "aliases": [
-      "hooping crane",
-      "sandhill crane"
+      "Hooping Crane"
     ],
     "image_url": "images/plate-261.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/hooping-crane-0",
@@ -6841,8 +6481,7 @@
   {
     "plate_number": 262,
     "aliases": [
-      "tropic bird",
-      "white-tailed tropicbird"
+      "Tropic Bird"
     ],
     "image_url": "images/plate-262.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/tropic-bird",
@@ -6869,8 +6508,7 @@
   {
     "plate_number": 263,
     "aliases": [
-      "pigmy curlew",
-      "curlew sandpiper"
+      "Pigmy Curlew"
     ],
     "image_url": "images/plate-263.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/pigmy-curlew",
@@ -6897,8 +6535,7 @@
   {
     "plate_number": 264,
     "aliases": [
-      "fulmar petrel",
-      "northern fulmar"
+      "Fulmar Petrel"
     ],
     "image_url": "images/plate-264.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/fulmar-petrel",
@@ -6925,8 +6562,7 @@
   {
     "plate_number": 265,
     "aliases": [
-      "buff breasted sandpiper",
-      "buff-breasted sandpiper"
+      "Buff Breasted Sandpiper"
     ],
     "image_url": "images/plate-265.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/buff-breasted-sandpiper",
@@ -6953,8 +6589,7 @@
   {
     "plate_number": 266,
     "aliases": [
-      "common cormorant",
-      "great cormorant"
+      "Common Cormorant"
     ],
     "image_url": "images/plate-266.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/common-cormorant",
@@ -6981,8 +6616,7 @@
   {
     "plate_number": 267,
     "aliases": [
-      "arctic yager",
-      "long-tailed jaeger"
+      "Arctic Yager"
     ],
     "image_url": "images/plate-267.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/arctic-yager",
@@ -7008,9 +6642,7 @@
   },
   {
     "plate_number": 268,
-    "aliases": [
-      "american woodcock"
-    ],
+    "aliases": [],
     "image_url": "images/plate-268.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/american-woodcock",
     "common_name": "American Woodcock",
@@ -7036,8 +6668,7 @@
   {
     "plate_number": 269,
     "aliases": [
-      "greenshank",
-      "common greenshank"
+      "Greenshank"
     ],
     "image_url": "images/plate-269.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/greenshank",
@@ -7064,8 +6695,7 @@
   {
     "plate_number": 270,
     "aliases": [
-      "stormy petrel",
-      "wilson's storm-petrel"
+      "Stormy Petrel"
     ],
     "image_url": "images/plate-270.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/stormy-petrel",
@@ -7092,8 +6722,7 @@
   {
     "plate_number": 271,
     "aliases": [
-      "frigate pelican",
-      "magnificent frigatebird"
+      "Frigate Pelican"
     ],
     "image_url": "images/plate-271.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/frigate-pelican",
@@ -7120,8 +6749,7 @@
   {
     "plate_number": 272,
     "aliases": [
-      "richardson's jager",
-      "parasitic jaeger"
+      "Richardson's Jager"
     ],
     "image_url": "images/plate-272.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/richardsons-jager",
@@ -7148,8 +6776,7 @@
   {
     "plate_number": 273,
     "aliases": [
-      "cayenne tern",
-      "royal tern"
+      "Cayenne Tern"
     ],
     "image_url": "images/plate-273.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/cayenne-tern",
@@ -7176,8 +6803,7 @@
   {
     "plate_number": 274,
     "aliases": [
-      "semipalmated snipe",
-      "willet"
+      "Semipalmated Snipe"
     ],
     "image_url": "images/plate-274.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/semipalmated-snipe-or-willet",
@@ -7204,8 +6830,7 @@
   {
     "plate_number": 275,
     "aliases": [
-      "noddy tern",
-      "brown noddy"
+      "Noddy Tern"
     ],
     "image_url": "images/plate-275.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/noddy-tern",
@@ -7232,8 +6857,7 @@
   {
     "plate_number": 276,
     "aliases": [
-      "king duck",
-      "king eider"
+      "King Duck"
     ],
     "image_url": "images/plate-276.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/king-duck",
@@ -7260,8 +6884,7 @@
   {
     "plate_number": 277,
     "aliases": [
-      "hutchins's barnacle goose",
-      "cackling goose"
+      "Hutchins's Barnacle Goose"
     ],
     "image_url": "images/plate-277.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/hutchinss-barnacle-goose",
@@ -7288,8 +6911,7 @@
   {
     "plate_number": 278,
     "aliases": [
-      "schinz's sandpiper",
-      "white-rumped sandpiper"
+      "Schinz's Sandpiper"
     ],
     "image_url": "images/plate-278.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/schinzs-sandpiper",
@@ -7315,9 +6937,7 @@
   },
   {
     "plate_number": 279,
-    "aliases": [
-      "sandwich tern"
-    ],
+    "aliases": [],
     "image_url": "images/plate-279.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/sandwich-tern",
     "common_name": "Sandwich Tern",
@@ -7342,9 +6962,7 @@
   },
   {
     "plate_number": 280,
-    "aliases": [
-      "black tern"
-    ],
+    "aliases": [],
     "image_url": "images/plate-280.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/black-tern",
     "common_name": "Black Tern",
@@ -7370,8 +6988,7 @@
   {
     "plate_number": 281,
     "aliases": [
-      "great white heron",
-      "great blue heron"
+      "Great White Heron"
     ],
     "image_url": "images/plate-281.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/great-white-heron",
@@ -7389,8 +7006,7 @@
   {
     "plate_number": 282,
     "aliases": [
-      "white-winged silvery gull",
-      "iceland gull"
+      "White-winged Silvery Gull"
     ],
     "image_url": "images/plate-282.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/white-winged-silvery-gull",
@@ -7408,8 +7024,7 @@
   {
     "plate_number": 283,
     "aliases": [
-      "wandering shearwater",
-      "great shearwater"
+      "Wandering Shearwater"
     ],
     "image_url": "images/plate-283.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/wandering-shearwater",
@@ -7435,9 +7050,7 @@
   },
   {
     "plate_number": 284,
-    "aliases": [
-      "purple sandpiper"
-    ],
+    "aliases": [],
     "image_url": "images/plate-284.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/purple-sandpiper",
     "common_name": "Purple Sandpiper",
@@ -7463,8 +7076,7 @@
   {
     "plate_number": 285,
     "aliases": [
-      "fork-tailed gull",
-      "sabine's gull"
+      "Fork-tailed Gull"
     ],
     "image_url": "images/plate-285.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/fork-tailed-gull",
@@ -7491,8 +7103,7 @@
   {
     "plate_number": 286,
     "aliases": [
-      "white-fronted goose",
-      "greater white-fronted goose"
+      "White-fronted Goose"
     ],
     "image_url": "images/plate-286.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/white-fronted-goose",
@@ -7518,9 +7129,7 @@
   },
   {
     "plate_number": 287,
-    "aliases": [
-      "ivory gull"
-    ],
+    "aliases": [],
     "image_url": "images/plate-287.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/ivory-gull",
     "common_name": "Ivory Gull",
@@ -7537,8 +7146,7 @@
   {
     "plate_number": 288,
     "aliases": [
-      "yellow shank",
-      "lesser yellowlegs"
+      "Yellow Shank"
     ],
     "image_url": "images/plate-288.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/yellow-shank",
@@ -7564,9 +7172,7 @@
   },
   {
     "plate_number": 289,
-    "aliases": [
-      "solitary sandpiper"
-    ],
+    "aliases": [],
     "image_url": "images/plate-289.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/solitary-sandpiper",
     "common_name": "Solitary Sandpiper",
@@ -7592,8 +7198,7 @@
   {
     "plate_number": 290,
     "aliases": [
-      "red backed sandpiper",
-      "dunlin"
+      "Red Backed Sandpiper"
     ],
     "image_url": "images/plate-290.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/red-backed-sandpiper",
@@ -7620,8 +7225,7 @@
   {
     "plate_number": 291,
     "aliases": [
-      "herring gull",
-      "american herring gull"
+      "Herring Gull"
     ],
     "image_url": "images/plate-291.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/herring-gull",
@@ -7648,8 +7252,7 @@
   {
     "plate_number": 292,
     "aliases": [
-      "crested grebe",
-      "great crested grebe"
+      "Crested Grebe"
     ],
     "image_url": "images/plate-292.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/crested-grebe",
@@ -7676,8 +7279,7 @@
   {
     "plate_number": 293,
     "aliases": [
-      "large billed puffin",
-      "horned puffin"
+      "Large Billed Puffin"
     ],
     "image_url": "images/plate-293.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/large-billed-puffin",
@@ -7694,9 +7296,7 @@
   },
   {
     "plate_number": 294,
-    "aliases": [
-      "pectoral sandpiper"
-    ],
+    "aliases": [],
     "image_url": "images/plate-294.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/pectoral-sandpiper",
     "common_name": "Pectoral Sandpiper",
@@ -7722,8 +7322,7 @@
   {
     "plate_number": 295,
     "aliases": [
-      "manks shearwater",
-      "manx shearwater"
+      "Manks Shearwater"
     ],
     "image_url": "images/plate-295.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/manks-shearwater",
@@ -7749,9 +7348,7 @@
   },
   {
     "plate_number": 296,
-    "aliases": [
-      "barnacle goose"
-    ],
+    "aliases": [],
     "image_url": "images/plate-296.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/barnacle-goose",
     "common_name": "Barnacle Goose",
@@ -7776,9 +7373,7 @@
   },
   {
     "plate_number": 297,
-    "aliases": [
-      "harlequin duck"
-    ],
+    "aliases": [],
     "image_url": "images/plate-297.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/harlequin-duck",
     "common_name": "Harlequin Duck",
@@ -7794,9 +7389,7 @@
   },
   {
     "plate_number": 298,
-    "aliases": [
-      "red-necked grebe"
-    ],
+    "aliases": [],
     "image_url": "images/plate-298.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/red-necked-grebe",
     "common_name": "Red-necked Grebe",
@@ -7813,8 +7406,7 @@
   {
     "plate_number": 299,
     "aliases": [
-      "dusky petrel",
-      "sargasso shearwater"
+      "Dusky Petrel"
     ],
     "image_url": "images/plate-299.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/dusky-petrel",
@@ -7841,8 +7433,7 @@
   {
     "plate_number": 300,
     "aliases": [
-      "golden plover",
-      "american golden-plover"
+      "Golden Plover"
     ],
     "image_url": "images/plate-300.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/golden-plover",
@@ -7869,8 +7460,7 @@
   {
     "plate_number": 301,
     "aliases": [
-      "canvas backed duck",
-      "canvasback"
+      "Canvas Backed Duck"
     ],
     "image_url": "images/plate-301.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/canvas-backed-duck",
@@ -7888,8 +7478,7 @@
   {
     "plate_number": 302,
     "aliases": [
-      "dusky duck",
-      "american black duck"
+      "Dusky Duck"
     ],
     "image_url": "images/plate-302.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/dusky-duck",
@@ -7916,8 +7505,7 @@
   {
     "plate_number": 303,
     "aliases": [
-      "bartram sandpiper",
-      "upland sandpiper"
+      "Bartram Sandpiper"
     ],
     "image_url": "images/plate-303.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/bartram-sandpiper",
@@ -7944,8 +7532,7 @@
   {
     "plate_number": 304,
     "aliases": [
-      "turn-stone",
-      "ruddy turnstone"
+      "Turn-stone"
     ],
     "image_url": "images/plate-304.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/turn-stone",
@@ -7971,9 +7558,7 @@
   },
   {
     "plate_number": 305,
-    "aliases": [
-      "purple gallinule"
-    ],
+    "aliases": [],
     "image_url": "images/plate-305.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/purple-gallinule",
     "common_name": "Purple Gallinule",
@@ -7999,9 +7584,8 @@
   {
     "plate_number": 306,
     "aliases": [
-      "great northern diver",
-      "loon",
-      "common loon"
+      "Great Northern Diver",
+      "Loon"
     ],
     "image_url": "images/plate-306.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/great-northern-diver-or-loon",
@@ -8028,9 +7612,8 @@
   {
     "plate_number": 307,
     "aliases": [
-      "blue crane",
-      "heron",
-      "little blue heron"
+      "Blue Crane",
+      "Heron"
     ],
     "image_url": "images/plate-307.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/blue-crane-or-heron",
@@ -8057,9 +7640,8 @@
   {
     "plate_number": 308,
     "aliases": [
-      "tell-tale godwit",
-      "snipe",
-      "greater yellowlegs"
+      "Tell-tale Godwit",
+      "Tell-tale Snipe"
     ],
     "image_url": "images/plate-308.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/tell-tale-godwit-or-snipe",
@@ -8086,8 +7668,7 @@
   {
     "plate_number": 309,
     "aliases": [
-      "great tern",
-      "common tern"
+      "Great Tern"
     ],
     "image_url": "images/plate-309.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/great-tern",
@@ -8113,9 +7694,7 @@
   },
   {
     "plate_number": 310,
-    "aliases": [
-      "spotted sandpiper"
-    ],
+    "aliases": [],
     "image_url": "images/plate-310.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/spotted-sandpiper",
     "common_name": "Spotted Sandpiper",
@@ -8140,9 +7719,7 @@
   },
   {
     "plate_number": 311,
-    "aliases": [
-      "american white pelican"
-    ],
+    "aliases": [],
     "image_url": "images/plate-311.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/american-white-pelican",
     "common_name": "American White Pelican",
@@ -8167,9 +7744,7 @@
   },
   {
     "plate_number": 312,
-    "aliases": [
-      "long-tailed duck"
-    ],
+    "aliases": [],
     "image_url": "images/plate-312.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/long-tailed-duck",
     "common_name": "Long-tailed Duck",
@@ -8194,9 +7769,7 @@
   },
   {
     "plate_number": 313,
-    "aliases": [
-      "blue-winged teal"
-    ],
+    "aliases": [],
     "image_url": "images/plate-313.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/blue-winged-teal",
     "common_name": "Blue-winged Teal",
@@ -8222,8 +7795,7 @@
   {
     "plate_number": 314,
     "aliases": [
-      "black-headed gull",
-      "laughing gull"
+      "Black-headed Gull"
     ],
     "image_url": "images/plate-314.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/black-headed-gull",
@@ -8250,8 +7822,7 @@
   {
     "plate_number": 315,
     "aliases": [
-      "red-breasted sandpiper",
-      "red knot"
+      "Red-breasted Sandpiper"
     ],
     "image_url": "images/plate-315.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/red-breasted-sandpiper",
@@ -8278,8 +7849,7 @@
   {
     "plate_number": 316,
     "aliases": [
-      "black-bellied darter",
-      "anhinga"
+      "Black-bellied Darter"
     ],
     "image_url": "images/plate-316.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/black-bellied-darter",
@@ -8306,9 +7876,8 @@
   {
     "plate_number": 317,
     "aliases": [
-      "black",
-      "surf duck",
-      "surf scoter"
+      "Black Duck",
+      "Surf Duck"
     ],
     "image_url": "images/plate-317.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/black-or-surf-duck",
@@ -8334,9 +7903,7 @@
   },
   {
     "plate_number": 318,
-    "aliases": [
-      "american avocet"
-    ],
+    "aliases": [],
     "image_url": "images/plate-318.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/american-avocet",
     "common_name": "American Avocet",
@@ -8362,8 +7929,7 @@
   {
     "plate_number": 319,
     "aliases": [
-      "lesser tern",
-      "least tern"
+      "Lesser Tern"
     ],
     "image_url": "images/plate-319.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/lesser-tern",
@@ -8390,8 +7956,7 @@
   {
     "plate_number": 320,
     "aliases": [
-      "little sandpiper",
-      "least sandpiper"
+      "Little Sandpiper"
     ],
     "image_url": "images/plate-320.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/little-sandpiper",
@@ -8417,9 +7982,7 @@
   },
   {
     "plate_number": 321,
-    "aliases": [
-      "roseate spoonbill"
-    ],
+    "aliases": [],
     "image_url": "images/plate-321.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/roseate-spoonbill",
     "common_name": "Roseate Spoonbill",
@@ -8445,8 +8008,7 @@
   {
     "plate_number": 322,
     "aliases": [
-      "red-headed duck",
-      "redhead"
+      "Red-headed Duck"
     ],
     "image_url": "images/plate-322.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/red-headed-duck",
@@ -8473,8 +8035,7 @@
   {
     "plate_number": 323,
     "aliases": [
-      "black skimmer",
-      "shearwater"
+      "Shearwater"
     ],
     "image_url": "images/plate-323.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/black-skimmer-or-shearwater",
@@ -8501,8 +8062,7 @@
   {
     "plate_number": 324,
     "aliases": [
-      "bonapartian gull",
-      "bonaparte's gull"
+      "Bonapartian Gull"
     ],
     "image_url": "images/plate-324.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/bonapartian-gull",
@@ -8529,8 +8089,7 @@
   {
     "plate_number": 325,
     "aliases": [
-      "buffel-headed duck",
-      "bufflehead"
+      "Buffel-headed Duck"
     ],
     "image_url": "images/plate-325.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/buffel-headed-duck",
@@ -8557,8 +8116,7 @@
   {
     "plate_number": 326,
     "aliases": [
-      "gannet",
-      "northern gannet"
+      "Gannet"
     ],
     "image_url": "images/plate-326.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/gannet",
@@ -8585,8 +8143,7 @@
   {
     "plate_number": 327,
     "aliases": [
-      "shoveller duck",
-      "northern shoveler"
+      "Shoveller Duck"
     ],
     "image_url": "images/plate-327.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/shoveller-duck",
@@ -8613,8 +8170,7 @@
   {
     "plate_number": 328,
     "aliases": [
-      "long-legged avocet",
-      "black-necked stilt"
+      "Long-legged Avocet"
     ],
     "image_url": "images/plate-328.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/long-legged-avocet",
@@ -8641,8 +8197,7 @@
   {
     "plate_number": 329,
     "aliases": [
-      "yellow-breasted rail",
-      "yellow rail"
+      "Yellow-breasted Rail"
     ],
     "image_url": "images/plate-329.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/yellow-breasted-rail",
@@ -8660,8 +8215,7 @@
   {
     "plate_number": 330,
     "aliases": [
-      "ring plover",
-      "semipalmated plover"
+      "Ring Plover"
     ],
     "image_url": "images/plate-330.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/ring-plover",
@@ -8688,8 +8242,7 @@
   {
     "plate_number": 331,
     "aliases": [
-      "goosander",
-      "common merganser"
+      "Goosander"
     ],
     "image_url": "images/plate-331.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/goosander",
@@ -8716,8 +8269,7 @@
   {
     "plate_number": 332,
     "aliases": [
-      "pied duck",
-      "labrador duck"
+      "Pied Duck"
     ],
     "image_url": "images/plate-332.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/pied-duck",
@@ -8734,9 +8286,7 @@
   },
   {
     "plate_number": 333,
-    "aliases": [
-      "green heron"
-    ],
+    "aliases": [],
     "image_url": "images/plate-333.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/green-heron",
     "common_name": "Green Heron",
@@ -8761,9 +8311,7 @@
   },
   {
     "plate_number": 334,
-    "aliases": [
-      "black-bellied plover"
-    ],
+    "aliases": [],
     "image_url": "images/plate-334.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/black-bellied-plover",
     "common_name": "Black-bellied Plover",
@@ -8789,8 +8337,7 @@
   {
     "plate_number": 335,
     "aliases": [
-      "red-breasted snipe",
-      "short-billed dowitcher"
+      "Red-breasted Snipe"
     ],
     "image_url": "images/plate-335.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/red-breasted-snipe",
@@ -8817,8 +8364,7 @@
   {
     "plate_number": 336,
     "aliases": [
-      "yellow-crowned heron",
-      "yellow-crowned night heron"
+      "Yellow-crowned Heron"
     ],
     "image_url": "images/plate-336.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/yellow-crowned-heron",
@@ -8844,9 +8390,7 @@
   },
   {
     "plate_number": 337,
-    "aliases": [
-      "american bittern"
-    ],
+    "aliases": [],
     "image_url": "images/plate-337.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/american-bittern",
     "common_name": "American Bittern",
@@ -8872,8 +8416,7 @@
   {
     "plate_number": 338,
     "aliases": [
-      "bemaculated duck",
-      "baikal teal"
+      "Bemaculated Duck"
     ],
     "image_url": "images/plate-338.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/bemaculated-duck",
@@ -8900,8 +8443,7 @@
   {
     "plate_number": 339,
     "aliases": [
-      "little auk",
-      "dovekie"
+      "Little Auk"
     ],
     "image_url": "images/plate-339.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/little-auk",
@@ -8928,8 +8470,7 @@
   {
     "plate_number": 340,
     "aliases": [
-      "least stormy-petrel",
-      "least storm-petrel"
+      "Least Stormy-petrel"
     ],
     "image_url": "images/plate-340.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/least-stormy-petrel",
@@ -8946,9 +8487,7 @@
   },
   {
     "plate_number": 341,
-    "aliases": [
-      "great auk"
-    ],
+    "aliases": [],
     "image_url": "images/plate-341.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/great-auk",
     "common_name": "Great Auk",
@@ -8965,8 +8504,7 @@
   {
     "plate_number": 342,
     "aliases": [
-      "golden-eye duck",
-      "common goldeneye"
+      "Golden-eye Duck"
     ],
     "image_url": "images/plate-342.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/golden-eye-duck-0",
@@ -8992,9 +8530,7 @@
   },
   {
     "plate_number": 343,
-    "aliases": [
-      "ruddy duck"
-    ],
+    "aliases": [],
     "image_url": "images/plate-343.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/ruddy-duck",
     "common_name": "Ruddy Duck",
@@ -9020,8 +8556,7 @@
   {
     "plate_number": 344,
     "aliases": [
-      "long-legged sandpiper",
-      "stilt sandpiper"
+      "Long-legged Sandpiper"
     ],
     "image_url": "images/plate-344.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/long-legged-sandpiper",
@@ -9048,8 +8583,7 @@
   {
     "plate_number": 345,
     "aliases": [
-      "american widgeon",
-      "american wigeon"
+      "American Widgeon"
     ],
     "image_url": "images/plate-345.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/american-widgeon",
@@ -9076,8 +8610,7 @@
   {
     "plate_number": 346,
     "aliases": [
-      "black-throated diver",
-      "pacific loon"
+      "Black-throated Diver"
     ],
     "image_url": "images/plate-346.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/black-throated-diver",
@@ -9104,8 +8637,7 @@
   {
     "plate_number": 347,
     "aliases": [
-      "smew",
-      "white nun"
+      "White Nun"
     ],
     "image_url": "images/plate-347.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/smew-or-white-nun",
@@ -9132,8 +8664,7 @@
   {
     "plate_number": 348,
     "aliases": [
-      "gadwall duck",
-      "gadwall"
+      "Gadwall Duck"
     ],
     "image_url": "images/plate-348.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/gadwall-duck",
@@ -9160,8 +8691,7 @@
   {
     "plate_number": 349,
     "aliases": [
-      "least water-hen",
-      "black rail"
+      "Least Water-hen"
     ],
     "image_url": "images/plate-349.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/least-water-hen",
@@ -9188,8 +8718,7 @@
   {
     "plate_number": 350,
     "aliases": [
-      "rocky mountain plover",
-      "mountain plover"
+      "Rocky Mountain Plover"
     ],
     "image_url": "images/plate-350.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/rocky-mountain-plover",
@@ -9207,8 +8736,7 @@
   {
     "plate_number": 351,
     "aliases": [
-      "great cinereous owl",
-      "great gray owl"
+      "Great Cinereous Owl"
     ],
     "image_url": "images/plate-351.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/great-cinereous-owl",
@@ -9235,8 +8763,7 @@
   {
     "plate_number": 352,
     "aliases": [
-      "black-winged hawk",
-      "white-tailed kite"
+      "Black-winged Hawk"
     ],
     "image_url": "images/plate-352.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/black-winged-hawk",
@@ -9263,10 +8790,9 @@
   {
     "plate_number": 353,
     "aliases": [
-      "chesnut-backed titmouse",
-      "black-capt titmouse",
-      "chesnut-crowned titmouse",
-      "black-capped chickadee"
+      "Chesnut-backed Titmouse",
+      "Black-capt Titmouse",
+      "Chesnut-crowned Titmouse"
     ],
     "image_url": "images/plate-353.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/chesnut-backed-titmouse-black-capt-titmouse-and-chesnut-crowned-titmouse",
@@ -9293,9 +8819,8 @@
   {
     "plate_number": 354,
     "aliases": [
-      "louisiana tanager",
-      "scarlet tanager",
-      "western tanager"
+      "Louisiana Tanager",
+      "Scarlet Tanager"
     ],
     "image_url": "images/plate-354.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/louisiana-tanager-and-scarlet-tanager",
@@ -9322,8 +8847,7 @@
   {
     "plate_number": 355,
     "aliases": [
-      "macgillivray's finch",
-      "seaside sparrow"
+      "MacGillivray's Finch"
     ],
     "image_url": "images/plate-355.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/macgillivrays-finch",
@@ -9341,8 +8865,7 @@
   {
     "plate_number": 356,
     "aliases": [
-      "marsh hawk",
-      "northern harrier"
+      "Marsh Hawk"
     ],
     "image_url": "images/plate-356.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/marsh-hawk",
@@ -9369,8 +8892,7 @@
   {
     "plate_number": 357,
     "aliases": [
-      "american magpie",
-      "black-billed magpie"
+      "American Magpie"
     ],
     "image_url": "images/plate-357.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/american-magpie",
@@ -9396,9 +8918,7 @@
   },
   {
     "plate_number": 358,
-    "aliases": [
-      "pine grosbeak"
-    ],
+    "aliases": [],
     "image_url": "images/plate-358.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/pine-grosbeak",
     "common_name": "Pine Grosbeak",
@@ -9424,10 +8944,9 @@
   {
     "plate_number": 359,
     "aliases": [
-      "arkansaw flycatcher",
-      "swallow-tailed flycatcher",
-      "says flycatcher",
-      "western kingbird"
+      "Arkansaw Flycatcher",
+      "Swallow-tailed Flycatcher",
+      "Says Flycatcher"
     ],
     "image_url": "images/plate-359.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/arkansaw-flycatcher-swallow-tailed-flycatcher-says-flycatcher",
@@ -9454,8 +8973,7 @@
   {
     "plate_number": 360,
     "aliases": [
-      "winter wren",
-      "rock wren"
+      "Rock Wren"
     ],
     "image_url": "images/plate-360.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/winter-wren-and-rock-wren",
@@ -9482,9 +9000,8 @@
   {
     "plate_number": 361,
     "aliases": [
-      "long-tailed",
-      "dusky grous",
-      "dusky grouse"
+      "Long-tailed Grouse",
+      "Dusky Grous"
     ],
     "image_url": "images/plate-361.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/long-tailed-or-dusky-grous",
@@ -9511,10 +9028,9 @@
   {
     "plate_number": 362,
     "aliases": [
-      "yellow-billed magpie",
-      "stellers jay",
-      "ultramarine jay",
-      "clark's crow"
+      "Stellers Jay",
+      "Ultramarine Jay",
+      "Clark's Crow"
     ],
     "image_url": "images/plate-362.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/yellow-billed-magpie-stellers-jay-ultramarine-jay-clarks-crow",
@@ -9541,8 +9057,7 @@
   {
     "plate_number": 363,
     "aliases": [
-      "bohemian chatterer",
-      "bohemian waxwing"
+      "Bohemian Chatterer"
     ],
     "image_url": "images/plate-363.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/bohemian-chatterer",
@@ -9568,9 +9083,7 @@
   },
   {
     "plate_number": 364,
-    "aliases": [
-      "white-winged crossbill"
-    ],
+    "aliases": [],
     "image_url": "images/plate-364.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/white-winged-crossbill",
     "common_name": "White-winged Crossbill",
@@ -9596,8 +9109,7 @@
   {
     "plate_number": 365,
     "aliases": [
-      "lapland long-spur",
-      "lapland longspur"
+      "Lapland Long-spur"
     ],
     "image_url": "images/plate-365.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/lapland-long-spur",
@@ -9624,9 +9136,8 @@
   {
     "plate_number": 366,
     "aliases": [
-      "iceland",
-      "jer falcon",
-      "gyrfalcon"
+      "Iceland Falcon",
+      "Jer Falcon"
     ],
     "image_url": "images/plate-366.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/iceland-or-jer-falcon",
@@ -9643,9 +9154,7 @@
   },
   {
     "plate_number": 367,
-    "aliases": [
-      "band-tailed pigeon"
-    ],
+    "aliases": [],
     "image_url": "images/plate-367.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/band-tailed-pigeon",
     "common_name": "Band-tailed Pigeon",
@@ -9671,8 +9180,7 @@
   {
     "plate_number": 368,
     "aliases": [
-      "rock grous",
-      "rock ptarmigan"
+      "Rock Grous"
     ],
     "image_url": "images/plate-368.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/rock-grous",
@@ -9699,9 +9207,8 @@
   {
     "plate_number": 369,
     "aliases": [
-      "mountain mocking bird",
-      "varied thrush",
-      "sage thrasher"
+      "Mountain Mocking Bird",
+      "Varied Thrush"
     ],
     "image_url": "images/plate-369.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/mountain-mocking-bird-and-varied-thrush",
@@ -9728,8 +9235,7 @@
   {
     "plate_number": 370,
     "aliases": [
-      "american water ouzel",
-      "american dipper"
+      "American Water Ouzel"
     ],
     "image_url": "images/plate-370.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/american-water-ouzel",
@@ -9756,8 +9262,7 @@
   {
     "plate_number": 371,
     "aliases": [
-      "cock of the plains",
-      "greater sage-grouse"
+      "Cock of the Plains"
     ],
     "image_url": "images/plate-371.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/cock-of-plains",
@@ -9784,8 +9289,7 @@
   {
     "plate_number": 372,
     "aliases": [
-      "common buzzard",
-      "swainson's hawk"
+      "Common Buzzard"
     ],
     "image_url": "images/plate-372.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/common-buzzard",
@@ -9812,8 +9316,7 @@
   {
     "plate_number": 373,
     "aliases": [
-      "evening grosbeak",
-      "spotted grosbeak"
+      "Spotted Grosbeak"
     ],
     "image_url": "images/plate-373.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/evening-grosbeak-and-spotted-grosbeak",
@@ -9839,9 +9342,7 @@
   },
   {
     "plate_number": 374,
-    "aliases": [
-      "sharp-shinned hawk"
-    ],
+    "aliases": [],
     "image_url": "images/plate-374.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/sharp-shinned-hawk",
     "common_name": "Sharp-shinned Hawk",
@@ -9867,8 +9368,7 @@
   {
     "plate_number": 375,
     "aliases": [
-      "lesser red-poll",
-      "lesser redpoll"
+      "Lesser Red-poll"
     ],
     "image_url": "images/plate-375.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/lesser-red-poll",
@@ -9894,9 +9394,7 @@
   },
   {
     "plate_number": 376,
-    "aliases": [
-      "trumpeter swan"
-    ],
+    "aliases": [],
     "image_url": "images/plate-376.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/trumpeter-swan",
     "common_name": "Trumpeter Swan",
@@ -9922,8 +9420,7 @@
   {
     "plate_number": 377,
     "aliases": [
-      "scolopaceus courlan",
-      "limpkin"
+      "Scolopaceus Courlan"
     ],
     "image_url": "images/plate-377.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/scolopaceus-courlan",
@@ -9950,8 +9447,7 @@
   {
     "plate_number": 378,
     "aliases": [
-      "hawk owl",
-      "northern hawk owl"
+      "Hawk Owl"
     ],
     "image_url": "images/plate-378.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/hawk-owl",
@@ -9978,8 +9474,7 @@
   {
     "plate_number": 379,
     "aliases": [
-      "ruff-necked humming-bird",
-      "rufous hummingbird"
+      "Ruff-necked Humming-bird"
     ],
     "image_url": "images/plate-379.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/ruff-necked-humming-bird",
@@ -10006,8 +9501,7 @@
   {
     "plate_number": 380,
     "aliases": [
-      "tengmalm's owl",
-      "boreal owl"
+      "Tengmalm's Owl"
     ],
     "image_url": "images/plate-380.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/tengmalms-owl",
@@ -10033,9 +9527,7 @@
   },
   {
     "plate_number": 381,
-    "aliases": [
-      "snow goose"
-    ],
+    "aliases": [],
     "image_url": "images/plate-381.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/snow-goose",
     "common_name": "Snow Goose",
@@ -10060,9 +9552,7 @@
   },
   {
     "plate_number": 382,
-    "aliases": [
-      "sharp-tailed grouse"
-    ],
+    "aliases": [],
     "image_url": "images/plate-382.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/sharp-tailed-grouse",
     "common_name": "Sharp-tailed Grouse",
@@ -10087,9 +9577,7 @@
   },
   {
     "plate_number": 383,
-    "aliases": [
-      "long-eared owl"
-    ],
+    "aliases": [],
     "image_url": "images/plate-383.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/long-eared-owl",
     "common_name": "Long-eared Owl",
@@ -10115,8 +9603,7 @@
   {
     "plate_number": 384,
     "aliases": [
-      "black-throated bunting",
-      "dickcissel"
+      "Black-throated Bunting"
     ],
     "image_url": "images/plate-384.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/black-throated-bunting",
@@ -10143,8 +9630,7 @@
   {
     "plate_number": 385,
     "aliases": [
-      "bank swallow",
-      "violet-green swallow"
+      "Violet-green Swallow"
     ],
     "image_url": "images/plate-385.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/bank-swallow-and-violet-green-swallow",
@@ -10171,8 +9657,7 @@
   {
     "plate_number": 386,
     "aliases": [
-      "white heron",
-      "great egret"
+      "White Heron"
     ],
     "image_url": "images/plate-386.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/white-heron",
@@ -10198,9 +9683,7 @@
   },
   {
     "plate_number": 387,
-    "aliases": [
-      "glossy ibis"
-    ],
+    "aliases": [],
     "image_url": "images/plate-387.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/glossy-ibis",
     "common_name": "Glossy Ibis",
@@ -10226,10 +9709,9 @@
   {
     "plate_number": 388,
     "aliases": [
-      "nuttall's starling",
-      "yellow-headed troopial",
-      "bullock's oriole",
-      "yellow-headed blackbird"
+      "Nuttall's Starling",
+      "Yellow-headed Troopial",
+      "Bullock's Oriole"
     ],
     "image_url": "images/plate-388.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/nuttalls-starling-yellow-headed-troopial-bullocks-oriole",
@@ -10255,9 +9737,7 @@
   },
   {
     "plate_number": 389,
-    "aliases": [
-      "red-cockaded woodpecker"
-    ],
+    "aliases": [],
     "image_url": "images/plate-389.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/red-cockaded-woodpecker",
     "common_name": "Red-cockaded Woodpecker",
@@ -10283,10 +9763,9 @@
   {
     "plate_number": 390,
     "aliases": [
-      "lark finch",
-      "prairie finch",
-      "brown song sparrow",
-      "lark sparrow"
+      "Lark Finch",
+      "Prairie Finch",
+      "Brown Song Sparrow"
     ],
     "image_url": "images/plate-390.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/lark-finch-prairie-finch-brown-song-sparrow",
@@ -10313,8 +9792,7 @@
   {
     "plate_number": 391,
     "aliases": [
-      "brant goose",
-      "brant"
+      "Brant Goose"
     ],
     "image_url": "images/plate-391.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/brant-goose",
@@ -10341,8 +9819,7 @@
   {
     "plate_number": 392,
     "aliases": [
-      "louisiana hawk",
-      "harris's hawk"
+      "Louisiana Hawk"
     ],
     "image_url": "images/plate-392.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/louisiana-hawk",
@@ -10369,10 +9846,9 @@
   {
     "plate_number": 393,
     "aliases": [
-      "townsend's warbler",
-      "arctic blue-bird",
-      "western blue-bird",
-      "mountain bluebird"
+      "Townsend's Warbler",
+      "Arctic Blue-bird",
+      "Western Blue-bird"
     ],
     "image_url": "images/plate-393.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/townsends-warbler-arctic-blue-bird-western-blue-bird",
@@ -10390,11 +9866,10 @@
   {
     "plate_number": 394,
     "aliases": [
-      "chestnut-coloured finch",
-      "black-headed siskin",
-      "black crown bunting",
-      "arctic ground finch",
-      "chestnut-collared longspur"
+      "Chestnut-coloured Finch",
+      "Black-headed Siskin",
+      "Black Crown Bunting",
+      "Arctic Ground Finch"
     ],
     "image_url": "images/plate-394.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/chestnut-coloured-finch-black-headed-siskin-black-crown-bunting-arctic-ground",
@@ -10421,9 +9896,8 @@
   {
     "plate_number": 395,
     "aliases": [
-      "audubon's warbler",
-      "hermit warbler",
-      "black-throated gray warbler"
+      "Audubon's Warbler",
+      "Black-throated Gray Warbler"
     ],
     "image_url": "images/plate-395.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/audubons-warbler-hermit-warbler-black-throated-gray-warbler",
@@ -10450,8 +9924,7 @@
   {
     "plate_number": 396,
     "aliases": [
-      "burgomaster gull",
-      "glaucous gull"
+      "Burgomaster Gull"
     ],
     "image_url": "images/plate-396.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/burgomaster-gull",
@@ -10477,9 +9950,7 @@
   },
   {
     "plate_number": 397,
-    "aliases": [
-      "scarlet ibis"
-    ],
+    "aliases": [],
     "image_url": "images/plate-397.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/scarlet-ibis",
     "common_name": "Scarlet Ibis",
@@ -10496,10 +9967,9 @@
   {
     "plate_number": 398,
     "aliases": [
-      "lazuli finch",
-      "clay-coloured finch",
-      "oregon snow finch",
-      "lazuli bunting"
+      "Lazuli Finch",
+      "Clay-coloured Finch",
+      "Oregon Snow Finch"
     ],
     "image_url": "images/plate-398.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/lazuli-finch-clay-coloured-finch-oregon-snow-finch",
@@ -10526,9 +9996,8 @@
   {
     "plate_number": 399,
     "aliases": [
-      "black-throated green warbler",
-      "blackburnian",
-      "mourning warbler"
+      "Blackburnian Warbler",
+      "Mourning Warbler"
     ],
     "image_url": "images/plate-399.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/black-throated-green-warbler-blackburnian-mourning-warbler",
@@ -10555,12 +10024,11 @@
   {
     "plate_number": 400,
     "aliases": [
-      "arkansaw siskin",
-      "mealy red-poll",
-      "louisiana tanager",
-      "townsend's bunting",
-      "buff-breasted finch",
-      "lesser goldfinch"
+      "Arkansaw Siskin",
+      "Mealy Red-poll",
+      "Louisiana Tanager",
+      "Townsend's Bunting",
+      "Buff-breasted Finch"
     ],
     "image_url": "images/plate-400.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/arkansaw-siskin-mealy-red-poll-louisiana-tanager-townsends-bunting-buff",
@@ -10586,9 +10054,7 @@
   },
   {
     "plate_number": 401,
-    "aliases": [
-      "red-breasted merganser"
-    ],
+    "aliases": [],
     "image_url": "images/plate-401.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/red-breasted-merganser",
     "common_name": "Red-breasted Merganser",
@@ -10614,11 +10080,10 @@
   {
     "plate_number": 402,
     "aliases": [
-      "black-throated guillemot",
-      "nobbed-billed auk",
-      "curled-crested auk",
-      "horned-billed guillemot",
-      "ancient murrelet"
+      "Black-throated Guillemot",
+      "Nobbed-billed Auk",
+      "Curled-crested Auk",
+      "Horned-billed Guillemot"
     ],
     "image_url": "images/plate-402.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/black-throated-guillemot-nobbed-billed-auk-curled-crested-auk-horned-billed",
@@ -10636,8 +10101,7 @@
   {
     "plate_number": 403,
     "aliases": [
-      "golden-eye duck",
-      "barrow's goldeneye"
+      "Golden-eye Duck"
     ],
     "image_url": "images/plate-403.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/golden-eye-duck",
@@ -10663,9 +10127,7 @@
   },
   {
     "plate_number": 404,
-    "aliases": [
-      "eared grebe"
-    ],
+    "aliases": [],
     "image_url": "images/plate-404.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/eared-grebe",
     "common_name": "Eared Grebe",
@@ -10690,9 +10152,7 @@
   },
   {
     "plate_number": 405,
-    "aliases": [
-      "semipalmated sandpiper"
-    ],
+    "aliases": [],
     "image_url": "images/plate-405.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/semipalmated-sandpiper",
     "common_name": "Semipalmated Sandpiper",
@@ -10717,9 +10177,7 @@
   },
   {
     "plate_number": 406,
-    "aliases": [
-      "trumpeter swan"
-    ],
+    "aliases": [],
     "image_url": "images/plate-406.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/trumpeter-swan-0",
     "common_name": "Trumpeter Swan",
@@ -10736,8 +10194,7 @@
   {
     "plate_number": 407,
     "aliases": [
-      "dusky albatros",
-      "sooty albatross"
+      "Dusky Albatros"
     ],
     "image_url": "images/plate-407.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/dusky-albatros",
@@ -10755,8 +10212,7 @@
   {
     "plate_number": 408,
     "aliases": [
-      "american scoter duck",
-      "black scoter"
+      "American Scoter Duck"
     ],
     "image_url": "images/plate-408.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/american-scoter-duck",
@@ -10783,9 +10239,8 @@
   {
     "plate_number": 409,
     "aliases": [
-      "havell's tern",
-      "trudeau's tern",
-      "forster's tern"
+      "Havell's Tern",
+      "Trudeau's Tern"
     ],
     "image_url": "images/plate-409.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/havells-tern-and-trudeaus-tern",
@@ -10812,8 +10267,7 @@
   {
     "plate_number": 410,
     "aliases": [
-      "marsh tern",
-      "gull-billed tern"
+      "Marsh Tern"
     ],
     "image_url": "images/plate-410.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/marsh-tern",
@@ -10840,8 +10294,7 @@
   {
     "plate_number": 411,
     "aliases": [
-      "common american swan",
-      "tundra swan"
+      "Common American Swan"
     ],
     "image_url": "images/plate-411.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/common-american-swan",
@@ -10868,9 +10321,8 @@
   {
     "plate_number": 412,
     "aliases": [
-      "violet-green cormorant",
-      "townsend's cormorant",
-      "pelagic cormorant"
+      "Violet-green Cormorant",
+      "Townsend's Cormorant"
     ],
     "image_url": "images/plate-412.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/violet-green-cormorant-and-townsends-cormorant",
@@ -10888,8 +10340,7 @@
   {
     "plate_number": 413,
     "aliases": [
-      "california partridge",
-      "california quail"
+      "California Partridge"
     ],
     "image_url": "images/plate-413.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/california-partridge",
@@ -10916,8 +10367,7 @@
   {
     "plate_number": 414,
     "aliases": [
-      "golden-winged warbler",
-      "cape may warbler"
+      "Cape May Warbler"
     ],
     "image_url": "images/plate-414.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/golden-winged-warbler-and-cape-may-warbler",
@@ -10944,8 +10394,7 @@
   {
     "plate_number": 415,
     "aliases": [
-      "brown creeper",
-      "californian nuthatch"
+      "Californian Nuthatch"
     ],
     "image_url": "images/plate-415.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/brown-creeper-and-californian-nuthatch",
@@ -10972,11 +10421,10 @@
   {
     "plate_number": 416,
     "aliases": [
-      "hairy woodpecker",
-      "red-bellied woodpecker",
-      "red-shafted woodpecker",
-      "lewis' woodpecker",
-      "red-breasted woodpecker"
+      "Red-bellied Woodpecker",
+      "Red-shafted Woodpecker",
+      "Lewis' Woodpecker",
+      "Red-breasted Woodpecker"
     ],
     "image_url": "images/plate-416.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/hairy-woodpecker-red-bellied-woodpecker-red-shafted-woodpecker-lewis",
@@ -11003,13 +10451,12 @@
   {
     "plate_number": 417,
     "aliases": [
-      "maria's woodpecker",
-      "three-toed woodpecker",
-      "phillips' woodpecker",
-      "canadian woodpecker",
-      "harris's woodpecker",
-      "audubon's woodpecker",
-      "hairy woodpecker"
+      "Maria's Woodpecker",
+      "Three-toed Woodpecker",
+      "Phillips' Woodpecker",
+      "Canadian Woodpecker",
+      "Harris's Woodpecker",
+      "Audubon's Woodpecker"
     ],
     "image_url": "images/plate-417.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/marias-woodpecker-three-toed-woodpecker-phillips-woodpecker-canadian",
@@ -11027,9 +10474,8 @@
   {
     "plate_number": 418,
     "aliases": [
-      "american ptarmigan",
-      "white-tailed grous",
-      "rock ptarmigan"
+      "American Ptarmigan",
+      "White-tailed Grous"
     ],
     "image_url": "images/plate-418.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/american-ptarmigan-and-white-tailed-grous",
@@ -11047,10 +10493,9 @@
   {
     "plate_number": 419,
     "aliases": [
-      "little tawny thrush",
-      "ptiliogony's townsendi",
-      "canada jay",
-      "hermit thrush"
+      "Little Tawny Thrush",
+      "Ptiliogony's Townsendi",
+      "Canada Jay"
     ],
     "image_url": "images/plate-419.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/little-tawny-thrush-ptiliogonys-townsendi-canada-jay",
@@ -11068,8 +10513,7 @@
   {
     "plate_number": 420,
     "aliases": [
-      "prairie starling",
-      "red-winged blackbird"
+      "Prairie Starling"
     ],
     "image_url": "images/plate-420.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/prairie-starling",
@@ -11086,9 +10530,7 @@
   },
   {
     "plate_number": 421,
-    "aliases": [
-      "brown pelican"
-    ],
+    "aliases": [],
     "image_url": "images/plate-421.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/brown-pelican",
     "common_name": "Brown Pelican",
@@ -11105,8 +10547,7 @@
   {
     "plate_number": 422,
     "aliases": [
-      "rough-legged falcon",
-      "rough-legged hawk"
+      "Rough-legged Falcon"
     ],
     "image_url": "images/plate-422.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/rough-legged-falcon",
@@ -11124,9 +10565,8 @@
   {
     "plate_number": 423,
     "aliases": [
-      "plumed partridge",
-      "thick-legged partridge",
-      "mountain quail"
+      "Plumed Partridge",
+      "Thick-legged Partridge"
     ],
     "image_url": "images/plate-423.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/plumed-partridge-and-thick-legged-partridge",
@@ -11153,13 +10593,12 @@
   {
     "plate_number": 424,
     "aliases": [
-      "lazuli finch",
-      "crimson-necked bull-finch",
-      "gray-crowned linnet",
-      "cow-pen bird",
-      "evening grosbeak",
-      "brown longspur",
-      "lazuli bunting"
+      "Lazuli Finch",
+      "Crimson-necked Bull-finch",
+      "Gray-crowned Linnet",
+      "Cow-pen Bird",
+      "Evening Grosbeak",
+      "Brown Longspur"
     ],
     "image_url": "images/plate-424.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/lazuli-finch-crimson-necked-bull-finch-gray-crowned-linnet-cow-pen-bird",
@@ -11177,8 +10616,7 @@
   {
     "plate_number": 425,
     "aliases": [
-      "columbian humming bird",
-      "anna's hummingbird"
+      "Columbian Humming Bird"
     ],
     "image_url": "images/plate-425.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/columbian-humming-bird",
@@ -11205,8 +10643,7 @@
   {
     "plate_number": 426,
     "aliases": [
-      "californian vulture",
-      "california condor"
+      "Californian Vulture"
     ],
     "image_url": "images/plate-426.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/californian-vulture",
@@ -11224,9 +10661,8 @@
   {
     "plate_number": 427,
     "aliases": [
-      "white-legged oyster-catcher",
-      "slender-billed oyster-catcher",
-      "black oystercatcher"
+      "White-legged Oyster-catcher",
+      "Slender-billed Oyster-catcher"
     ],
     "image_url": "images/plate-427.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/white-legged-oyster-catcher-or-slender-billed-oyster-catcher",
@@ -11253,8 +10689,7 @@
   {
     "plate_number": 428,
     "aliases": [
-      "townsend's sandpiper",
-      "surfbird"
+      "Townsend's Sandpiper"
     ],
     "image_url": "images/plate-428.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/townsends-sandpiper",
@@ -11281,8 +10716,7 @@
   {
     "plate_number": 429,
     "aliases": [
-      "western duck",
-      "steller's eider"
+      "Western Duck"
     ],
     "image_url": "images/plate-429.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/western-duck",
@@ -11309,8 +10743,7 @@
   {
     "plate_number": 430,
     "aliases": [
-      "slender-billed guillemot",
-      "marbled murrelet"
+      "Slender-billed Guillemot"
     ],
     "image_url": "images/plate-430.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/slender-billed-guillemot",
@@ -11336,9 +10769,7 @@
   },
   {
     "plate_number": 431,
-    "aliases": [
-      "american flamingo"
-    ],
+    "aliases": [],
     "image_url": "images/plate-431.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/american-flamingo",
     "common_name": "American Flamingo",
@@ -11364,11 +10795,10 @@
   {
     "plate_number": 432,
     "aliases": [
-      "burrowing owl",
-      "large-headed burrowing owl",
-      "little night owl",
-      "columbian owl",
-      "short-eared owl"
+      "Large-headed Burrowing Owl",
+      "Little Night Owl",
+      "Columbian Owl",
+      "Short-eared Owl"
     ],
     "image_url": "images/plate-432.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/burrowing-owl-large-headed-burrowing-owl-little-night-owl-columbian-owl-short",
@@ -11395,11 +10825,10 @@
   {
     "plate_number": 433,
     "aliases": [
-      "bullock's oriole",
-      "baltimore oriole",
-      "mexican goldfinch",
-      "varied thrush",
-      "common water thrush"
+      "Baltimore Oriole",
+      "Mexican Goldfinch",
+      "Varied Thrush",
+      "Common Water Thrush"
     ],
     "image_url": "images/plate-433.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/bullocks-oriole-baltimore-oriole-mexican-goldfinch-varied-thrush-common-water",
@@ -11426,13 +10855,12 @@
   {
     "plate_number": 434,
     "aliases": [
-      "little tyrant flycatcher",
-      "small-headed flycatcher",
-      "blue mountain warbler",
-      "bartram's vireo",
-      "short-legged pewee",
-      "rocky mountain fly-catcher",
-      "black phoebe"
+      "Little Tyrant Flycatcher",
+      "Small-headed Flycatcher",
+      "Blue Mountain Warbler",
+      "Bartram's Vireo",
+      "Short-legged Pewee",
+      "Rocky Mountain Fly-catcher"
     ],
     "image_url": "images/plate-434.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/little-tyrant-flycatcher-small-headed-flycatcher-blue-mountain-warbler",
@@ -11459,9 +10887,8 @@
   {
     "plate_number": 435,
     "aliases": [
-      "columbian water ouzel",
-      "arctic water ouzel",
-      "american dipper"
+      "Columbian Water Ouzel",
+      "Arctic Water Ouzel"
     ],
     "image_url": "images/plate-435.webp",
     "audubon_url": "https://www.audubon.org/art/birds-of-america/columbian-water-ouzel-or-arctic-water-ouzel",

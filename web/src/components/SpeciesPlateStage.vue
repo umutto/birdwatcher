@@ -62,17 +62,24 @@ watch(
 
 onBeforeUnmount(stopAudio)
 
-function toggleZoom() {
+function updateZoomOrigin(event: MouseEvent) {
+  const target = event.currentTarget as HTMLElement
+  const rect = target.getBoundingClientRect()
+  zoomX.value = Math.max(0, Math.min(100, ((event.clientX - rect.left) / rect.width) * 100))
+  zoomY.value = Math.max(0, Math.min(100, ((event.clientY - rect.top) / rect.height) * 100))
+}
+
+function toggleZoom(event: MouseEvent) {
   if (!isSighted.value) return
+  if (!isZoomed.value) {
+    updateZoomOrigin(event)
+  }
   isZoomed.value = !isZoomed.value
 }
 
 function handleMouseMove(event: MouseEvent) {
   if (!isZoomed.value) return
-  const target = event.currentTarget as HTMLElement
-  const rect = target.getBoundingClientRect()
-  zoomX.value = Math.max(0, Math.min(100, ((event.clientX - rect.left) / rect.width) * 100))
-  zoomY.value = Math.max(0, Math.min(100, ((event.clientY - rect.top) / rect.height) * 100))
+  updateZoomOrigin(event)
 }
 </script>
 
@@ -101,7 +108,7 @@ function handleMouseMove(event: MouseEvent) {
         :alt="species.common_name"
         class="size-full object-contain mix-blend-multiply transition-transform duration-200"
         :class="{ 'scale-300': isZoomed, 'opacity-30 grayscale': !isSighted }"
-        :style="isZoomed ? { transformOrigin: `${zoomX}% ${zoomY}%` } : undefined"
+        :style="{ transformOrigin: `${zoomX}% ${zoomY}%` }"
       />
 
       <button

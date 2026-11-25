@@ -17,6 +17,8 @@ export interface Crawl {
 
 export interface CrawlSummary extends Crawl {
   total_sightings: number
+  text_sighting_count: number
+  image_sighting_count: number
   unique_species_count: number
 }
 
@@ -31,6 +33,8 @@ export interface CatalogSpecies {
   audubon_url: string | null
   metadata: Record<string, unknown> | null
   sighting_count: number
+  text_sighting_count: number
+  image_sighting_count: number
 }
 
 export interface CrawlSighting {

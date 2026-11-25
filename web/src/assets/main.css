@@ -17,6 +17,8 @@
   /* Animations */
   --animate-note-breath: note-breath 1.2s ease-in-out infinite;
   --animate-note-ripple: note-ripple 1.2s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  --animate-crawl-pulse: crawl-pulse 1.5s ease-in-out infinite;
+  --animate-crawl-shimmer: crawl-shimmer 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 
   @keyframes note-breath {
     0%,
@@ -36,6 +38,27 @@
     100% {
       transform: scale(1.38);
       opacity: 0;
+    }
+  }
+
+  @keyframes crawl-pulse {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.4;
+      transform: scale(0.85);
+    }
+  }
+
+  @keyframes crawl-shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(300%);
     }
   }
 }

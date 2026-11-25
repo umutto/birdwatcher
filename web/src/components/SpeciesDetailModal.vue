@@ -3,6 +3,7 @@ import { ArrowUpRight } from 'lucide-vue-next'
 
 import type { CatalogSpecies } from '@/api/types'
 import FiligreeModal from '@/components/FiligreeModal.vue'
+import SpeciesAliases from '@/components/SpeciesAliases.vue'
 import SpeciesLatestSighting from '@/components/SpeciesLatestSighting.vue'
 import SpeciesPlateStage from '@/components/SpeciesPlateStage.vue'
 
@@ -52,7 +53,10 @@ const emit = defineEmits<{
           </p>
         </div>
 
-        <SpeciesLatestSighting :crawl-id="crawlId" :species="species" />
+        <div class="space-y-3.5">
+          <SpeciesAliases :species="species" />
+          <SpeciesLatestSighting :crawl-id="crawlId" :species="species" />
+        </div>
       </div>
     </div>
   </FiligreeModal>

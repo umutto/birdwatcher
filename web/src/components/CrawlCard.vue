@@ -3,20 +3,15 @@ import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
 
 import type { CrawlSummary } from '@/api/types'
-import { TOTAL_SPECIES } from '@/queries/crawls'
-import {
-  formatCrawlDate,
-  getCrawlStateStyle,
-  getCrawlTitle,
-  getSpeciesProgressPercent,
-} from '@/utils/crawl'
+import CrawlProgress from '@/components/CrawlProgress.vue'
+import CrawlStateBadge from '@/components/CrawlStateBadge.vue'
+import { formatCrawlDate, getCrawlStateStyle, getCrawlTitle } from '@/utils/crawl'
 
 const { crawl } = defineProps<{
   crawl: CrawlSummary
 }>()
 
 const stateStyle = computed(() => getCrawlStateStyle(crawl.state))
-const progressPercent = computed(() => getSpeciesProgressPercent(crawl.unique_species_count))
 </script>
 
 <template>
@@ -26,12 +21,7 @@ const progressPercent = computed(() => getSpeciesProgressPercent(crawl.unique_sp
   >
     <div class="w-full">
       <div class="mb-2.5 flex items-center justify-between gap-2">
-        <span
-          class="inline-flex items-center rounded px-2 py-0.5 text-xs font-semibold lowercase"
-          :class="stateStyle.badge"
-        >
-          {{ crawl.state }}
-        </span>
+        <CrawlStateBadge :state="crawl.state" />
         <time :datetime="crawl.created_at" class="font-mono text-xs text-stone-500 tabular-nums">
           {{ formatCrawlDate(crawl.created_at) }}
         </time>
@@ -47,26 +37,13 @@ const progressPercent = computed(() => getSpeciesProgressPercent(crawl.unique_sp
       </div>
     </div>
 
-    <div class="mt-3.5 w-full border-t border-filigree/15 pt-2.5">
-      <div class="mb-1.5 flex items-baseline justify-between text-xs">
-        <span class="text-stone-600">Identified</span>
-        <strong class="font-mono font-semibold text-stone-900 tabular-nums">
-          {{ crawl.unique_species_count }} / {{ TOTAL_SPECIES }}
-        </strong>
-      </div>
-
-      <div class="h-1.5 overflow-hidden rounded-full bg-stone-900/10">
-        <div
-          class="h-full rounded-full transition-[width] duration-200"
-          :class="stateStyle.fill"
-          :style="{ width: `${progressPercent}%` }"
-        />
-      </div>
-
-      <div class="mt-2 flex justify-between text-xs text-stone-500 tabular-nums">
-        <span>{{ crawl.total_sightings }} sightings</span>
-        <span>{{ crawl.pages_crawled_count }} pages</span>
-      </div>
-    </div>
+    <CrawlProgress
+      :state="crawl.state"
+      :unique-species-count="crawl.unique_species_count"
+      :image-sighting-count="crawl.image_sighting_count ?? 0"
+      :text-sighting-count="crawl.text_sighting_count ?? 0"
+      :pages-crawled-count="crawl.pages_crawled_count"
+      class="mt-3.5 w-full border-t border-filigree/15 pt-2.5"
+    />
   </RouterLink>
 </template>

@@ -39,7 +39,9 @@ ORDER BY plate_number ASC;
 -- name: GetCatalogForCrawl :many
 SELECT
     s.*,
-    COUNT(st.id) AS sighting_count
+    COUNT(st.id) AS sighting_count,
+    COUNT(st.id) FILTER (WHERE st.source_type = 'text') AS text_sighting_count,
+    COUNT(st.id) FILTER (WHERE st.source_type = 'image') AS image_sighting_count
 FROM species s
 LEFT JOIN sightings st
     ON

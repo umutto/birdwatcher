@@ -15,7 +15,7 @@ const SITE_URL = (import.meta.env.VITE_SITE_URL ?? '').trim().replace(/\/+$/, ''
 
 export function formatPageTitle(subtitle?: string): string {
   const trimmed = subtitle?.trim()
-  return trimmed ? `${trimmed} — ${APP_TITLE}` : APP_TITLE
+  return trimmed ? `${APP_TITLE} | ${trimmed}` : APP_TITLE
 }
 
 function syncCanonicalLink(path: string, noindex: boolean): void {

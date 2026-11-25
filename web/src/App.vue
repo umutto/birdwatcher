@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { RouterView, useRoute } from 'vue-router'
 
+import BackToTop from '@/components/BackToTop.vue'
 import FiligreeNavbar from '@/components/FiligreeNavbar.vue'
 import MeadowFooter from '@/components/MeadowFooter.vue'
 
@@ -22,5 +23,6 @@ const hasNavbarContent = computed(() =>
     </div>
 
     <MeadowFooter />
+    <BackToTop />
   </div>
 </template>

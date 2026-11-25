@@ -100,6 +100,8 @@ const listCrawlsWithSummary = `-- name: ListCrawlsWithSummary :many
 SELECT
     c.id, c.target_url, c.title, c.state, c.pages_crawled_count, c.images_scanned_count, c.created_at, c.updated_at, c.started_at, c.completed_at,
     COUNT(s.id) AS total_sightings,
+    COUNT(s.id) FILTER (WHERE s.source_type = 'text') AS text_sighting_count,
+    COUNT(s.id) FILTER (WHERE s.source_type = 'image') AS image_sighting_count,
     COUNT(DISTINCT s.species_plate_number) AS unique_species_count
 FROM crawls AS c
 LEFT JOIN sightings AS s
@@ -126,6 +128,8 @@ type ListCrawlsWithSummaryRow struct {
 	StartedAt          *time.Time `json:"started_at"`
 	CompletedAt        *time.Time `json:"completed_at"`
 	TotalSightings     int64      `json:"total_sightings"`
+	TextSightingCount  int64      `json:"text_sighting_count"`
+	ImageSightingCount int64      `json:"image_sighting_count"`
 	UniqueSpeciesCount int64      `json:"unique_species_count"`
 }
 
@@ -150,6 +154,8 @@ func (q *Queries) ListCrawlsWithSummary(ctx context.Context, arg ListCrawlsWithS
 			&i.StartedAt,
 			&i.CompletedAt,
 			&i.TotalSightings,
+			&i.TextSightingCount,
+			&i.ImageSightingCount,
 			&i.UniqueSpeciesCount,
 		); err != nil {
 			return nil, err

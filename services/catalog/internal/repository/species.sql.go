@@ -15,7 +15,9 @@ import (
 const getCatalogForCrawl = `-- name: GetCatalogForCrawl :many
 SELECT
     s.plate_number, s.common_name, s.aliases, s.scientific_name, s.description, s.image_url, s.call_url, s.audubon_url, s.metadata,
-    COUNT(st.id) AS sighting_count
+    COUNT(st.id) AS sighting_count,
+    COUNT(st.id) FILTER (WHERE st.source_type = 'text') AS text_sighting_count,
+    COUNT(st.id) FILTER (WHERE st.source_type = 'image') AS image_sighting_count
 FROM species s
 LEFT JOIN sightings st
     ON
@@ -26,16 +28,18 @@ ORDER BY s.plate_number
 `
 
 type GetCatalogForCrawlRow struct {
-	PlateNumber    int32           `json:"plate_number"`
-	CommonName     string          `json:"common_name"`
-	Aliases        []string        `json:"aliases"`
-	ScientificName string          `json:"scientific_name"`
-	Description    *string         `json:"description"`
-	ImageUrl       string          `json:"image_url"`
-	CallUrl        *string         `json:"call_url"`
-	AudubonUrl     *string         `json:"audubon_url"`
-	Metadata       json.RawMessage `json:"metadata"`
-	SightingCount  int64           `json:"sighting_count"`
+	PlateNumber        int32           `json:"plate_number"`
+	CommonName         string          `json:"common_name"`
+	Aliases            []string        `json:"aliases"`
+	ScientificName     string          `json:"scientific_name"`
+	Description        *string         `json:"description"`
+	ImageUrl           string          `json:"image_url"`
+	CallUrl            *string         `json:"call_url"`
+	AudubonUrl         *string         `json:"audubon_url"`
+	Metadata           json.RawMessage `json:"metadata"`
+	SightingCount      int64           `json:"sighting_count"`
+	TextSightingCount  int64           `json:"text_sighting_count"`
+	ImageSightingCount int64           `json:"image_sighting_count"`
 }
 
 func (q *Queries) GetCatalogForCrawl(ctx context.Context, crawlID uuid.UUID) ([]GetCatalogForCrawlRow, error) {
@@ -58,6 +62,8 @@ func (q *Queries) GetCatalogForCrawl(ctx context.Context, crawlID uuid.UUID) ([]
 			&i.AudubonUrl,
 			&i.Metadata,
 			&i.SightingCount,
+			&i.TextSightingCount,
+			&i.ImageSightingCount,
 		); err != nil {
 			return nil, err
 		}

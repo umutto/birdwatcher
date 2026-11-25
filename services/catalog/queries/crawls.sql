@@ -41,6 +41,8 @@ WHERE id = @id;
 SELECT
     c.*,
     COUNT(s.id) AS total_sightings,
+    COUNT(s.id) FILTER (WHERE s.source_type = 'text') AS text_sighting_count,
+    COUNT(s.id) FILTER (WHERE s.source_type = 'image') AS image_sighting_count,
     COUNT(DISTINCT s.species_plate_number) AS unique_species_count
 FROM crawls AS c
 LEFT JOIN sightings AS s
