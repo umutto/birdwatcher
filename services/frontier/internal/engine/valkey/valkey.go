@@ -4,13 +4,17 @@ package valkey
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/redis/go-redis/v9"
 
 	"github.com/umutto/birdwatcher/services/frontier/internal/config"
 )
 
-const prefix = "visited:"
+const (
+	prefix     = "visited:"
+	defaultTTL = 24 * time.Hour
+)
 
 // Store provides visited URL tracking backed by Valkey.
 type Store struct {
@@ -33,12 +37,14 @@ func New(ctx context.Context, cfg config.ValkeyConfig) (*Store, error) {
 func (s *Store) Add(ctx context.Context, jobID, normalizedURL string) (bool, error) {
 	key := prefix + jobID
 
-	n, err := s.client.SAdd(ctx, key, normalizedURL).Result()
-	if err != nil {
-		return false, fmt.Errorf("valkey sadd %s: %w", key, err)
+	pipe := s.client.Pipeline()
+	addCmd := pipe.SAdd(ctx, key, normalizedURL)
+	pipe.ExpireNX(ctx, key, defaultTTL)
+	if _, err := pipe.Exec(ctx); err != nil {
+		return false, fmt.Errorf("valkey add %s: %w", key, err)
 	}
 
-	return n > 0, nil
+	return addCmd.Val() > 0, nil
 }
 
 // Has checks whether a normalized URL has already been visited for the specified job.

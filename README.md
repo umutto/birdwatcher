@@ -201,7 +201,7 @@ make dev-web
 
 ### Stretch Goals & Extensions
 
-- [ ] **Observability**: OpenTelemetry distributed tracing (`shared/telemetry`) across services
+- [ ] **Observability**: OpenTelemetry traces, metrics, and correlated logs (`shared/telemetry`), local Grafana LGTM dashboard (`grafana/otel-lgtm`), and NATS JetStream monitoring (`prometheus-nats-exporter` + `nats-nui` Protobuf message inspector)
 - [ ] **Cloud Hosting**: Terraform / OpenTofu zero-cost infrastructure (`deploy/`)
 - [ ] **Caching Layer**: Response caching for scraper and URL frontier
 - [ ] **CLI Client**: Terminal client for dispatching, managing/deleting crawls, and exploring sightings (`catalog/cmd/cli`)

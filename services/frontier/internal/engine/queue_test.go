@@ -76,4 +76,24 @@ func TestQueue(t *testing.T) {
 
 		wg.Wait()
 	})
+
+	t.Run("checks and removes items by job id", func(t *testing.T) {
+		q := engine.NewQueue()
+		q.Push(engine.Item{JobID: "job-1", URL: "https://example.com/1"})
+		q.Push(engine.Item{JobID: "job-2", URL: "https://birds.example.com/1"})
+		q.Push(engine.Item{JobID: "job-1", URL: "https://example.com/2"})
+
+		if !q.HasJob("job-1") || !q.HasJob("job-2") || q.HasJob("job-3") {
+			t.Fatalf("HasJob() unexpected results: job-1=%v job-2=%v job-3=%v", q.HasJob("job-1"), q.HasJob("job-2"), q.HasJob("job-3"))
+		}
+
+		q.RemoveByJob("job-1")
+
+		if q.HasJob("job-1") {
+			t.Errorf("HasJob(job-1) = true, want false")
+		}
+		if !q.HasJob("job-2") || q.Len() != 1 {
+			t.Errorf("after RemoveByJob(job-1): HasJob(job-2) = %v, Len() = %d, want true, 1", q.HasJob("job-2"), q.Len())
+		}
+	})
 }

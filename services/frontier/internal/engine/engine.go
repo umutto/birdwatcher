@@ -163,16 +163,29 @@ func (e *Engine) HandleDiscoveredURLs(
 	}
 
 	e.mu.Lock()
-	isDone := job.inflight == 0 && e.queue.Len() == 0
+	isDone := job.inflight == 0 && (job.dispatched >= job.maxPages || !e.queue.HasJob(jobID))
+	dispatched := job.dispatched
 	if isDone {
 		delete(e.jobs, jobID)
 	}
 	e.mu.Unlock()
 
 	if isDone {
+		e.queue.RemoveByJob(jobID)
+		if err := e.visited.RemoveJob(ctx, jobID); err != nil {
+			e.log.WarnContext(ctx, "remove visited urls", slog.String("job_id", jobID), slog.Any("error", err))
+		}
+
 		if err := e.publisher.PublishJobCompleted(ctx, jobID, ""); err != nil {
 			return fmt.Errorf("publish job completed: %w", err)
 		}
+
+		e.log.InfoContext(
+			ctx,
+			"finished crawl job",
+			slog.String("job_id", jobID),
+			slog.Int("pages_dispatched", int(dispatched)),
+		)
 		return nil
 	}
 
@@ -216,37 +229,23 @@ func validateDiscoveredURL(rawURL, jobHost string) (string, error) {
 
 // dispatchNext pops the next URL candidate, checks politeness and budgets, and publishes a fetch task.
 func (e *Engine) dispatchNext(ctx context.Context) (bool, error) {
+	e.mu.Lock()
 	item, ok := e.queue.Pop()
 	if !ok {
+		e.mu.Unlock()
 		return false, nil
 	}
 
-	e.mu.Lock()
 	job, ok := e.jobs[item.JobID]
-	if !ok {
+	if !ok || job.dispatched >= job.maxPages {
 		e.mu.Unlock()
-		return false, nil
-	}
-	if job.dispatched >= job.maxPages {
-		isDone := job.inflight == 0 && e.queue.Len() == 0
-		if isDone {
-			delete(e.jobs, item.JobID)
-		}
-		e.mu.Unlock()
-
-		if isDone {
-			if err := e.publisher.PublishJobCompleted(ctx, item.JobID, ""); err != nil {
-				return false, fmt.Errorf("publish job completed: %w", err)
-			}
-		}
-
 		return false, nil
 	}
 
 	allowed, _ := e.limiter.Acquire(job.host)
 	if !allowed {
-		e.mu.Unlock()
 		e.queue.Push(item)
+		e.mu.Unlock()
 		return false, nil
 	}
 

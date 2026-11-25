@@ -1,6 +1,9 @@
 package engine
 
-import "sync"
+import (
+	"slices"
+	"sync"
+)
 
 // Item represents a URL candidate waiting to be crawled.
 type Item struct {
@@ -51,6 +54,26 @@ func (q *Queue) Pop() (Item, bool) {
 	}
 
 	return item, true
+}
+
+// HasJob reports whether the queue contains at least one item for the given job ID.
+func (q *Queue) HasJob(jobID string) bool {
+	q.mu.Lock()
+	defer q.mu.Unlock()
+
+	return slices.ContainsFunc(q.items, func(item Item) bool {
+		return item.JobID == jobID
+	})
+}
+
+// RemoveByJob removes all queued items belonging to the given job ID.
+func (q *Queue) RemoveByJob(jobID string) {
+	q.mu.Lock()
+	defer q.mu.Unlock()
+
+	q.items = slices.DeleteFunc(q.items, func(item Item) bool {
+		return item.JobID == jobID
+	})
 }
 
 // Len returns the current number of items in the queue.

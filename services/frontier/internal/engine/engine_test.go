@@ -7,7 +7,6 @@ import (
 	"log/slog"
 	"sync"
 	"testing"
-	"time"
 
 	"github.com/umutto/birdwatcher/services/frontier/internal/config"
 	"github.com/umutto/birdwatcher/services/frontier/internal/engine"
@@ -102,7 +101,7 @@ func (m *mockVisitedStore) RemoveJob(_ context.Context, jobID string) error {
 func newTestEngine() (*engine.Engine, *mockVisitedStore, *mockPublisher) {
 	discardLogger := slog.New(slog.NewTextHandler(io.Discard, nil))
 	cfg := config.CrawlConfig{
-		HostDelay:          10 * time.Millisecond,
+		HostDelay:          0,
 		MaxInflightPerHost: 2,
 	}
 	visited := newMockVisitedStore()
@@ -187,12 +186,14 @@ func TestEngine_DispatchNext(t *testing.T) {
 		eng, _, _ := newTestEngine()
 		ctx := context.Background()
 
-		dispatched, err := eng.DispatchNext(ctx)
-		if err != nil {
-			t.Fatalf("DispatchNext() error = %v, want nil", err)
-		}
-		if dispatched {
-			t.Errorf("DispatchNext() = true, want false")
+		for range 2 {
+			dispatched, err := eng.DispatchNext(ctx)
+			if err != nil {
+				t.Fatalf("DispatchNext() error = %v, want nil", err)
+			}
+			if dispatched {
+				t.Errorf("DispatchNext() = true, want false")
+			}
 		}
 	})
 }
@@ -245,6 +246,74 @@ func TestEngine_HandleDiscoveredURLs(t *testing.T) {
 		defer publisher.mu.Unlock()
 		if len(publisher.completed) != 1 || publisher.completed[0] != "job-1" {
 			t.Errorf("publisher.completed = %v, want [job-1]", publisher.completed)
+		}
+	})
+
+	t.Run("completes immediately when maxPages reached with leftover queued links", func(t *testing.T) {
+		t.Parallel()
+		eng, visited, publisher := newTestEngine()
+		ctx := context.Background()
+
+		if err := eng.StartJob(ctx, "job-1", "https://example.com", 2, 2); err != nil {
+			t.Fatalf("StartJob() error = %v, want nil", err)
+		}
+
+		// Page 1 discovers more links than maxPages allows.
+		if _, err := eng.DispatchNext(ctx); err != nil {
+			t.Fatalf("first DispatchNext() error = %v, want nil", err)
+		}
+		discovered := []string{"https://example.com/p1", "https://example.com/p2", "https://example.com/p3"}
+		if err := eng.HandleDiscoveredURLs(ctx, "job-1", "https://example.com/", 0, discovered); err != nil {
+			t.Fatalf("first HandleDiscoveredURLs() error = %v, want nil", err)
+		}
+
+		// Page 2 hits maxPages; job should complete immediately without draining leftover links.
+		if _, err := eng.DispatchNext(ctx); err != nil {
+			t.Fatalf("second DispatchNext() error = %v, want nil", err)
+		}
+		if err := eng.HandleDiscoveredURLs(ctx, "job-1", "https://example.com/p1", 1, nil); err != nil {
+			t.Fatalf("second HandleDiscoveredURLs() error = %v, want nil", err)
+		}
+
+		publisher.mu.Lock()
+		defer publisher.mu.Unlock()
+		if len(publisher.completed) != 1 || publisher.completed[0] != "job-1" {
+			t.Errorf("publisher.completed = %v, want [job-1]", publisher.completed)
+		}
+		if got := eng.QueueLen(); got != 0 {
+			t.Errorf("QueueLen() = %d, want 0", got)
+		}
+		if count, err := visited.Count(ctx, "job-1"); err != nil || count != 0 {
+			t.Errorf("visited.Count() = (%d, %v), want (0, nil)", count, err)
+		}
+	})
+
+	t.Run("completes job independently when another job has queued items", func(t *testing.T) {
+		t.Parallel()
+		eng, _, publisher := newTestEngine()
+		ctx := context.Background()
+
+		if err := eng.StartJob(ctx, "job-1", "https://example.com", 2, 2); err != nil {
+			t.Fatalf("StartJob(job-1) error = %v, want nil", err)
+		}
+		if err := eng.StartJob(ctx, "job-2", "https://birds.example.com", 2, 2); err != nil {
+			t.Fatalf("StartJob(job-2) error = %v, want nil", err)
+		}
+
+		if _, err := eng.DispatchNext(ctx); err != nil {
+			t.Fatalf("DispatchNext() error = %v, want nil", err)
+		}
+		if err := eng.HandleDiscoveredURLs(ctx, "job-1", "https://example.com/", 0, nil); err != nil {
+			t.Fatalf("HandleDiscoveredURLs(job-1) error = %v, want nil", err)
+		}
+
+		publisher.mu.Lock()
+		defer publisher.mu.Unlock()
+		if len(publisher.completed) != 1 || publisher.completed[0] != "job-1" {
+			t.Errorf("publisher.completed = %v, want [job-1]", publisher.completed)
+		}
+		if got := eng.QueueLen(); got != 1 {
+			t.Errorf("QueueLen() = %d, want 1", got)
 		}
 	})
 }
