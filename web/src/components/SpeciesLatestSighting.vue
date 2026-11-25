@@ -38,7 +38,10 @@ const snippetSegments = computed<SnippetSegment[]>(() => {
 
   if (terms.length === 0) return [{ text: snippet, bold: false }]
 
-  const pattern = new RegExp(`(?<![\\p{L}\\p{N}_])(${terms.map(escapeRegex).join('|')})(?![\\p{L}\\p{N}_])`, 'giu')
+  const pattern = new RegExp(
+    `(?<![\\p{L}\\p{N}_])(${terms.map(escapeRegex).join('|')})(?![\\p{L}\\p{N}_])`,
+    'giu',
+  )
   return snippet
     .split(pattern)
     .map((part, index) => ({ text: part, bold: index % 2 === 1 }))
